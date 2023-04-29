@@ -1,4 +1,20 @@
-(()=>{var un=(e=>typeof require!="undefined"?require:typeof Proxy!="undefined"?new Proxy(e,{get:(t,n)=>(typeof require!="undefined"?require:t)[n]}):e)(function(e){if(typeof require!="undefined")return require.apply(this,arguments);throw new Error('Dynamic require of "'+e+'" is not supported')});var c=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports);var X=c((gy,cn)=>{var Ga=new Function(`
+(() => {
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined")
+      return require.apply(this, arguments);
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+
+  // src/math-error.js
+  var require_math_error = __commonJS({
+    "src/math-error.js"(exports, module) {
+      var isBrowser = new Function(`
   try {
     return this === window
   } catch(e) {}
@@ -8,13 +24,4656 @@
   } catch(e) {}
 
   return false
-`),an=class extends Error{constructor(t){Ga()?super(t):super(`
+`);
+      var MathError = class extends Error {
+        constructor(message) {
+          if (isBrowser()) {
+            super(message);
+          } else {
+            super("\n\n\x1B[31m" + message + "\n\x1B[0m");
+          }
+        }
+      };
+      module.exports = MathError;
+    }
+  });
 
-\x1B[31m`+t+`
-\x1B[0m`)}};cn.exports=an});var h=c((yy,ln)=>{var Wa=X();ln.exports=function(e,t){if(!e)throw new Wa(t)}});var m=c((by,fn)=>{function Ha(e){try{return e instanceof Array||typeof e.constructor<"u"&&e.constructor.name==="Array"}catch{return!1}}fn.exports=Ha});var g=c((Ny,hn)=>{function Xa(e){try{return!!e._symbol&&e._symbol===Symbol.for("@jrc03c/js-math-tools/dataframe")}catch{return!1}}hn.exports=Xa});var D=c((vy,mn)=>{function Qa(e){return typeof e=="function"}mn.exports=Qa});var p=c((wy,dn)=>{function Za(e){return typeof e=="number"&&!isNaN(e)}dn.exports=Za});var b=c((Sy,pn)=>{function ec(e){return e===null||typeof e>"u"}pn.exports=ec});var C=c((xy,qn)=>{var tc=m(),nc=b();function rc(e){return typeof e=="object"&&!nc(e)&&!tc(e)}qn.exports=rc});var q=c((Ty,gn)=>{function sc(e){try{return!!e._symbol&&e._symbol===Symbol.for("@jrc03c/js-math-tools/series")}catch{return!1}}gn.exports=sc});var ue=c((Oy,Nn)=>{var ic=h(),yn=m(),oc=g(),uc=D(),ut=p(),bn=C(),ac=q();function at(e,t){if(oc(e)){let i=at(e.values,t);return i.length>0&&ut(i[0])&&i[0]>=0&&i[0]<e.index.length&&(i[0]=e.index[i[0]]),i.length>1&&ut(i[1])&&i[1]>=0&&i[1]<e.columns.length&&(i[1]=e.columns[i[1]]),i}if(ac(e)){let i=at(e.values,t);return i.length>0&&ut(i[0])&&i[0]>=0&&i[0]<e.index.length&&(i[0]=e.index[i[0]]),i}if(ic(bn(e)||yn(e),"You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!"),!uc(t)){let i=t;t=o=>o===i}function n(i,o,u){if(u=u||[],u.indexOf(i)>-1)return null;if(bn(i)){u.push(i);let a=Object.keys(i);for(let l=0;l<a.length;l++){let f=a[l],d=i[f];if(o(d))return[f];let y=n(d,o,u);if(y&&y.length>0)return[f].concat(y)}}else if(yn(i)){u.push(i);for(let a=0;a<i.length;a++){let l=i[a];if(o(l))return[a];let f=n(l,o,u);if(f&&f.length>0)return[a].concat(f)}}else if(o(i))return[];return null}function r(i){try{return t(i)}catch{return!1}}let s=n(e,r);return s&&s.length>0?s:null}Nn.exports=at});var U=c((_y,Tn)=>{var cc=ue(),vn=m(),wn=g(),Sn=q();function Q(e){try{return structuredClone(e)}catch{if(typeof e=="object"){if(e===null)return null;if(vn(e))return e.map(r=>Q(r));if(Sn(e)){let r=e.copy();return r.values=Q(r.values),r}if(wn(e)){let r=e.copy();return r.values=Q(e.values),r}e=xn(e);let n={};return Object.keys(e).forEach(r=>{n[r]=Q(e[r])}),n}else return e}}function xn(e){function t(s,i,o){if(i=i||[],o=o||"",i.indexOf(s)>-1){let u=o.split("/").slice(o.startsWith("/")?1:0);if(u.some((l,f)=>{let d=u.slice(0,u.length-f-1),y=n;return d.forEach(O=>{y=y[O]}),y===s}))return`<reference to "${n===s?"/":"/"+cc(n,s).join("/")}">`}return typeof s=="object"?s===null?null:(i.push(s),vn(s)?s.map((u,a)=>t(u,i,o+"/"+a)):(Object.keys(s).forEach(u=>{s[u]=t(s[u],i,o+"/"+u)}),s)):s}let n=Q(e),r=t(n);if(wn(e)){let s=e.copy();s._values=r.values,s._columns=r.columns,s._index=r.index,r=s}if(Sn(e)){let s=e.copy();s.name=r.name,s._values=r.values,s._index=r.index,r=s}return r}Tn.exports={copy:Q,decycle:xn}});var S=c((Dy,Dn)=>{var{copy:lc}=U(),fc=h(),On=m(),hc=g(),mc=q();function _n(e){if(hc(e)||mc(e))return _n(e.values);fc(On(e),"The `flatten` function only works on arrays, Series, and DataFrames!");function t(n){let r=[];return lc(n).forEach(s=>{On(s)?r=r.concat(t(s)):r.push(s)}),r}return t(e)}Dn.exports=_n});var I=c((Fy,An)=>{var{decycle:Fn}=U();function dc(e,t){function n(r,s){let i=typeof r;if(i!==typeof s)return!1;if(i==="undefined")return!0;if(i==="boolean"||i==="symbol")return r===s;if(i==="number"||i==="bigint")return r.toString()==="NaN"&&s.toString()==="NaN"?!0:r===s;if(i==="string"||i==="function")return r===s;if(i==="object"){if(r===null||s===null)return r===null&&s===null;{let u=Object.keys(r),a=Object.keys(s);if(u.length!==a.length)return!1;for(let l=0;l<u.length;l++){let f=u[l];if(!n(r[f],s[f]))return!1}return!0}}}try{return e instanceof Date&&t instanceof Date?e.getTime()===t.getTime():n(e,t)}catch{return n(Fn(e),Fn(t))}}An.exports=dc});var M=c((Ay,Mn)=>{var pc=h(),qc=S(),gc=m(),En=g(),yc=D(),jn=q(),bc=b();function ae(e){let t="abcdefg1234567890",n="";for(;n.length<e;)n+=t[parseInt(Math.random()*t.length)];return n}var Nc=ae(256),vc=ae(256),wc=ae(256),Sc=ae(256),xc=ae(256);function In(e){if(En(e)||jn(e))return In(e.values);pc(gc(e),"The `set` function only works on arrays, Series, and DataFrames!");let t=[],n={};return qc(e).forEach(r=>{let s=typeof r=="object"&&r===null?Nc:bc(r)?vc:yc(r)?r.toString():typeof r=="symbol"?r.toString()+" - "+xc:r===1/0?wc:r===-1/0?Sc:En(r)?r.toJSONString():jn(r)?JSON.stringify(r.toObject()):JSON.stringify(r);n[s]||t.push(r),n[s]=!0}),t}Mn.exports=In});var ce=c((Ey,kn)=>{var Tc=h(),ct=S(),Un=m(),Oc=g(),Bn=I(),_c=D(),Dc=q(),Fc=M();function xe(e,t){if(Oc(e)||Dc(e))return arguments.length>1?xe(e.values,t):xe(e.values,e.values);if(Tc(Un(e),"The first argument to the `count` function must be an array, Series, or DataFrame!"),_c(t))return ct(e).filter(n=>t(n)).length;if(Un(t)){let n=ct(e);return Fc(t).map(r=>({value:r,count:n.filter(s=>Bn(s,r)).length}))}else return arguments.length>1?ct(e).filter(n=>Bn(n,t)).length:xe(e,e)}kn.exports=xe});var le=c((jy,Cn)=>{var Ac=h(),zn=m(),Ec=g(),jc=q();function lt(e){if(Ec(e)||jc(e))return lt(e.values);Ac(zn(e),"The `isJagged` function only works on arrays, Series, and DataFrames!");let t=0,n=null;for(let r=0;r<e.length;r++)if(zn(e[r])){if(t++,lt(e[r]))return!0;if(n===null)n=e[r].length;else if(e[r].length!==n)return!0}return t>0&&t<e.length}Cn.exports=lt});var Te=c((Iy,Yn)=>{var Ic=h(),Jn=m(),Mc=g(),Uc=q();function Pn(e){if(Mc(e)||Uc(e))return Pn(e.values);Ic(Jn(e),"The `isNested` function only works on arrays, Series, and DataFrames!");for(let t=0;t<e.length;t++)if(Jn(e[t]))return!0;return!1}Yn.exports=Pn});var J=c((My,Ln)=>{var W=h(),Bc=m(),kc=Te(),zc=p(),Cc=b(),Z="You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!";function $n(e){W(!Cc(e),Z),Bc(e)||(e=[e]),W(!kc(e),Z),W(e.length>0,Z);let t=e[0];if(W(zc(t),Z),W(parseInt(t)===t,Z),W(t>=0,Z),W(t!==1/0,"We can't create an array containing an infinite number of values!"),e.length===1){let n=[];for(let r=0;r<t;r++)n.push(void 0);return n}else{let n=[];for(let r=0;r<t;r++)n.push($n(e.slice(1)));return n}}Ln.exports=$n});var fe=c((Uy,Rn)=>{var Jc=h(),Pc=m(),Yc=g(),$c=q();function ft(e){if(Yc(e)||$c(e)){let n=e.copy();return n.values=ft(n.values),n.index=ft(n.index),n}Jc(Pc(e),"The `reverse` function only works on arrays, Series, and DataFrames!");let t=[];for(let n=e.length-1;n>=0;n--)t.push(e[n]);return t}Rn.exports=ft});var E=c((By,Vn)=>{var ht=h(),mt=p(),dt=b(),Lc=fe();function Rc(e,t,n=1){ht(!dt(e)&&!dt(t)&&!dt(n),"You must pass two numbers and optionally a step value to the `range` function!"),ht(mt(e)&&mt(t)&&mt(n),"You must pass two numbers and optionally a step value to the `range` function!"),ht(n>0,"The step value must be greater than 0! (NOTE: The step value is a magnitude; it does not indicate direction.)");let r=!1;if(e>t){r=!0;let i=e;e=t+n,t=i+n}let s=[];for(let i=e;i<t;i+=n)s.push(i);return r&&(s=Lc(s)),s}Vn.exports=Rc});var v=c((ky,Hn)=>{var Vc=h(),Kn=m(),Kc=g(),Gc=I(),Wc=q(),Hc=b();function Gn(e){if(!Kn(e))return;let t=[e.length],n=0,r=e.map(s=>{let i=Gn(s);return Hc(i)?i:(n++,i.length===1?i[0]:i)});return n>0?n===e.length&&r.slice(0,-1).every((i,o)=>Gc(i,r[o+1]))?t.concat(r[0]):(t.push(r),t):t}function Wn(e){return Kc(e)||Wc(e)?Wn(e.values):(Vc(Kn(e),"The `shape` function only works on arrays, Series, and DataFrames!"),Gn(e))}Hn.exports=Wn});var nr=c((zy,tr)=>{var Xn=h(),Xc=m(),Qc=g(),Zc=le(),el=q(),tl=b(),Qn=X(),Oe=J(),Zn=E(),nl=M(),rl=v();function er(e,t,n){if(tl(n)&&(n=0),Xn(n===0||n===1||n==="vertical"||n==="horizontal",'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".'),Xc(t)){Xn(!Zc(t),"The array of data you're trying to append to this DataFrame is jagged!");let r=rl(t);if(r.length===1)if(n===0){let s=e.copy();s._values.push(t);let i=Math.max(e.shape[1],r[0]);for(s._values.forEach(o=>{for(;o.length<i;)o.push(void 0)});s._index.length<s._values.length;)s._index.push("row"+s._index.length);for(;s._columns.length<i;)s._columns.push("col"+s._columns.length);return s}else{let s=Math.max(e.shape[0],r[0]),i=e.copy();for(Zn(0,s).forEach(o=>{o>=i._values.length&&i._values.push(Oe(e.shape[1])),i._values[o].push(t[o])});i._index.length<i._values.length;)i._index.push("row"+i._index.length);for(;i._columns.length<i._values[0].length;)i._columns.push("col"+i._columns.length);return i}else if(r.length===2)if(n===0){let s=Math.max(...t.map(o=>o.length).concat([e.shape[1]])),i=e.copy();for(i._values=i._values.concat(t).map(o=>{for(;o.length<s;)o.push(void 0);return o});i._index.length<i._values.length;)i._index.push("row"+i._index.length);for(;i._columns.length<s;)i._columns.push("col"+i._columns.length);return i}else{let s=Math.max(...t.map(u=>u.length))+e.shape[1],i=Math.max(e.shape[0],r[0]),o=e.copy();for(Zn(0,i).forEach(u=>{for(u>=o._values.length&&o._values.push(Oe(e.shape[1])),o._values[u]=o._values[u].concat(t[u]);o._values[u].length<s;)o._values[u].push(void 0)});o._index.length<o._values.length;)o._index.push("row"+o._index.length);for(;o._columns.length<s;)o._columns.push("col"+o._columns.length);return o}else throw new Qn("Only 1- and 2-dimensional arrays can be appended to a DataFrame!")}else if(el(t)){let r=er(e,t.values,n);return n===0?r.index[r.index.length-1]=r.index.indexOf(t.name)>-1?t.name+" (2)":t.name:r.columns[r.columns.length-1]=r.columns.indexOf(t.name)>-1?t.name+" (2)":t.name,r}else if(Qc(t))if(n===0){let r=e.copy(),s=nl(r._columns.concat(t._columns)).length;for(r._values.forEach(i=>{for(;i.length<s;)i.push(void 0)}),t.apply(i=>{let o=i.copy(),u=[];r._columns.forEach(a=>{let l=o._index.indexOf(a);l>-1?(u.push(o._values[l]),o._values.splice(l,1),o._index.splice(l,1)):u.push(void 0)}),r._values.push(u.concat(o._values))},1),r._columns=r._columns.concat(t._columns.filter(i=>r._columns.indexOf(i)<0));r._index.length<r._values.length;){let i="row"+r._index.length;r._index.push(i+(e._index.indexOf(i)>-1?" (2)":""))}return r}else{let r=e.copy();return r._index.forEach((s,i)=>{let o=t._index.indexOf(s);o>-1?r._values[i]=r._values[i].concat(t._values[o]):r._values[i]=r._values[i].concat(Oe(t.shape[1]))}),t._index.forEach((s,i)=>{r._index.indexOf(s)<0&&(r._index.push(s),r._values.push(Oe(r._columns.length).concat(t._values[i])))}),r._columns=r._columns.concat(t._columns.map(s=>s+(r._columns.indexOf(s)>-1?" (2)":""))),r}else throw new Qn("Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!")}tr.exports=er});var ur=c((Cy,or)=>{var rr=h(),sr=m(),sl=D(),ir=b();function il(e,t,n,r,s){if(s=s||0,rr(sl(r),"The first parameter to the `apply` method must be a function."),rr(s===0||s===1,"The second parameter to the `apply` method (the `axis`) must be 0 or 1."),s===0){let i={},o;if(n.columns.forEach((u,a)=>{let l=new t(n.values.map(d=>d[a]));l.name=u,l.index=n.index;let f=r(l,a,n);f instanceof t?i[u]=f.values:i[u]=f,ir(o)&&(o=f instanceof t||sr(f))}),o){let u=new e(i);return u.index=n.index,u}else{let u=new t(n.columns.map(a=>i[a]));return u.index=n.columns,u}}else if(s===1){let i,o=n.values.map((u,a)=>{let l=new t(u);l.name=n.index[a],l.index=n.columns;let f=r(l,a,n);return ir(i)&&(i=f instanceof t||sr(f)),f instanceof t?f.values:f});if(i){let u=new e(o);return u.index=n.index,u.columns=n.columns,u}else{let u=new t(o);return u.index=n.index,u}}}or.exports=il});var F=c((Jy,ar)=>{function ol(e){return typeof e=="string"}ar.exports=ol});var fr=c((Py,lr)=>{var cr=h(),ul=m(),al=le(),cl=C(),ll=F(),fl=b(),hl=X(),ml=v();function dl(e,t,n,r,s){let i=u=>u instanceof e,o=u=>u instanceof t;if(fl(s)){if(i(r))return n.append(r,1);if(o(r))return n.append(r,1);if(cl(r)){let u=Math.max(...Object.keys(r).map(a=>r[a].length));return Object.keys(r).forEach(a=>{for(;r[a].length<u;)r[a].push(void 0)}),n.append(new e(r),1)}else throw new hl("You must pass a DataFrame, Series, or object into the `assign` method!")}else{cr(ll(r),"If passing two arguments into the `assign` method, then the first argument must be a string name!"),cr(ul(s)&&!al(s)&&ml(s).length===1,"If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!");let u=n.append(s,1);return u.columns[u.columns.length-1]=r,u}}lr.exports=dl});var mr=c((Yy,hr)=>{var{copy:pl}=U();function ql(e,t){if(t.isEmpty)return new e;let n=new e(pl(t.values));return n.columns=t.columns.slice(),n.index=t.index.slice(),n}hr.exports=ql});var Nr=c(($y,br)=>{var _e=h(),dr=m(),pr=p(),qr=F(),gr=b(),yr=v();function gl(e,t,n,r,s){gr(r)&&(r=[]),gr(s)&&(s=[]),(qr(r)||pr(r))&&(r=[r]),(qr(s)||pr(s))&&(s=[s]),_e(dr(r),"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."),_e(dr(s),"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."),_e(yr(r).length===1,"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."),_e(yr(s).length===1,"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");let i,o;n.index.forEach((a,l)=>{r.indexOf(a)<0&&r.indexOf(l)<0&&(i||(i=[]),i.push(a))}),n.columns.forEach((a,l)=>{s.indexOf(a)<0&&s.indexOf(l)<0&&(o||(o=[]),o.push(a))});let u=n.get(i,o);if(u instanceof t){let a=new e;a=a.assign(u),n.index.indexOf(u.name)>-1&&(a=a.transpose()),u=a}return u}br.exports=gl});var he=c((Ly,vr)=>{var yl=p();function bl(e){return yl(e)&&parseInt(e)===e}function Nl(e){return bl(e)&&e>=0}vr.exports=Nl});var Sr=c((Ry,wr)=>{var pt=h(),vl=F(),De=b(),wl=he(),Sl=v();function xl(e,t,n,r,s,i){r=r||0,pt(r===0||r===1,"The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1."),i=i||0,pt(wl(i),"The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values)."),s=i>0?"none":s||"any",pt(s==="any"||s==="all"||s==="none","The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped).");function o(l){if(i>0){let f=0;for(let d=0;d<l.length;d++){let y=l[d];if(De(y)&&f++,f>=i)return[]}}else if(s==="any")for(let f=0;f<l.length;f++){let d=l[f];if(De(d))return[]}else if(s==="all"){for(let f=0;f<l.length;f++){let d=l[f];if(!De(d))return l}return[]}return l}let u=n.copy(),a=Math.random().toString();if(r===0){u=u.assign(a,u.index);let l=u.values.map(o).filter(d=>d.length>0);if(Sl(l).length<2)return new e;u.values=l;let f=u.get(null,a);if(De(f))return new e;vl(f)&&(f=[f]),f instanceof t&&(f=f.values),u.index=f,u=u.drop(null,a)}else if(r===1){let l={};if(u.columns.forEach((d,y)=>{let O=u.values.map(_=>_[y]),G=o(O);G.length>0&&(l[d]=G)}),Object.keys(l).length===0)return new e;let f=new e(l);return f.index=u.index,f}return u}wr.exports=xl});var qt=c((Vy,Tr)=>{var Tl=h(),Ol=m(),_l=g(),Dl=p(),Fl=q();function xr(e){if(_l(e)||Fl(e))return e.dropNaN(...Object.values(arguments).slice(1));Tl(Ol(e),"The `dropNaN` function only works on arrays, Series, and DataFrames!");let t=[];return e.forEach(n=>{try{return t.push(xr(n))}catch{if(Dl(n))return t.push(n)}}),t}Tr.exports=xr});var _r=c((Ky,Or)=>{var gt=h(),Al=qt(),El=he();function jl(e,t,n,r,s){n=n||0,gt(n===0||n===1,"The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1."),s=s||0,gt(El(s),"The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values)."),r=s>0?"none":r||"any",gt(r==="any"||r==="all"||r==="none","The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped).");function i(u){let a=Al(u);return s>0?u.length-a.length<s:r==="any"?a.length===u.length:r==="all"?a.length>0:!0}let o=t.copy();if(n===0){let u=o.index.filter(a=>{let l=o.get(a,null).values;return i(l)});return u.length>0?o.get(u,null):new e}else if(n===1){let u=o.columns.filter(a=>{let l=o.get(null,a).values;return i(l)});return u.length>0?o.get(null,u):new e}return o}Or.exports=jl});var Er=c((Gy,Ar)=>{var Dr=h(),me=S(),Il=D(),Ml=b();function Fr(e){let t={};return me(e).forEach((n,r)=>{t[n]=r}),t}function ee(e){return Object.keys(e).sort((t,n)=>e[t]-e[n])}function Ul(e,t,n,r,s){Dr(Il(r),"The `filter` method takes a single parameter: a function that is used to filter the values."),Ml(s)&&(s=0),Dr(s===0||s===1,"The `axis` parameter to the `filter` method must be 0 or 1.");let i=n.copy();if(i.isEmpty)return i;let o=Fr(i.index),u=Fr(i.columns);if(s===0){let a=i.values.filter((l,f)=>{let d=new t(l);d.name=n.index[f],d.index=n.columns;let y=r(d,f,n);return y||delete o[i.index[f]],y});if(me(a).length===0)return new e;if(a.length===1){let l=new t(me(a));return l.name=ee(o)[0],l.index=ee(u),l}i.values=a,i.index=ee(o)}else if(s===1){i=i.transpose();let a=i.values.filter((l,f)=>{let d=new t(l);d.name=n.columns[f],d.index=n.index;let y=r(d,f,n);return y||delete u[i.index[f]],y});if(me(a).length===0)return new e;if(a.length===1){let l=new t(me(a));return l.name=ee(u)[0],l.index=ee(o),l}i.values=a,i.index=ee(u),i=i.transpose()}return i}Ar.exports=Ul});var Mr=c((Wy,Ir)=>{var j=h(),Fe=p(),Ae=F(),jr=b(),Bl=M();function kl(e,t,n){(Ae(t)||Fe(t))&&(t=[t]),(Ae(n)||Fe(n))&&(n=[n]);let r=Bl((t||[]).concat(n||[]).map(s=>typeof s));return j(r.length<=2,"Only whole numbers and/or strings are allowed in `get` arrays!"),r.length===1&&j(r[0]==="string"||r[0]==="number","Only whole numbers and/or strings are allowed in `get` arrays!"),r.length===2&&(j(r.indexOf("string")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!"),j(r.indexOf("number")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!")),jr(t)||(t=t.map(s=>{if(Ae(s))return j(e.index.indexOf(s)>-1,`Row "${s}" does not exist!`),s;if(Fe(s))return j(s>=0,`Index ${s} is out of bounds!`),j(parseInt(s)===s,"Row numbers must be integers!"),j(s<e.index.length,`Index ${s} is out of bounds!`),e.index[s]})),jr(n)||(n=n.map(s=>{if(Ae(s))return j(e.columns.indexOf(s)>-1,`Column "${s}" does not exist!`),s;if(Fe(s))return j(s>=0,`Column ${s} is out of bounds!`),j(parseInt(s)===s,"Column numbers must be integers!"),j(s<e.columns.length,`Column ${s} is out of bounds!`),e.columns[s]})),e.getSubsetByNames(t,n)}Ir.exports=kl});var P=c((Hy,Br)=>{var Ur=h(),zl=m(),Cl=g(),Jl=D(),Pl=q(),Yl=b();function $l(e,t){try{return e<t?-1:e>t?1:0}catch{return e=typeof e=="object"&&e!==null?JSON.stringify(e):e.toString(),t=typeof t=="object"&&t!==null?JSON.stringify(t):t.toString(),e<t?-1:e>t?1:0}}function Ll(e,t){if(Yl(t)&&(t=$l),Cl(e)||Pl(e))return e.sort(...Object.values(arguments).slice(1));Ur(zl(e),"The `sort` function only works on arrays, Series, and DataFrames!"),Ur(Jl(t),"The second parameter of the `sort` function must be a comparison function!");let n=e.slice();return n.sort(t),n}Br.exports=Ll});var Jr=c((Xy,Cr)=>{var kr=h(),zr=F(),Rl=b(),Vl=M(),Kl=P();function Gl(e){let t=e.toLowerCase(),n="";for(let s=0;s<t.length;s++){let i=t[s];i.match(/[a-z0-9]/g)?n+=i:n+=" "}let r=n.split(" ").filter(s=>s.length>0);return r[0]+r.slice(1).map(s=>s[0].toUpperCase()+s.substring(1)).join("")}function Wl(e,t,n){Rl(n)?n=t.columns:zr(n)&&(n=[n]);let r={};n.forEach(i=>{kr(zr(i),"You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!");let o=t.columns.indexOf(i);kr(o>-1,`The given DataFrame does not have a column called "${i}"!`);let u=t.values.map(l=>l[o]),a=Kl(Vl(u));u.forEach(l=>{a.forEach(f=>{let d=i+"_"+Gl(f.toString());r[d]||(r[d]=[]),l===f?r[d].push(1):r[d].push(0)})})});let s=new e(r);return s.index=t.index,s}Cr.exports=Wl});var Gr=c((Qy,Kr)=>{var Y=h(),Pr=m(),Yr=p(),$r=b(),Lr=he(),Rr=E(),Vr=v();function Hl(e,t,n){let r=e.shape;$r(t)&&(t=Rr(0,r[0])),$r(n)&&(n=Rr(0,r[1])),Yr(t)&&(t=[t]),Yr(n)&&(n=[n]),Y(Pr(t)&&Pr(n),"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),Y(Vr(t).length===1&&Vr(n).length===1,"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),Y(t.length>0,"The `rowIndices` array must contain at least one index."),Y(n.length>0,"The `colIndices` array must contain at least one index."),t.forEach(o=>{Y(Lr(o),"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),Y(o<e.index.length,`The row index ${o} is out of bounds.`)}),n.forEach(o=>{Y(Lr(o),"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),Y(o<e.columns.length,`The column index ${o} is out of bounds.`)});let s=t.map(o=>e.index[o]),i=n.map(o=>e.columns[o]);return e.getSubsetByNames(s,i)}Kr.exports=Hl});var Zr=c((Zy,Qr)=>{var $=h(),yt=S(),Wr=m(),Ee=F(),Hr=b(),Xr=v();function Xl(e,t,n,r,s){Hr(r)&&(r=n.index),Hr(s)&&(s=n.columns),Ee(r)&&(r=[r]),Ee(s)&&(s=[s]),$(Wr(r)&&Wr(s),"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),$(Xr(r).length===1&&Xr(s).length===1,"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),$(r.length>0,"The `rows` array must contain at least one row name."),$(s.length>0,"The `cols` array must contain at least one column name."),r.forEach(u=>{$(Ee(u),"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),$(n.index.indexOf(u)>-1,`The row name "${u}" does not exist in the list of rows.`)}),s.forEach(u=>{$(Ee(u),"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),$(n.columns.indexOf(u)>-1,`The column name "${u}" does not exist in the list of columns.`)});let i=r.map(u=>s.map(a=>n.values[n.index.indexOf(u)][n.columns.indexOf(a)]));if(r.length===1&&s.length===1)return yt(i)[0];if(r.length===1){let u=new t(yt(i));return u.name=r[0],u.index=s,u}if(s.length===1){let u=new t(yt(i));return u.name=s[0],u.index=r,u}let o=new e(i);return o.columns=s,o.index=r,o}Qr.exports=Xl});var ts=c((eb,es)=>{var Ql=F(),de=E();function Zl(e,t,n){function r(y,O){return Ql(y)&&y.length>O?y.substring(0,O-3)+"...":y}if(n.isEmpty)return console.table({}),console.log("Shape:",[0,0],`
-`),n;let s=typeof window>"u"?20:10,i=parseInt(s/2),o=typeof process>"u"?10:Math.floor(process.stdout.columns/24)-1,u=parseInt(o/2),a=s>n.index.length?null:de(0,i).concat(de(n.index.length-i,n.index.length)),l=o>n.columns.length?null:de(0,u).concat(de(n.columns.length-u,n.columns.length)),f=n.get(a,l);f instanceof t&&(n.shape[0]===1?(f=new e([f.values]),f.index=n.index,f.columns=new t(n.columns).get(l).values):n.shape[1]===1&&(f=new e([f.values]).transpose(),f.index=new t(n.index).get(a).values,f.columns=n.columns)),s<=n.index.length&&(f._index.splice(i,0,"..."),f._values.splice(i,0,de(0,f.columns.length).map(()=>"..."))),o<=n.columns.length&&(f._columns.splice(u,0,"..."),f._values=f._values.map(y=>(y.splice(u,0,"..."),y)));let d=28;return f instanceof t?(f.values=f.values.map(y=>r(y,d)),f.name=r(f.name,d),f.index=f.index.map(y=>r(y,d))):(f.values=f.values.map(y=>y.map(O=>r(O,d))),f.columns=f.columns.map(y=>r(y,d)),f.index=f.index.map(y=>r(y,d))),console.table(f.toObject()),console.log("Shape:",n.shape,`
-`),n}es.exports=Zl});var je=c((tb,ns)=>{var ef=h(),tf=p();function nf(e,t){ef(tf(e),"The `leftPad` function only works on numbers!");let n=e.toString();for(;n.length<t;)n="0"+n;return n}ns.exports=nf});var ss=c((nb,rs)=>{var rf=je(),sf=E();function of(e,t){let n=t?e:e.copy();return n.index=sf(0,e.shape[0]).map(r=>"row"+rf(r,(n.index.length-1).toString().length)),n}rs.exports=of});var pe=c((rb,os)=>{var uf=h(),af=S(),cf=m(),lf=g(),ff=q();function is(e){if(lf(e)||ff(e))return is(e.values);uf(cf(e),"The `product` function only works on arrays, Series, and DataFrames!");try{return e.length===0?NaN:af(e).reduce((t,n)=>t*n,1)}catch{return NaN}}os.exports=is});var Ie=c((sb,ls)=>{var qe=h(),us=S(),as=m(),hf=g(),cs=p(),mf=q(),df=pe(),pf=v();function bt(e,t){if(hf(e)||mf(e))return bt(e.values,t);if(qe(as(e),"The first argument passed into the `reshape` function must be an array!"),cs(t)&&(t=[t]),qe(as(t),"The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"),qe(pf(t).length===1,"The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"),t.forEach(i=>{qe(cs(i)&&parseInt(i)===i&&i>0,"The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!")}),t.length===0)return us(e);let n=us(e);if(t.length===1&&t[0]===n.length)return n;qe(df(t)===n.length,"The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!");let r=[],s=parseInt(n.length/t[0]);for(let i=0;i<t[0];i++){let o=n.slice(i*s,(i+1)*s);r.push(bt(o,t.slice(1)))}return r}ls.exports=bt});var te=c((ib,gs)=>{var{copy:ms}=U(),qf=h(),gf=m(),yf=p(),ds=b(),bf=J(),Nf=pe(),vf=Ie(),ps=Math.pow(2,64),w=[];qs(parseInt(Math.random()*ps));function wf(e,t){e=T(e);function n(){e+=T("0x9e3779b97f4a7c15");let s=ms(e);return s=(s^s>>BigInt(30))*T("0xbf58476d1ce4e5b9"),s=(s^s>>BigInt(27))*T("0x94d049bb133111eb"),s^s>>BigInt(31)}let r=[];for(let s=0;s<t;s++)r.push(n());return r}function T(e){return BigInt.asUintN(64,BigInt(e))}function fs(e,t){return e=T(e),t=BigInt(t),T(T(e<<t)|T(e>>T(BigInt(64)-t)))}function qs(e){if(ds(e))return ms(w);{qf(yf(e),"If passing a value into the `seed` function, then that value must be an integer!");let t=wf(parseInt(e),4);w[0]=t[0],w[1]=t[1],w[2]=t[2],w[3]=t[3]}}function hs(){let e=T(fs(w[0]+w[3],23)+w[0]),t=T(w[1]<<BigInt(17));return w[2]=T(w[2]^w[0]),w[3]=T(w[3]^w[1]),w[1]=T(w[1]^w[2]),w[0]=T(w[0]^w[3]),w[2]=T(w[2]^t),w[3]=fs(w[3],45),parseInt(e)/ps}function Sf(e){return ds(e)?hs():(gf(e)||(e=[e]),vf(bf(Nf(e)).map(hs),e))}gs.exports={random:Sf,seed:qs}});var Me=c((ob,ys)=>{var{random:xf}=te(),Tf=h(),Of=m(),_f=g(),Df=q();function Ff(e){if(_f(e)||Df(e))return e.shuffle(...Object.values(arguments).slice(1));Tf(Of(e),"The `shuffle` function only works on arrays, Series, and DataFrames!");let t=[],n=e.slice();for(let r=0;r<e.length;r++){let s=parseInt(xf()*n.length);t.push(n.splice(s,1)[0])}return t}ys.exports=Ff});var vs=c((ub,Ns)=>{var Af=h(),Ef=b(),bs=Me();function jf(e,t){return Ef(t)&&(t=0),Af(t===0||t===1,"The `axis` parameter to the `shuffle` must be 0, 1, or undefined."),e.get(t===0?bs(e.index):null,t===1?bs(e.columns):null)}Ns.exports=jf});var Ue=c((ab,ws)=>{function If(e){return typeof e=="boolean"}ws.exports=If});var _s=c((cb,Os)=>{var{random:Mf}=te(),A=h(),Uf=S(),Ss=m(),Nt=Ue(),Ts=D(),Be=p(),ne=F(),vt=b(),Bf=E(),xs=v(),wt=P();function kf(e,t,n){return Ts(t)?zf(e,t,n):Cf(e,t,n)}function zf(e,t,n){if(n=vt(n)?0:n,A(Ts(t),"When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!"),A(Be(n),"When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other."),n===0){let r=wt(e.index,(s,i)=>t(e.get(s,null),e.get(i,null)));return e.get(r,null)}else{let r=wt(e.columns,(s,i)=>t(e.get(null,s),e.get(null,i)));return e.get(null,r)}}function Cf(e,t,n){let r=e.copy(),s=Mf().toString();return r=r.assign(s,r.index),vt(t)&&(t=[s],n=[!0]),(Be(t)||ne(t))&&(t=[t],(Nt(n)||ne(n))&&(n=[n])),A(Ss(t),"The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."),A(xs(t).length===1,"The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."),vt(n)&&(n=Bf(0,t.length).map(()=>!0)),A(Ss(n),"The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."),A(xs(n).length===1,"The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."),A(t.length===n.length,"The arrays passed into the `sort` method must be equal in length."),t=t.map(i=>{if(A(ne(i)||Be(i),"Column references can either be column names (as strings) or column indices (as whole numbers)."),ne(i)){let o=r.columns.indexOf(i);return A(o>-1,`The column "${i}" does not exist!`),o}if(Be(i))return A(parseInt(i)===i,"Column indices must be whole numbers!"),A(i>=0,`The column index ${i} is out of bounds!`),A(i<r.columns.length,`The index ${i} is out of bounds!`),i}),n=n.map(i=>{if(A(ne(i)||Nt(i),"Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."),ne(i)){let o=i.trim().toLowerCase();return A(o==="ascending"||o==="descending","Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."),o==="ascending"}if(Nt(i))return i}),r.values=wt(r.values,(i,o)=>{let u=0;for(;i[t[u]]===o[t[u]]&&u<t.length;)u++;let a=n[u];if(i[t[u]]===o[t[u]])return 0;if(i[t[u]]<o[t[u]])return a?-1:1;if(i[t[u]]>o[t[u]])return a?1:-1}),r.index=Uf(r.get(null,s).values),r=r.dropColumns(s),r}Os.exports=kf});var St=c((lb,Ds)=>{function Jf(e,t){return JSON.stringify(e.toObject(t))}Ds.exports=Jf});var Fs=c((fb,Tt)=>{var xt=X(),Pf=St();function Yf(e,t,n){let r=Pf(e,n),s=!1,i=!1,o,u;try{let a=t;if(t.includes("/")){let f=t.split("/");a=f[f.length-1]}let l=document.createElement("a");l.href=`data:application/json;charset=utf-8,${encodeURIComponent(r)}`,l.download=a,l.dispatchEvent(new MouseEvent("click")),s=!0}catch(a){o=a}try{let a=un("fs"),l=un("path");a.writeFileSync(l.resolve(t),r,"utf8"),i=!0}catch(a){u=a}if(!s&&!i)throw typeof window<"u"?new xt(o):typeof Tt<"u"?new xt(u):new xt("I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!");return e}Tt.exports=Yf});var Es=c((hb,As)=>{var $f=h(),Lf=b();function Rf(e,t){Lf(t)?t=0:$f(t===0||t===1,"The axis parameter of the `toObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.");let n={};return t===0?e.index.forEach((r,s)=>{let i={};e.columns.forEach((o,u)=>{i[o]=e.values[s][u]}),n[r]=i}):e.columns.forEach((r,s)=>{let i={};e.index.forEach((o,u)=>{i[o]=e.values[u][s]}),n[r]=i}),n}As.exports=Rf});var H=c((mb,Ms)=>{var js=h(),Vf=m(),Kf=g(),Gf=q(),Wf=J(),Is=fe(),Hf=v();function Xf(e){if(Kf(e)||Gf(e))return e.transpose();js(Vf(e),"The `transpose` function only works on arrays, Series, and DataFrames!");let t=Hf(e);if(js(t.length<=2,"I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!"),t.length===1)return Is(e);if(t.length===2){let n=Wf(Is(t));for(let r=0;r<t[0];r++)for(let s=0;s<t[1];s++)n[s][r]=e[r][s];return n}}Ms.exports=Xf});var zs=c((db,ks)=>{var Us=h(),Qf=m(),Zf=g(),eh=Te(),th=q(),nh=v();function Bs(e,t,n){if(th(n))return new e(t.values.concat(n.values));if(Qf(n)){let r=nh(n);Us(r.length===1&&!eh(r),"Only vectors can be appended to Series!");let s=t.copy();return n.forEach((i,o)=>{s._values.push(i),s._index.push("item"+(t.values.length+o))}),s}return Us(!Zf(n),"DataFrames cannot be appended to Series!"),Bs(t,[n])}ks.exports=Bs});var Js=c((pb,Cs)=>{var rh=h(),sh=D();function ih(e,t){rh(sh(t),"The parameter to the `apply` method must be a function.");let n=e.copy();return n._values=n._values.map((r,s)=>t(r,s)),n}Cs.exports=ih});var Ys=c((qb,Ps)=>{var oh=b();function uh(e){let t=e.copy(),n=[];return t._values=t.values.filter((r,s)=>oh(r)?!1:(n.push(t.index[s]),!0)),t._index=n,t}Ps.exports=uh});var Ls=c((gb,$s)=>{var ah=p();function ch(e,t){let n=[],r=[];t.values.forEach((i,o)=>{ah(i)&&(r.push(i),n.push(t.index[o]))});let s=new e(r);return s.name=t.name,s.index=n,s}$s.exports=ch});var Vs=c((yb,Rs)=>{var{copy:lh}=U();function fh(e,t,n){let r=t.copy(),s=lh(r.index),i=[],o=r.values.filter((u,a)=>{let l=n(u,a,r.values);return l||i.push(r.index[a]),l});return i.forEach(u=>{s.splice(s.indexOf(u),1)}),o.length===0?(r=new e,r.name=t.name,r):(r.values=o,r.index=s,r)}Rs.exports=fh});var Gs=c((bb,Ks)=>{var L=h(),hh=p(),mh=F(),dh=b(),ph=M();function qh(e,t){(mh(t)||hh(t))&&(t=[t]);let n=ph((t||[]).map(r=>typeof r));return L(n.length<=2,"Only whole numbers and/or strings are allowed in `get` arrays!"),n.length===1&&L(n[0]==="string"||n[0]==="number","Only whole numbers and/or strings are allowed in `get` arrays!"),n.length===2&&(L(n.indexOf("string")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!"),L(n.indexOf("number")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!")),dh(t)||(t=t.map(r=>{if(typeof r=="string")return L(e.index.indexOf(r)>-1,`Index "${r}" does not exist!`),r;if(typeof r=="number")return L(r>=0,`Index ${r} is out of bounds!`),L(parseInt(r)===r,"Indices must be integers!"),L(r<e.index.length,`Index ${r} is out of bounds!`),e.index[r]})),e.getSubsetByNames(t)}Ks.exports=qh});var Hs=c((Nb,Ws)=>{var ge=h(),gh=m(),yh=b(),bh=he(),Nh=E(),vh=v();function wh(e,t){let n=e.shape;yh(t)&&(t=Nh(0,n[0])),ge(gh(t),"The `indices` array must be 1-dimensional array of whole numbers."),ge(vh(t).length===1,"The `indices` array must be a 1-dimensional array of whole numbers."),ge(t.length>0,"The `indices` array must contain at least one index."),t.forEach(s=>{ge(bh(s),"The `indices` array must be a 1-dimensional array of whole numbers."),ge(s<e.index.length,`The row index ${s} is out of bounds.`)});let r=t.map(s=>e.index[s]);return e.getSubsetByNames(r)}Ws.exports=wh});var Qs=c((vb,Xs)=>{var ye=h(),Sh=m(),xh=F(),Th=b(),Oh=v();function _h(e,t,n){Th(n)&&(n=t.index),ye(Sh(n),"The `indices` array must be a 1-dimensional array of strings."),ye(Oh(n).length===1,"The `indices` array must be a 1-dimensional array of strings."),ye(n.length>0,"The `indices` array must contain at least one index name."),n.forEach(i=>{ye(xh(i),"The `indices` array must contain only strings."),ye(t.index.indexOf(i)>-1,`The name "${i}" does not exist in the index.`)});let r=n.map(i=>t.values[t.index.indexOf(i)]);if(r.length===1)return r[0];let s=new e(r);return s.index=n,s.name=t.name,s}Xs.exports=_h});var ti=c((wb,ei)=>{var{copy:Dh}=U(),Zs=E();function Fh(e){let t=e.copy(),n=typeof window>"u"?20:10;if(t.index.length>n){t=t.get(Zs(0,n/2).concat(Zs(t.index.length-n/2,t.index.length)));let s=Dh(t.index);s.splice(parseInt(s.length/2),0,"..."),t.values.push("..."),t.index.push("..."),t=t.get(s)}let r={};return t.values.forEach((s,i)=>{let o={};o[t.name]=s,r[t.index[i]]=o}),console.table(r),console.log("Shape:",e.shape,`
-`),e}ei.exports=Fh});var ri=c((Sb,ni)=>{var Ah=Me();function Eh(e){let t=e.copy();return t.get(Ah(t.index))}ni.exports=Eh});var ii=c((xb,si)=>{var jh=h(),Ih=D(),Mh=b(),Uh=P(),Bh=H();function kh(e,t,n){n=n||((a,l)=>a<l?-1:1),jh(Mh(n)||Ih(n),"You must pass undefined, null, or a comparison function as the second argument to the `sort` method!");let r=Bh([t.values,t.index]),s=Uh(r,(a,l)=>n(a[0],l[0])),i=[],o=[];s.forEach(a=>{i.push(a[0]),o.push(a[1])});let u=new e;return u._values=i,u._index=o,u.name=t.name,u}si.exports=kh});var ai=c((Tb,ui)=>{var zh=P(),oi=H();function Ch(e,t){let n=oi([t.values,t.index]);n=oi(zh(n,(s,i)=>{if(s[1]===i[1])return 0;if(s[1]<i[1])return-1;if(s[1]>i[1])return 1}));let r=new e(n[0]);return r.index=n[1],r.name=t.name,r}ui.exports=Ch});var li=c((Ob,ci)=>{function Jh(e){let t={};return t[e.name]={},e.index.forEach((n,r)=>{t[e.name][n]=e.values[r]}),t}ci.exports=Jh});var pi=c((_b,di)=>{var{copy:ke}=U(),k=h(),Ot=m(),Ph=F(),Yh=b(),fi=je(),hi=E(),ze=fe(),$h=zs(),Lh=Js(),Rh=Ys(),Vh=Ls(),Kh=Vs(),Gh=Gs(),Wh=Hs(),Hh=Qs(),Xh=ti(),Qh=ri(),Zh=ii(),em=ai(),tm=li(),be=v(),nm=H(),mi=Symbol.for("@jrc03c/js-math-tools/series");di.exports=function(e){class t{static[Symbol.hasInstance](r){try{return!!r._symbol&&r._symbol===mi}catch{return!1}}constructor(r){let s=this;if(s.name="data",Object.defineProperty(s,"_symbol",{configurable:!1,enumerable:!1,writable:!1,value:mi}),Object.defineProperty(s,"_values",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(s,"values",{configurable:!0,enumerable:!0,get(){return s._values},set(i){k(Ot(i),"The new values must be a 1-dimensional array!");let o=be(i);k(o.length===1,"The new array of values must be 1-dimensional!"),o[0]<s._index.length?s._index=s._index.slice(0,o[0]):o[0]>s._index.length&&(s._index=s._index.concat(hi(s._index.length,o[0]).map(u=>"item"+fi(u,(i.length-1).toString().length)))),s._values=i}}),Object.defineProperty(s,"_index",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(s,"index",{configurable:!0,enumerable:!0,get(){return s._index},set(i){k(Ot(i),"The new index must be a 1-dimensional array of strings!"),k(i.length===s.shape[0],"The new index must be the same length as the old index!"),k(be(i).length===1,"The new index must be a 1-dimensional array of strings!"),i.forEach(o=>{k(Ph(o),"All of the row names must be strings!")}),s._index=i}}),r){if(r instanceof t)s.name=r.name,s.values=ke(r.values),s.index=ke(r.index);else if(Ot(r)){let i=be(r);k(i.length===1,"When passing an array into the constructor of a Series, the array must be 1-dimensional!"),s.values=r}else if(r instanceof Object){let i=Object.keys(r);k(i.length===1,"When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!");let o=i[0],u=r[o];k(be(u).length===1,"When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"),s.name=o,s.values=u.slice()}}}get shape(){return be(this.values)}get length(){return this.shape[0]}get isEmpty(){return this.values.filter(s=>!Yh(s)).length===0}clear(){let s=this.copy();return s.values.forEach((i,o)=>{s.values[o]=void 0}),s}get(r){return Gh(this,r)}getSubsetByNames(r){return Hh(t,this,r)}getSubsetByIndices(r){return Wh(this,r)}loc(r){return this.getSubsetByNames(r)}iloc(r){return this.getSubsetByIndices(r)}reverse(){let r=this,s=new t(ze(r.values));return s.index=ze(r.index),s.name=r.name,s}resetIndex(){let r=this,s=r.copy();return s.index=hi(0,r.shape[0]).map(i=>"item"+fi(i,(s.index.length-1).toString().length)),s}copy(){let r=this,s=new t;return s._values=ke(r.values),s._index=ke(r.index),s.name=r.name,s}append(r){return $h(t,this,r)}apply(r){return Lh(this,r)}concat(r){return this.append(r)}dropMissing(r,s){return Rh(this,r,s)}dropNaN(){return Vh(t,this)}toObject(){return tm(this)}print(){return Xh(this)}shuffle(){return Qh(this)}sort(r){return Zh(t,this,r)}sortByIndex(){return em(t,this)}filter(r){return Kh(t,this,r)}toDataFrame(){let r=this,s=new e(nm([r.values]));return s.columns=[r.name],s.index=r.index,s}transpose(){let s=this.copy();return s.values=ze(s.values),s.index=ze(s.index),s}getDummies(){return this.toDataFrame().getDummies()}oneHotEncode(){return this.getDummies()}}return t}});var ve=c((Db,vi)=>{var{copy:_t}=U(),B=h(),qi=ce(),rm=nr(),sm=ur(),im=fr(),om=mr(),um=Nr(),am=Sr(),cm=_r(),lm=Er(),fm=Mr(),gi=Jr(),hm=Gr(),mm=Zr(),dm=ts(),pm=ss(),qm=vs(),gm=_s(),ym=Fs(),bm=St(),Nm=Es(),vm=S(),Ne=m(),wm=C(),yi=b(),Dt=je(),Sm=J(),Ft=E(),re=v(),bi=H(),Ni=Symbol.for("@jrc03c/js-math-tools/dataframe");function Ce(e){let t="abcdefghijklmnopqrstuvwxyz1234567890",n="";for(let r=0;r<e;r++)n+=t[parseInt(Math.random()*t.length)];return n}var x=class{static[Symbol.hasInstance](t){try{return!!t._symbol&&t._symbol===Ni}catch{return!1}}constructor(t){let n=this;if(Object.defineProperty(n,"_symbol",{configurable:!1,enumerable:!1,writable:!1,value:Ni}),Object.defineProperty(n,"_values",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(n,"values",{configurable:!0,enumerable:!0,get(){return n._values.length===0||!yi(n._values[0])&&n._values[0].length===0?[[]]:n._values},set(r){B(Ne(r),"The new values must be a 2-dimensional array!");let s=re(r);B(s.length===2,"The new array of values must be 2-dimensional!"),s[0]<n._index.length?n._index=n._index.slice(0,s[0]):s[0]>n._index.length&&(n._index=n._index.concat(Ft(n._index.length,s[0]).map(i=>"row"+Dt(i,(s[0]-1).toString().length)))),s[1]<n._columns.length?n._columns=n._columns.slice(0,s[1]):s[1]>n._columns.length&&(n._columns=n._columns.concat(Ft(n._columns.length,s[1]).map(i=>"col"+Dt(i,(s[1]-1).toString().length)))),n._values=r}}),Object.defineProperty(n,"_columns",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(n,"columns",{configurable:!0,enumerable:!0,get(){return n._columns},set(r){B(Ne(r),"The new columns list must be a 1-dimensional array of strings!"),B(n.isEmpty||r.length===n.shape[1],"The new columns list must be the same length as the old columns list!"),B(re(r).length===1,"The new columns list must be a 1-dimensional array of strings!"),r=r.map(i=>(typeof i!="string"&&(i=JSON.stringify(i)||i.toString()),i.trim().length===0?"untitled_"+Ce(8):i.trim()));let s=(()=>{let i=qi(r),o={};return i.forEach(u=>{o[u.value]=u.count}),o})();r=r.map(i=>s[i]>1?i+"_"+Ce(8):i),n._columns=r}}),Object.defineProperty(n,"_index",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(n,"index",{configurable:!0,enumerable:!0,get(){return n._index},set(r){B(Ne(r),"The new index must be a 1-dimensional array of strings!"),B(n.isEmpty||r.length===n.shape[0],"The new index must be the same length as the old index!"),B(re(r).length===1,"The new index must be a 1-dimensional array of strings!"),r=r.map(i=>(typeof i!="string"&&(i=JSON.stringify(i)||i.toString()),i.trim().length===0?"untitled_"+Ce(8):i.trim()));let s=(()=>{let i=qi(r),o={};return i.forEach(u=>{o[u.value]=u.count}),o})();r=r.map(i=>s[i]>1?i+"_"+Ce(8):i),n._index=r}}),B(yi(t)||wm(t)||Ne(t),"The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values."),t)if(t instanceof x)n.values=_t(t.values),n.columns=_t(t.columns),n.index=_t(t.index);else if(Ne(t)){let r=re(t);B(r.length===2,"The `data` array passed into the constructor of a DataFrame must be 2-dimensional!"),n.values=t}else{n._columns=Object.keys(t);let r=[];n._columns.forEach(i=>{let o=t[i];r.push(o)}),n._values=bi(r);let s=re(n.values);n._index=Ft(0,s[0]).map(i=>"row"+Dt(i,(s[0]-1).toString().length))}}get shape(){return re(this.values)}get length(){return this.shape[0]}get width(){return this.shape[1]}get rows(){return this.index}set rows(t){let n=this;n.index=t}get isEmpty(){return vm(this.values).length===0}clear(){let t=this,n=new x(Sm(t.shape));return n.columns=t.columns.slice(),n.index=t.index.slice(),n}get(t,n){let r=this;if(arguments.length===0)return r;if(arguments.length===1)try{return r.get(null,t)}catch{return r.get(t,null)}return fm(r,t,n)}getSubsetByNames(t,n){return mm(x,R,this,t,n)}getSubsetByIndices(t,n){return hm(this,t,n)}getDummies(t){return gi(x,this,t)}oneHotEncode(t){return gi(x,this,t)}transpose(){let t=this,n=new x(bi(t.values));return n.columns=t.index.slice(),n.index=t.columns.slice(),n}get T(){return this.transpose()}resetIndex(t){return pm(this,t)}copy(){return om(x,this)}assign(t,n){return im(x,R,this,t,n)}apply(t,n){return sm(x,R,this,t,n)}dropMissing(t,n,r){return am(x,R,this,t,n,r)}dropNaN(t,n,r){return cm(x,this,t,n,r)}drop(t,n){return um(x,R,this,t,n)}dropColumns(t){return this.drop(null,t)}dropRows(t){return this.drop(t,null)}toObject(t){return Nm(this,t)}toJSONString(t){return bm(this,t)}saveAsJSON(t,n){return ym(this,t,n)}print(){return dm(x,R,this)}sort(t,n){return gm(this,t,n)}sortByIndex(){return this.sort()}filter(t,n){return lm(x,R,this,t,n)}shuffle(t){return qm(this,t)}append(t,n){return rm(this,t,n)}concat(t,n){return this.append(t,n)}join(t,n){return this.append(t,n)}toString(){let t=this;return JSON.stringify(t)}},R=pi()(x);vi.exports={DataFrame:x,Series:R}});var se=c((Fb,Si)=>{var xm=h(),Tm=S(),Om=m(),_m=g(),Dm=q();function wi(e){if(_m(e)||Dm(e))return wi(e.values);xm(Om(e),"The `max` function only works on arrays, Series, and DataFrames!");try{return Math.max(...Tm(e))}catch{return NaN}}Si.exports=wi});var N=c((Ab,Di)=>{var{DataFrame:xi,Series:Ti}=ve(),Oi=h(),we=m(),At=g(),_i=I(),Fm=D(),Et=q(),Am=se(),Em=E(),Je=v();function jm(e){return we(e)||Et(e)||At(e)}function Im(e){return Oi(Fm(e),"You must pass a function into the `vectorize` function!"),function t(){let n,r,s=[],i=[],o=Object.keys(arguments).filter(u=>{let a=arguments[u];return we(a)?!0:Et(a)?(n=!0,s.push(a),!0):At(a)?(r=!0,i.push(a),!0):!1}).map(u=>arguments[u]);if(o.slice(0,-1).forEach((u,a)=>{Oi(_i(we(u)?Je(u):u.shape,we(o[a+1])?Je(o[a+1]):o[a+1].shape),`When passing multiple arrays into the \`${e.name}\` function, all of the arrays must have the same shape!`)}),o.length>0){let u=Am(o.map(l=>l.length?l.length:l.values.length)),a=Em(0,u).map(l=>{let f=Object.keys(arguments).map(d=>{if(jm(arguments[d])){if(we(arguments[d]))return arguments[d][l];if(Et(arguments[d]))return arguments[d].values[l];if(At(arguments[d]))return arguments[d].values[l]}else return arguments[d]});return t(...f)});if(r)try{if(i.length===1&&_i(Je(i[0]),Je(a))){let l=new xi(a);return l.index=i[0].index.slice(),l.columns=i[0].columns.slice(),l}else return new xi(a)}catch{return a}if(n)try{if(s.length===1&&s[0].length===a.length){let l=new Ti(a);return l.name=s[0].name,l.index=s[0].index.slice(),l}else return new Ti(a)}catch{return a}return a}else return e(...arguments)}}Di.exports=Im});var Pe=c((Eb,Fi)=>{var Mm=p(),Um=N();function Bm(e){try{return Mm(e)?Math.abs(e):NaN}catch{return NaN}}Fi.exports=Um(Bm)});var Ye=c((jb,Ai)=>{var km=p(),zm=N();function Cm(){try{let e=0,t=Object.values(arguments);for(let n=0;n<t.length;n++){if(!km(t[n]))return NaN;e+=t[n]}return e}catch{return NaN}}Ai.exports=zm(Cm)});var Se=c((Ib,Ei)=>{var Jm=N();function Pm(e,t){try{return t(e)}catch{return NaN}}Ei.exports=Jm(Pm)});var Ii=c((Mb,ji)=>{var Ym=p(),$m=N();function Lm(e){try{return Ym(e)?Math.acos(e):NaN}catch{return NaN}}ji.exports=$m(Lm)});var Ui=c((Ub,Mi)=>{var Rm=p(),Vm=N();function Km(e){try{return Rm(e)?Math.asin(e):NaN}catch{return NaN}}Mi.exports=Vm(Km)});var ki=c((Bb,Bi)=>{var Gm=p(),Wm=N();function Hm(e){try{return Gm(e)?Math.atan(e):NaN}catch{return NaN}}Bi.exports=Wm(Hm)});var Ci=c((kb,zi)=>{var Xm=h(),Qm=ue(),Zm=m(),ed=g(),td=q(),nd=se();function jt(e){if(ed(e)){let t=jt(e.values);return[e.index[t[0]],e.columns[t[1]]]}if(td(e)){let t=jt(e.values);return[e.index[t]]}Xm(Zm(e),"The `argmax` function only works on arrays, Series, and DataFrames!");try{let t=Qm(e,nd(e));return t?t.length===0?void 0:t.length===1?t[0]:t:void 0}catch{return}}zi.exports=jt});var $e=c((zb,Pi)=>{var rd=h(),sd=S(),id=m(),od=g(),ud=q();function Ji(e){if(od(e)||ud(e))return Ji(e.values);rd(id(e),"The `min` function only works on arrays, Series, and DataFrames!");try{return Math.min(...sd(e))}catch{return NaN}}Pi.exports=Ji});var $i=c((Cb,Yi)=>{var ad=h(),cd=ue(),ld=m(),fd=g(),hd=q(),md=$e();function It(e){if(fd(e)){let t=It(e.values);return[e.index[t[0]],e.columns[t[1]]]}if(hd(e)){let t=It(e.values);return[e.index[t]]}ad(ld(e),"The `argmin` function only works on arrays, Series, and DataFrames!");try{let t=cd(e,md(e));return t?t.length===0?void 0:t.length===1?t[0]:t:void 0}catch{return}}Yi.exports=It});var Bt=c((Jb,Vi)=>{var Li=m(),Mt=Ue(),dd=g(),pd=I(),Ri=p(),qd=C(),gd=q(),Ut=b();function z(e,t){if(dd(e)||gd(e))return e.apply(n=>z(n,t));if(Li(e))return e.map(n=>z(n,t));if(t==="null")return null;if(t==="number"){if(Ut(e))return NaN;let n=z(e,"boolean");if(Mt(n))return n?1:0;try{JSON.parse(e)}catch{let i=z(e,"date");if(i instanceof Date)return i.getTime()}let r=parseFloat(e);return isNaN(r)?NaN:r}if(t==="boolean"){if(Mt(e))return e;if(Ri(e))return e===0?!1:e===1?!0:null;try{let n=(typeof e=="object"?e.toString()==="null"?"false":JSON.stringify(e):e.toString()).trim().toLowerCase();return n==="true"||n==="yes"||n==="y"?!0:n==="false"||n==="no"||n==="n"?!1:null}catch{return null}}if(t==="date"){if(e instanceof Date)return e;if(Ut(e))return null;let n=parseFloat(e);if(!isNaN(n)){let s=new Date(e);return s.toString()==="Invalid Date"?null:s}let r=Date.parse(e);return isNaN(r)?null:new Date(r)}if(t==="object"){if(qd(e))return e;let n=z(e,"boolean");if(Mt(n))return null;try{let s=z(e,"number");if(Ri(s))return JSON.parse(e),null}catch{}let r=z(e,"date");if(r)return r;try{let s=JSON.parse(e);return Li(s)?s.map(i=>z(i,t)):s}catch{return null}}if(t==="string")return Ut(e)?pd(e,void 0)?"undefined":"null":e instanceof Date?e.toJSON():(()=>typeof e=="object"?e===null?"null":JSON.stringify(e):e.toString())()}Vi.exports=z});var Gi=c((Pb,Ki)=>{var yd=p(),bd=N();function Nd(e){try{return yd(e)?Math.ceil(e):NaN}catch{return NaN}}Ki.exports=bd(Nd)});var Xi=c((Yb,Hi)=>{var vd=Pe(),Wi=p(),wd=b(),Sd=N();function xd(e,t){try{if(!Wi(e))return NaN;if(wd(t))t=1e-10;else if(!Wi(t))return NaN;return vd(e)<t?0:e}catch{return NaN}}Hi.exports=Sd(xd)});var Zi=c(($b,Qi)=>{var kt=p(),Td=N();function Od(e,t,n){try{return kt(e)?kt(t)?kt(n)?e<t?t:e>n?n:e:NaN:NaN:NaN}catch{return NaN}}Qi.exports=Td(Od)});var to=c((Lb,eo)=>{var zt=h(),_d=S(),Dd=m(),Fd=g(),Ad=p(),Ed=q();function Ct(e,t){if(Fd(e)||Ed(e))return Ct(e.values,t);if(zt(Dd(e),"The `combinations` function only works on arrays, Series, and DataFrames!"),zt(Ad(t),"`r` must be a whole number!"),e=_d(e),t>e.length)return[e];if(t<=0)return[[]];if(zt(t===parseInt(t),"`r` must be a whole number!"),e.length<2)return e;let n=[];return e.forEach((r,s)=>{let i=e.slice(s+1);if(i.length<t-1)return;Ct(i,t-1).forEach(u=>{n.push([r].concat(u))})}),n}eo.exports=Ct});var Le=c((Rb,ro)=>{var jd=h(),Id=S(),Md=m(),Ud=g(),Bd=q();function no(e){if(Ud(e)||Bd(e))return no(e.values);jd(Md(e),"The `mean` function only works on arrays, Series, and DataFrames!");try{let t=Id(e),n=0;return t.forEach(r=>{n+=r}),n/t.length}catch{return NaN}}ro.exports=no});var Pt=c((Vb,co)=>{var so=h(),io=m(),Re=p(),oo=q(),uo=Le(),ao=v();function Jt(e,t){if(oo(e))return Jt(e.values,t);if(oo(t))return Jt(e,t.values);so(io(e)&&io(t)&&ao(e).length===1&&ao(t).length===1,"The `covariance` function only works on 1-dimensional arrays and Series!"),so(e.length===t.length,"The two arrays or Series passed into the `covariance` function must have the same length!");try{let n=uo(e),r=uo(t);if(!Re(n)||!Re(r))return NaN;let s=Math.max(e.length,t.length),i=0;for(let o=0;o<s;o++){if(!Re(e[o]))return NaN;if(!Re(t[o]))return NaN;i+=(e[o]-n)*(t[o]-r)}return i/e.length}catch{return NaN}}co.exports=Jt});var Ve=c((Kb,lo)=>{var kd=p(),zd=N();function Cd(e){try{return kd(e)?Math.sqrt(e):NaN}catch{return NaN}}lo.exports=zd(Cd)});var Yt=c((Gb,ho)=>{var Jd=h(),Pd=S(),Yd=m(),$d=g(),Ld=p(),Rd=q(),Vd=Le();function fo(e){if($d(e)||Rd(e))return fo(e.values);Jd(Yd(e),"The `variance` function only works on arrays, Series, and DataFrames!");try{let t=Pd(e),n=Vd(t),r=0;for(let s=0;s<t.length;s++){if(!Ld(t[s]))return NaN;r+=(t[s]-n)*(t[s]-n)}return r/t.length}catch{return NaN}}ho.exports=fo});var Ke=c((Wb,po)=>{var Kd=h(),Gd=m(),Wd=g(),Hd=q(),Xd=Ve(),Qd=Yt();function mo(e){if(Wd(e)||Hd(e))return mo(e.values);Kd(Gd(e),"The `std` function only works on arrays, Series, and DataFrames!");try{return Xd(Qd(e))}catch{return NaN}}po.exports=mo});var wo=c((Hb,vo)=>{var qo=h(),Zd=Pt(),go=m(),yo=q(),bo=v(),No=Ke();function $t(e,t){if(yo(e))return $t(e.values,t);if(yo(t))return $t(e,t.values);qo(go(e)&&go(t)&&bo(e).length===1&&bo(t).length===1,"The `correl` function only works on 1-dimensional arrays and Series!"),qo(e.length===t.length,"The two arrays or Series passed into the `correl` function must have the same length!");try{return Zd(e,t)/(No(e)*No(t))}catch{return NaN}}vo.exports=$t});var xo=c((Xb,So)=>{var ep=p(),tp=N();function np(e){try{return ep(e)?Math.cos(e):NaN}catch{return NaN}}So.exports=tp(np)});var Oo=c((Qb,To)=>{To.exports=Object.freeze({boolean:"boolean",date:"date",null:"null",number:"number",object:"object",string:"string"})});var jo=c((Zb,Eo)=>{var rp=h(),_o=m(),Do=g(),sp=I(),Fo=q(),Ao=M();function Lt(e,t){if(Do(e)||Fo(e))return Lt(e.values,t);if(Do(t)||Fo(t))return Lt(e,t.values);rp(_o(e)&&_o(t),"The `diff` function only works on arrays, Series, and DataFrames!");let n=Ao(e),r=Ao(t),s=[];return n.forEach(i=>{r.findIndex(o=>sp(o,i))<0&&s.push(i)}),s}Eo.exports=Lt});var Ge=c((eN,Mo)=>{var Io=p(),ip=N();function op(e,t){try{return Io(e)?Io(t)?Math.pow(e,t):NaN:NaN}catch{return NaN}}Mo.exports=ip(op)});var Rt=c((tN,Uo)=>{var up=p(),ap=N();function cp(){try{let e=Object.values(arguments);if(e.length===0)return NaN;let t=1;for(let n=0;n<e.length;n++){if(!up(e[n]))return NaN;t*=e[n]}return t}catch{return NaN}}Uo.exports=ap(cp)});var ie=c((nN,Bo)=>{var lp=Rt();function fp(){return lp(...arguments)}Bo.exports=fp});var Vt=c((rN,ko)=>{var hp=Ye(),mp=ie();function dp(e,t){return hp(e,mp(t,-1))}ko.exports=dp});var We=c((sN,Co)=>{var pp=h(),qp=S(),gp=m(),yp=g(),bp=q();function zo(e){if(yp(e)||bp(e))return zo(e.values);pp(gp(e),"The `sum` function only works on arrays, Series, and DataFrames!");try{return e.length===0?NaN:qp(e).reduce((t,n)=>t+n,0)}catch{return NaN}}Co.exports=zo});var Vo=c((iN,Ro)=>{var Np=Pe(),vp=h(),Jo=m(),Po=g(),wp=I(),Yo=p(),$o=q(),Sp=Ge(),Lo=v(),xp=Ve(),Tp=Vt(),Op=We();function Kt(e,t){if(Yo(e)&&Yo(t))return Np(e-t);if(Po(e)||$o(e))return Kt(e.values,t);if(Po(t)||$o(t))return Kt(e,t.values);Jo(e)&&Jo(t)&&vp(wp(Lo(e),Lo(t)),"If passing two arrays, Series, or DataFrames into the `distance` function, then those objects must have the same shape!");try{return xp(Op(Sp(Tp(e,t),2)))}catch{return NaN}}Ro.exports=Kt});var Go=c((oN,Ko)=>{var _p=Ge(),Dp=ie();function Fp(e,t){return Dp(e,_p(t,-1))}Ko.exports=Fp});var Wt=c((uN,eu)=>{var{DataFrame:Wo,Series:Ho}=ve(),He=h(),Xo=S(),Qo=m(),Gt=g(),Ap=p(),Xe=q(),Ep=ie(),Qe=v(),jp=We(),Zo=H();function V(e,t){if(Gt(e)){let s=V(e.values,t);if(Qe(s).length===1){let i=new Ho(s);return i.name=Xe(t)?t.name:i.name,i.index=e.index.slice(),i}else{let i=new Wo(s);return i.index=e.index.slice(),Gt(t)&&(i.columns=t.columns.slice()),i}}if(Gt(t)){let s=V(e,t.values);if(Qe(s).length===1){let i=new Ho(s);return i.name=Xe(e)?e.name:i.name,i.index=t.columns.slice(),i}else{let i=new Wo(s);return i.columns=t.columns.slice(),i}}if(Xe(e))return V(e.values,t);if(Xe(t))return V(e,t.values);He(Qo(e)&&Qo(t),"The `dot` function only works on arrays, Series, and DataFrames!"),Xo(e).concat(Xo(t)).forEach(s=>{He(Ap(s),"One of the arrays you passed into the `dot` function contains non-numerical values!")});let n=Qe(e),r=Qe(t);if(He(n.length<=2&&r.length<=2,"I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!"),He(n[n.length-1]===r[0],`There's a dimension misalignment in the two arrays you passed into the \`dot\` function. (${n[n.length-1]} !== ${r[0]})`),n.length===1&&r.length===1)return jp(Ep(e,t));if(n.length===1&&r.length===2)return Zo(t).map(s=>V(e,s));if(n.length===2&&r.length===1)return e.map(s=>V(s,t));if(n.length===2&&r.length===2){let s=Zo(t),i=[];for(let o=0;o<e.length;o++){let u=[];for(let a=0;a<s.length;a++)u.push(V(e[o],s[a]));i.push(u)}return i}}eu.exports=V});var Ht=c((aN,nu)=>{var Ip=h(),Mp=m(),Up=g(),Bp=q(),kp=b();function tu(e){if(Up(e)||Bp(e))return e.dropMissing(...Object.values(arguments).slice(1));Ip(Mp(e),"The `dropMissing` function only works on arrays, Series, and DataFrames!");let t=[];return e.forEach(n=>{try{return t.push(tu(n))}catch{kp(n)||t.push(n)}}),t}nu.exports=tu});var lu=c((cN,cu)=>{var ru=h(),su=m(),iu=g(),zp=I(),ou=q(),uu=b(),au=v();function Ze(e,t){if(iu(e)||ou(e))return Ze(e.values,t);if(iu(t)||ou(t))return Ze(e,t.values);ru(su(e)&&su(t),"The `dropMissingPairwise` function only works on arrays, Series, and DataFrames!"),ru(zp(au(e),au(t)),"The two arrays, Series, and/or DataFrames passed into the `dropMissingPairwise` function must have the same shape!");let n=[],r=[];for(let s=0;s<e.length;s++)try{let[i,o]=Ze(e[s],t[s]);n.push(i),r.push(o)}catch{!uu(e[s])&&!uu(t[s])&&(n.push(e[s]),r.push(t[s]))}return[n,r]}cu.exports=Ze});var yu=c((lN,gu)=>{var fu=h(),hu=m(),mu=g(),Cp=I(),du=p(),pu=q(),qu=v();function et(e,t){if(mu(e)||pu(e))return et(e.values,t);if(mu(t)||pu(t))return et(e,t.values);fu(hu(e)&&hu(t),"The `dropNaNPairwise` only works on arrays, Series, and DataFrames!"),fu(Cp(qu(e),qu(t)),"The two arrays, Series, and/or DataFrames passed into the `dropNaNPairwise` must have the same shape!");let n=[],r=[];for(let s=0;s<e.length;s++)try{let[i,o]=et(e[s],t[s]);n.push(i),r.push(o)}catch{du(e[s])&&du(t[s])&&(n.push(e[s]),r.push(t[s]))}return[n,r]}gu.exports=et});var Nu=c((fN,bu)=>{var Jp=Ht();function Pp(e){return Jp(e)}bu.exports=Pp});var wu=c((hN,vu)=>{var Yp=p(),$p=N();function Lp(e){try{return Yp(e)?Math.exp(e):NaN}catch{return NaN}}vu.exports=$p(Lp)});var Tu=c((mN,xu)=>{var Rp=N();function Su(e){try{return e!==parseInt(e)?NaN:e<=1?1:e*Su(e-1)}catch{return NaN}}xu.exports=Rp(Su)});var Fu=c((dN,Du)=>{var Vp=h(),Kp=S(),Ou=m(),Gp=g(),Wp=D(),_u=C(),Hp=q();function Xt(e,t){if(Gp(e))return Xt(Kp(e.values),t);if(Hp(e))return Xt(e.values,t);if(Vp(_u(e)||Ou(e),"You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `find` function!"),!Wp(t)){let s=t;t=i=>i===s}function n(s,i,o){if(o=o||[],o.indexOf(s)>-1)return null;if(_u(s)){o.push(s);let u=Object.keys(s);for(let a=0;a<u.length;a++){let l=u[a],f=s[l];if(i(f))return f;let d=n(f,i,o);if(d)return d}}else if(Ou(s)){o.push(s);for(let u=0;u<s.length;u++){let a=s[u];if(i(a))return a;let l=n(a,i,o);if(l)return l}}else if(i(s))return s;return null}function r(s){try{return t(s)}catch{return!1}}return n(e,r)}Du.exports=Xt});var Iu=c((pN,ju)=>{var Xp=h(),Qp=S(),Au=m(),Zp=g(),eq=D(),Eu=C(),tq=q();function Qt(e,t){if(Zp(e))return Qt(Qp(e.values),t);if(tq(e))return Qt(e.values,t);if(Xp(Eu(e)||Au(e),"You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `findAll` function!"),!eq(t)){let i=t;t=o=>o===i}function n(i,o,u){if(u=u||[],u.indexOf(i)>-1)return null;if(Eu(i)){u.push(i);let a=Object.keys(i),l=[];for(let f=0;f<a.length;f++){let d=a[f],y=i[d],O=!1;o(y)&&(l.push(y),O=!0);let G=n(y,o,u);G&&G.length>0&&G.slice(O?1:0).forEach(_=>l.push(_))}return l}else if(Au(i)){u.push(i);let a=[];for(let l=0;l<i.length;l++){let f=i[l],d=!1;o(f)&&(a.push(f),d=!0);let y=n(f,o,u);y&&y.length>0&&y.slice(d?1:0).forEach(O=>a.push(O))}return a}else if(o(i))return[i];return null}function r(i){try{return t(i)}catch{return!1}}let s=n(e,r);return s&&s.length>0?s:null}ju.exports=Qt});var Uu=c((qN,Mu)=>{var nq=p(),rq=N();function sq(e){try{if(e==="Infinity")return 1/0;if(e==="-Infinity")return-1/0;let t=JSON.parse(e);return nq(t)?t:NaN}catch{return NaN}}Mu.exports=rq(sq)});var ku=c((gN,Bu)=>{var iq=p(),oq=N();function uq(e){try{return iq(e)?Math.floor(e):NaN}catch{return NaN}}Bu.exports=oq(uq)});var Zt=c((yN,zu)=>{var aq=p(),cq=pe(),lq=Ie();function fq(e){aq(e)&&(e=[e]);let t=[],n=cq(e);for(let r=0;r<n;r++)t.push(0);return lq(t,e)}zu.exports=fq});var Ju=c((bN,Cu)=>{var tt=h(),hq=p(),mq=b(),dq=Zt();function pq(e){tt(!mq(e),"You must pass an integer greater than 0 (representing the size) into the `identity` function!"),tt(hq(e),"You must pass an integer greater than 0 (representing the size) into the `identity` function!"),tt(parseInt(e)===e,"You must pass an integer greater than 0 (representing the size) into the `identity` function!"),tt(e>0,"You must pass an integer greater than 0 (representing the size) into the `identity` function!");let t=dq([e,e]);for(let n=0;n<e;n++)t[n][n]=1;return t}Cu.exports=pq});var Yu=c((NN,Pu)=>{Pu.exports=["true","false","yes","no"]});var Lu=c((vN,$u)=>{$u.exports=["null","none","nan","na","n/a","","undefined"]});var Vu=c((wN,Ru)=>{var qq=Se(),gq=h(),yq=Yu(),bq=Bt(),Nq=ce(),vq=S(),en=m(),wq=g(),Sq=p(),xq=q(),Tq=F(),Oq=Lu();function nt(e){if(wq(e)){let s=e.copy(),i=nt(e.values);return s.values=i.values,{type:i.type,values:s}}if(xq(e)){let s=e.copy(),i=nt(e.values);return s.values=i.values,{type:i.type,values:s}}if(!en(e)){let s=nt([e]);return s.value=s.values[0],delete s.values,s}gq(en(e),"The `inferType` function only works on arrays, Series, and DataFrames!");let t=vq(e).map(s=>{if(s===void 0)return"null";try{if(typeof s=="object"){let u=new Date(s.toString());if(u instanceof Date&&u.toString()!=="Invalid Date")return"date"}}catch{}Tq(s)||(s=JSON.stringify(s));let o=s.toLowerCase().trim();if(Oq.indexOf(o)>-1)return"null";if(yq.indexOf(o)>-1)return"boolean";try{let u=JSON.parse(s);return Sq(u)?"number":typeof u=="object"?en(u)?"string":"object":"string"}catch{return new Date(s).toString()!=="Invalid Date"?"date":"string"}}),r=Nq(t).sort((s,i)=>i.count-s.count)[0].value;return{type:r,values:qq(e,s=>bq(s,r))}}Ru.exports=nt});var Gu=c((SN,Ku)=>{var _q=p(),Dq=N();function Fq(e){try{let t=JSON.parse(e);return _q(t)?parseInt(t):NaN}catch{return NaN}}Ku.exports=Dq(Fq)});var Hu=c((xN,Wu)=>{var Aq=h(),Eq=m(),jq=g(),Iq=I(),Mq=q(),tn=M();function Uq(){let e=Object.values(arguments).map(n=>jq(n)||Mq(n)?tn(n.values):(Aq(Eq(n),"The `intersect` function only works on arrays, Series, and DataFrames!"),tn(n)));return tn(e).filter(n=>e.every(r=>r.findIndex(s=>Iq(s,n))>-1))}Wu.exports=Uq});var ea=c((TN,Zu)=>{var Xu=Ye(),K=h(),Bq=Wt(),kq=S(),zq=m(),Cq=g(),nn=p(),Qu=ie(),Jq=v();function rt(e){if(Cq(e)){let n=e.copy();return n.values=rt(n.values),n}K(zq(e),"The `inverse` function only works on square 2-dimensional arrays or DataFrames!"),kq(e).forEach(n=>K(nn(n),"The array passed into the `inverse` function must contain only numbers!"));let t=Jq(e);if(K(t.length===2,"The array passed into the `inverse` function must be exactly two-dimensional and square!"),K(t[0]===t[1],"The array passed into the `inverse` function must be exactly two-dimensional and square!"),K(t[0]>=0,"The array passed into the `inverse` function must be exactly two-dimensional and square!"),t[0]===0)return e;if(t[0]===1)return K(e[0][0]!==0,"This matrix cannot be inverted!"),1/e[0][0];if(t[0]===2){let n=e[0][0],r=e[0][1],s=e[1][0],i=e[1][1],o=n*i-r*s;K(o!==0,"This matrix cannot be inverted!");let u=[[i,-r],[-s,n]];return Qu(u,1/o)}else if(t[0]>1){let n=(r,s)=>nn(r)||nn(s)?Qu(r,s):Bq(r,s);for(let r=1;r<t[0]-1;r++)try{let s=e.slice(0,r).map(_=>_.slice(0,r)),i=e.slice(0,r).map(_=>_.slice(r,t[0])),o=e.slice(r,t[0]).map(_=>_.slice(0,r)),u=e.slice(r,t[0]).map(_=>_.slice(r,t[0])),a=rt(s),l=rt(Xu(u,n(-1,n(n(o,a),i)))),f=Xu(a,n(n(n(n(a,i),l),o),a)),d=n(-1,n(n(a,i),l)),y=n(-1,n(n(l,o),a)),O=l;return f.map((_,ot)=>_.concat(d[ot])).concat(y.map((_,ot)=>_.concat(O[ot])))}catch{}K(!1,"This matrix cannot be inverted!")}}Zu.exports=rt});var na=c((ON,ta)=>{var Pq=new Function(`
+  // src/assert.js
+  var require_assert = __commonJS({
+    "src/assert.js"(exports, module) {
+      var MathError = require_math_error();
+      module.exports = function(isTrue, message) {
+        if (!isTrue)
+          throw new MathError(message);
+      };
+    }
+  });
+
+  // src/is-array.js
+  var require_is_array = __commonJS({
+    "src/is-array.js"(exports, module) {
+      function isArray(obj) {
+        try {
+          return obj instanceof Array || typeof obj.constructor !== "undefined" && obj.constructor.name === "Array";
+        } catch (e) {
+          return false;
+        }
+      }
+      module.exports = isArray;
+    }
+  });
+
+  // src/is-dataframe.js
+  var require_is_dataframe = __commonJS({
+    "src/is-dataframe.js"(exports, module) {
+      function isDataFrame(x) {
+        try {
+          return !!x._symbol && x._symbol === Symbol.for("@jrc03c/js-math-tools/dataframe");
+        } catch (e) {
+          return false;
+        }
+      }
+      module.exports = isDataFrame;
+    }
+  });
+
+  // src/is-function.js
+  var require_is_function = __commonJS({
+    "src/is-function.js"(exports, module) {
+      function isFunction(fn) {
+        return typeof fn === "function";
+      }
+      module.exports = isFunction;
+    }
+  });
+
+  // src/is-number.js
+  var require_is_number = __commonJS({
+    "src/is-number.js"(exports, module) {
+      function isNumber(x) {
+        return typeof x === "number" && !isNaN(x);
+      }
+      module.exports = isNumber;
+    }
+  });
+
+  // src/is-undefined.js
+  var require_is_undefined = __commonJS({
+    "src/is-undefined.js"(exports, module) {
+      function isUndefined(x) {
+        return x === null || typeof x === "undefined";
+      }
+      module.exports = isUndefined;
+    }
+  });
+
+  // src/is-object.js
+  var require_is_object = __commonJS({
+    "src/is-object.js"(exports, module) {
+      var isArray = require_is_array();
+      var isUndefined = require_is_undefined();
+      function isObject(x) {
+        return typeof x === "object" && !isUndefined(x) && !isArray(x);
+      }
+      module.exports = isObject;
+    }
+  });
+
+  // src/is-series.js
+  var require_is_series = __commonJS({
+    "src/is-series.js"(exports, module) {
+      function isSeries(x) {
+        try {
+          return !!x._symbol && x._symbol === Symbol.for("@jrc03c/js-math-tools/series");
+        } catch (e) {
+          return false;
+        }
+      }
+      module.exports = isSeries;
+    }
+  });
+
+  // src/index-of.js
+  var require_index_of = __commonJS({
+    "src/index-of.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isFunction = require_is_function();
+      var isNumber = require_is_number();
+      var isObject = require_is_object();
+      var isSeries = require_is_series();
+      function indexOf(x, fn) {
+        if (isDataFrame(x)) {
+          const index = indexOf(x.values, fn);
+          if (index.length > 0 && isNumber(index[0]) && index[0] >= 0 && index[0] < x.index.length) {
+            index[0] = x.index[index[0]];
+          }
+          if (index.length > 1 && isNumber(index[1]) && index[1] >= 0 && index[1] < x.columns.length) {
+            index[1] = x.columns[index[1]];
+          }
+          return index;
+        }
+        if (isSeries(x)) {
+          const index = indexOf(x.values, fn);
+          if (index.length > 0 && isNumber(index[0]) && index[0] >= 0 && index[0] < x.index.length) {
+            index[0] = x.index[index[0]];
+          }
+          return index;
+        }
+        assert(isObject(x) || isArray(x), "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!");
+        if (!isFunction(fn)) {
+          const value = fn;
+          fn = (v) => v === value;
+        }
+        function helper(x2, fn2, checked) {
+          checked = checked || [];
+          if (checked.indexOf(x2) > -1) {
+            return null;
+          }
+          if (isObject(x2)) {
+            checked.push(x2);
+            const keys = Object.keys(x2);
+            for (let i = 0; i < keys.length; i++) {
+              const key = keys[i];
+              const value = x2[key];
+              if (fn2(value)) {
+                return [key];
+              }
+              const results = helper(value, fn2, checked);
+              if (results && results.length > 0) {
+                return [key].concat(results);
+              }
+            }
+          } else if (isArray(x2)) {
+            checked.push(x2);
+            for (let i = 0; i < x2.length; i++) {
+              const value = x2[i];
+              if (fn2(value)) {
+                return [i];
+              }
+              const results = helper(value, fn2, checked);
+              if (results && results.length > 0) {
+                return [i].concat(results);
+              }
+            }
+          } else {
+            if (fn2(x2)) {
+              return [];
+            }
+          }
+          return null;
+        }
+        function safeFn(v) {
+          try {
+            return fn(v);
+          } catch (e) {
+            return false;
+          }
+        }
+        const paths = helper(x, safeFn);
+        if (paths && paths.length > 0) {
+          return paths;
+        } else {
+          return null;
+        }
+      }
+      module.exports = indexOf;
+    }
+  });
+
+  // src/copy.js
+  var require_copy = __commonJS({
+    "src/copy.js"(exports, module) {
+      var indexOf = require_index_of();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function copy(x) {
+        try {
+          const out = structuredClone(x);
+          return out;
+        } catch (e) {
+          if (typeof x === "object") {
+            if (x === null) {
+              return null;
+            }
+            if (isArray(x)) {
+              return x.map((v) => copy(v));
+            }
+            if (isSeries(x)) {
+              const out2 = x.copy();
+              out2.values = copy(out2.values);
+              return out2;
+            }
+            if (isDataFrame(x)) {
+              const out2 = x.copy();
+              out2.values = copy(x.values);
+              return out2;
+            }
+            x = decycle(x);
+            const out = {};
+            Object.keys(x).forEach((key) => {
+              out[key] = copy(x[key]);
+            });
+            return out;
+          } else {
+            return x;
+          }
+        }
+      }
+      function decycle(x) {
+        function helper(x2, checked, currentPath) {
+          checked = checked || [];
+          currentPath = currentPath || "";
+          if (checked.indexOf(x2) > -1) {
+            const parts = currentPath.split("/").slice(currentPath.startsWith("/") ? 1 : 0);
+            const isANestedCopy = parts.some((v, i) => {
+              const subParts = parts.slice(0, parts.length - i - 1);
+              let temp = orig;
+              subParts.forEach((part) => {
+                temp = temp[part];
+              });
+              return temp === x2;
+            });
+            if (isANestedCopy) {
+              const pathToCopy = orig === x2 ? "/" : "/" + indexOf(orig, x2).join("/");
+              return `<reference to "${pathToCopy}">`;
+            }
+          }
+          if (typeof x2 === "object") {
+            if (x2 === null)
+              return null;
+            checked.push(x2);
+            if (isArray(x2)) {
+              return x2.map((v, i) => helper(v, checked, currentPath + "/" + i));
+            } else {
+              Object.keys(x2).forEach((key) => {
+                x2[key] = helper(x2[key], checked, currentPath + "/" + key);
+              });
+              return x2;
+            }
+          } else {
+            return x2;
+          }
+        }
+        const orig = copy(x);
+        let out = helper(orig);
+        if (isDataFrame(x)) {
+          const temp = x.copy();
+          temp._values = out.values;
+          temp._columns = out.columns;
+          temp._index = out.index;
+          out = temp;
+        }
+        if (isSeries(x)) {
+          const temp = x.copy();
+          temp.name = out.name;
+          temp._values = out.values;
+          temp._index = out.index;
+          out = temp;
+        }
+        return out;
+      }
+      module.exports = { copy, decycle };
+    }
+  });
+
+  // src/flatten.js
+  var require_flatten = __commonJS({
+    "src/flatten.js"(exports, module) {
+      var { copy } = require_copy();
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function flatten(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return flatten(arr.values);
+        }
+        assert(isArray(arr), "The `flatten` function only works on arrays, Series, and DataFrames!");
+        function helper(arr2) {
+          let out = [];
+          copy(arr2).forEach((child) => {
+            if (isArray(child)) {
+              out = out.concat(helper(child));
+            } else {
+              out.push(child);
+            }
+          });
+          return out;
+        }
+        return helper(arr);
+      }
+      module.exports = flatten;
+    }
+  });
+
+  // src/is-equal.js
+  var require_is_equal = __commonJS({
+    "src/is-equal.js"(exports, module) {
+      var { decycle } = require_copy();
+      function isEqual(a, b) {
+        function helper(a2, b2) {
+          const aType = typeof a2;
+          const bType = typeof b2;
+          if (aType !== bType)
+            return false;
+          if (aType === "undefined")
+            return true;
+          if (aType === "boolean")
+            return a2 === b2;
+          if (aType === "symbol")
+            return a2 === b2;
+          if (aType === "number" || aType === "bigint") {
+            if (a2.toString() === "NaN" && b2.toString() === "NaN") {
+              return true;
+            }
+            return a2 === b2;
+          }
+          if (aType === "string")
+            return a2 === b2;
+          if (aType === "function")
+            return a2 === b2;
+          if (aType === "object") {
+            if (a2 === null || b2 === null) {
+              return a2 === null && b2 === null;
+            } else {
+              const aKeys = Object.keys(a2);
+              const bKeys = Object.keys(b2);
+              if (aKeys.length !== bKeys.length)
+                return false;
+              for (let i = 0; i < aKeys.length; i++) {
+                const key = aKeys[i];
+                if (!helper(a2[key], b2[key]))
+                  return false;
+              }
+              return true;
+            }
+          }
+        }
+        try {
+          if (a instanceof Date && b instanceof Date) {
+            return a.getTime() === b.getTime();
+          }
+          return helper(a, b);
+        } catch (e) {
+          return helper(decycle(a), decycle(b));
+        }
+      }
+      module.exports = isEqual;
+    }
+  });
+
+  // src/set.js
+  var require_set = __commonJS({
+    "src/set.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isFunction = require_is_function();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      function makeKey(n) {
+        const alpha = "abcdefg1234567890";
+        let out = "";
+        while (out.length < n)
+          out += alpha[parseInt(Math.random() * alpha.length)];
+        return out;
+      }
+      var NULL_KEY = makeKey(256);
+      var UNDEFINED_KEY = makeKey(256);
+      var INFINITY_KEY = makeKey(256);
+      var MINUS_INFINITY_KEY = makeKey(256);
+      var SYMBOL_KEY = makeKey(256);
+      function set(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return set(arr.values);
+        }
+        assert(isArray(arr), "The `set` function only works on arrays, Series, and DataFrames!");
+        const out = [];
+        const temp = {};
+        flatten(arr).forEach((item) => {
+          const key = typeof item === "object" && item === null ? NULL_KEY : isUndefined(item) ? UNDEFINED_KEY : isFunction(item) ? item.toString() : typeof item === "symbol" ? item.toString() + " - " + SYMBOL_KEY : item === Infinity ? INFINITY_KEY : item === -Infinity ? MINUS_INFINITY_KEY : isDataFrame(item) ? item.toJSONString() : isSeries(item) ? JSON.stringify(item.toObject()) : JSON.stringify(item);
+          if (!temp[key])
+            out.push(item);
+          temp[key] = true;
+        });
+        return out;
+      }
+      module.exports = set;
+    }
+  });
+
+  // src/count.js
+  var require_count = __commonJS({
+    "src/count.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isFunction = require_is_function();
+      var isSeries = require_is_series();
+      var set = require_set();
+      function count(arr, matcher) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          if (arguments.length > 1) {
+            return count(arr.values, matcher);
+          } else {
+            return count(arr.values, arr.values);
+          }
+        }
+        assert(isArray(arr), "The first argument to the `count` function must be an array, Series, or DataFrame!");
+        if (isFunction(matcher)) {
+          return flatten(arr).filter((value) => matcher(value)).length;
+        } else if (isArray(matcher)) {
+          const temp = flatten(arr);
+          return set(matcher).map((value) => {
+            return {
+              value,
+              count: temp.filter((v) => isEqual(v, value)).length
+            };
+          });
+        } else if (arguments.length > 1) {
+          return flatten(arr).filter((other) => isEqual(other, matcher)).length;
+        } else {
+          return count(arr, arr);
+        }
+      }
+      module.exports = count;
+    }
+  });
+
+  // src/is-jagged.js
+  var require_is_jagged = __commonJS({
+    "src/is-jagged.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function isJagged(x) {
+        if (isDataFrame(x) || isSeries(x)) {
+          return isJagged(x.values);
+        }
+        assert(isArray(x), "The `isJagged` function only works on arrays, Series, and DataFrames!");
+        let childArrayCount = 0;
+        let firstChildArrayLength = null;
+        for (let i = 0; i < x.length; i++) {
+          if (isArray(x[i])) {
+            childArrayCount++;
+            if (isJagged(x[i])) {
+              return true;
+            }
+            if (firstChildArrayLength === null) {
+              firstChildArrayLength = x[i].length;
+            } else if (x[i].length !== firstChildArrayLength) {
+              return true;
+            }
+          }
+        }
+        if (childArrayCount > 0 && childArrayCount < x.length) {
+          return true;
+        }
+        return false;
+      }
+      module.exports = isJagged;
+    }
+  });
+
+  // src/is-nested.js
+  var require_is_nested = __commonJS({
+    "src/is-nested.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function isNested(x) {
+        if (isDataFrame(x) || isSeries(x)) {
+          return isNested(x.values);
+        }
+        assert(isArray(x), "The `isNested` function only works on arrays, Series, and DataFrames!");
+        for (let i = 0; i < x.length; i++) {
+          if (isArray(x[i])) {
+            return true;
+          }
+        }
+        return false;
+      }
+      module.exports = isNested;
+    }
+  });
+
+  // src/ndarray.js
+  var require_ndarray = __commonJS({
+    "src/ndarray.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isNested = require_is_nested();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var error = "You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!";
+      function ndarray(shape) {
+        assert(!isUndefined(shape), error);
+        if (!isArray(shape))
+          shape = [shape];
+        assert(!isNested(shape), error);
+        assert(shape.length > 0, error);
+        const s = shape[0];
+        assert(isNumber(s), error);
+        assert(parseInt(s) === s, error);
+        assert(s >= 0, error);
+        assert(s !== Infinity, "We can't create an array containing an infinite number of values!");
+        if (shape.length === 1) {
+          const out = [];
+          for (let i = 0; i < s; i++)
+            out.push(void 0);
+          return out;
+        } else {
+          const out = [];
+          for (let i = 0; i < s; i++) {
+            out.push(ndarray(shape.slice(1)));
+          }
+          return out;
+        }
+      }
+      module.exports = ndarray;
+    }
+  });
+
+  // src/reverse.js
+  var require_reverse = __commonJS({
+    "src/reverse.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function reverse(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          const out2 = arr.copy();
+          out2.values = reverse(out2.values);
+          out2.index = reverse(out2.index);
+          return out2;
+        }
+        assert(isArray(arr), "The `reverse` function only works on arrays, Series, and DataFrames!");
+        const out = [];
+        for (let i = arr.length - 1; i >= 0; i--)
+          out.push(arr[i]);
+        return out;
+      }
+      module.exports = reverse;
+    }
+  });
+
+  // src/range.js
+  var require_range = __commonJS({
+    "src/range.js"(exports, module) {
+      var assert = require_assert();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var reverse = require_reverse();
+      function range(a, b, step = 1) {
+        assert(!isUndefined(a) && !isUndefined(b) && !isUndefined(step), "You must pass two numbers and optionally a step value to the `range` function!");
+        assert(isNumber(a) && isNumber(b) && isNumber(step), "You must pass two numbers and optionally a step value to the `range` function!");
+        assert(step > 0, "The step value must be greater than 0! (NOTE: The step value is a magnitude; it does not indicate direction.)");
+        let shouldReverse = false;
+        if (a > b) {
+          shouldReverse = true;
+          const buffer = a;
+          a = b + step;
+          b = buffer + step;
+        }
+        let out = [];
+        for (let i = a; i < b; i += step)
+          out.push(i);
+        if (shouldReverse)
+          out = reverse(out);
+        return out;
+      }
+      module.exports = range;
+    }
+  });
+
+  // src/shape.js
+  var require_shape = __commonJS({
+    "src/shape.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      function helper(x) {
+        if (!isArray(x)) {
+          return void 0;
+        }
+        const out = [x.length];
+        let childArrayCount = 0;
+        const childShapes = x.map((v) => {
+          const s = helper(v);
+          if (!isUndefined(s)) {
+            childArrayCount++;
+            if (s.length === 1) {
+              return s[0];
+            } else {
+              return s;
+            }
+          } else {
+            return s;
+          }
+        });
+        if (childArrayCount > 0) {
+          if (childArrayCount === x.length) {
+            const childShapesAreIdentical = childShapes.slice(0, -1).every((s, i) => {
+              return isEqual(s, childShapes[i + 1]);
+            });
+            if (childShapesAreIdentical) {
+              return out.concat(childShapes[0]);
+            } else {
+              out.push(childShapes);
+              return out;
+            }
+          } else {
+            out.push(childShapes);
+            return out;
+          }
+        } else {
+          return out;
+        }
+      }
+      function shape(x) {
+        if (isDataFrame(x) || isSeries(x)) {
+          return shape(x.values);
+        }
+        assert(isArray(x), "The `shape` function only works on arrays, Series, and DataFrames!");
+        return helper(x);
+      }
+      module.exports = shape;
+    }
+  });
+
+  // src/dataframe/df-append.js
+  var require_df_append = __commonJS({
+    "src/dataframe/df-append.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isJagged = require_is_jagged();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      var MathError = require_math_error();
+      var ndarray = require_ndarray();
+      var range = require_range();
+      var set = require_set();
+      var shape = require_shape();
+      function dfAppend(df, x, axis) {
+        if (isUndefined(axis)) {
+          axis = 0;
+        }
+        assert(axis === 0 || axis === 1 || axis === "vertical" || axis === "horizontal", 'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".');
+        if (isArray(x)) {
+          assert(!isJagged(x), "The array of data you're trying to append to this DataFrame is jagged!");
+          const xShape = shape(x);
+          if (xShape.length === 1) {
+            if (axis === 0) {
+              const out = df.copy();
+              out._values.push(x);
+              const maxRowLength = Math.max(df.shape[1], xShape[0]);
+              out._values.forEach((row) => {
+                while (row.length < maxRowLength) {
+                  row.push(void 0);
+                }
+              });
+              while (out._index.length < out._values.length) {
+                out._index.push("row" + out._index.length);
+              }
+              while (out._columns.length < maxRowLength) {
+                out._columns.push("col" + out._columns.length);
+              }
+              return out;
+            } else {
+              const maxColLength = Math.max(df.shape[0], xShape[0]);
+              const out = df.copy();
+              range(0, maxColLength).forEach((i) => {
+                if (i >= out._values.length) {
+                  out._values.push(ndarray(df.shape[1]));
+                }
+                out._values[i].push(x[i]);
+              });
+              while (out._index.length < out._values.length) {
+                out._index.push("row" + out._index.length);
+              }
+              while (out._columns.length < out._values[0].length) {
+                out._columns.push("col" + out._columns.length);
+              }
+              return out;
+            }
+          } else if (xShape.length === 2) {
+            if (axis === 0) {
+              const maxRowLength = Math.max(...x.map((row) => row.length).concat([df.shape[1]]));
+              const out = df.copy();
+              out._values = out._values.concat(x).map((row) => {
+                while (row.length < maxRowLength) {
+                  row.push(void 0);
+                }
+                return row;
+              });
+              while (out._index.length < out._values.length) {
+                out._index.push("row" + out._index.length);
+              }
+              while (out._columns.length < maxRowLength) {
+                out._columns.push("col" + out._columns.length);
+              }
+              return out;
+            } else {
+              const maxRowLength = Math.max(...x.map((row) => row.length)) + df.shape[1];
+              const maxColLength = Math.max(df.shape[0], xShape[0]);
+              const out = df.copy();
+              range(0, maxColLength).forEach((i) => {
+                if (i >= out._values.length) {
+                  out._values.push(ndarray(df.shape[1]));
+                }
+                out._values[i] = out._values[i].concat(x[i]);
+                while (out._values[i].length < maxRowLength) {
+                  out._values[i].push(void 0);
+                }
+              });
+              while (out._index.length < out._values.length) {
+                out._index.push("row" + out._index.length);
+              }
+              while (out._columns.length < maxRowLength) {
+                out._columns.push("col" + out._columns.length);
+              }
+              return out;
+            }
+          } else {
+            throw new MathError("Only 1- and 2-dimensional arrays can be appended to a DataFrame!");
+          }
+        } else if (isSeries(x)) {
+          const out = dfAppend(df, x.values, axis);
+          if (axis === 0) {
+            out.index[out.index.length - 1] = out.index.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
+          } else {
+            out.columns[out.columns.length - 1] = out.columns.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
+          }
+          return out;
+        } else if (isDataFrame(x)) {
+          if (axis === 0) {
+            const out = df.copy();
+            const maxRowLength = set(out._columns.concat(x._columns)).length;
+            out._values.forEach((row) => {
+              while (row.length < maxRowLength) {
+                row.push(void 0);
+              }
+            });
+            x.apply((row) => {
+              const rowCopy = row.copy();
+              const temp = [];
+              out._columns.forEach((col) => {
+                const index = rowCopy._index.indexOf(col);
+                if (index > -1) {
+                  temp.push(rowCopy._values[index]);
+                  rowCopy._values.splice(index, 1);
+                  rowCopy._index.splice(index, 1);
+                } else {
+                  temp.push(void 0);
+                }
+              });
+              out._values.push(temp.concat(rowCopy._values));
+            }, 1);
+            out._columns = out._columns.concat(x._columns.filter((c) => out._columns.indexOf(c) < 0));
+            while (out._index.length < out._values.length) {
+              const newRowName = "row" + out._index.length;
+              out._index.push(newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""));
+            }
+            return out;
+          } else {
+            const out = df.copy();
+            out._index.forEach((rowName, i) => {
+              const xIndex = x._index.indexOf(rowName);
+              if (xIndex > -1) {
+                out._values[i] = out._values[i].concat(x._values[xIndex]);
+              } else {
+                out._values[i] = out._values[i].concat(ndarray(x.shape[1]));
+              }
+            });
+            x._index.forEach((rowName, i) => {
+              const outIndex = out._index.indexOf(rowName);
+              if (outIndex < 0) {
+                out._index.push(rowName);
+                out._values.push(ndarray(out._columns.length).concat(x._values[i]));
+              }
+            });
+            out._columns = out._columns.concat(x._columns.map((c) => c + (out._columns.indexOf(c) > -1 ? " (2)" : "")));
+            return out;
+          }
+        } else {
+          throw new MathError("Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!");
+        }
+      }
+      module.exports = dfAppend;
+    }
+  });
+
+  // src/dataframe/df-apply.js
+  var require_df_apply = __commonJS({
+    "src/dataframe/df-apply.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isFunction = require_is_function();
+      var isUndefined = require_is_undefined();
+      function dfApply(DataFrame, Series, df, fn, axis) {
+        axis = axis || 0;
+        assert(isFunction(fn), "The first parameter to the `apply` method must be a function.");
+        assert(axis === 0 || axis === 1, "The second parameter to the `apply` method (the `axis`) must be 0 or 1.");
+        if (axis === 0) {
+          const temp = {};
+          let shouldReturnADataFrame;
+          df.columns.forEach((colName, i) => {
+            const series = new Series(df.values.map((row) => row[i]));
+            series.name = colName;
+            series.index = df.index;
+            const value = fn(series, i, df);
+            if (value instanceof Series) {
+              temp[colName] = value.values;
+            } else {
+              temp[colName] = value;
+            }
+            if (isUndefined(shouldReturnADataFrame)) {
+              shouldReturnADataFrame = value instanceof Series || isArray(value);
+            }
+          });
+          if (shouldReturnADataFrame) {
+            const out = new DataFrame(temp);
+            out.index = df.index;
+            return out;
+          } else {
+            const out = new Series(df.columns.map((colName) => temp[colName]));
+            out.index = df.columns;
+            return out;
+          }
+        } else if (axis === 1) {
+          let shouldReturnADataFrame;
+          const temp = df.values.map((row, i) => {
+            const series = new Series(row);
+            series.name = df.index[i];
+            series.index = df.columns;
+            const value = fn(series, i, df);
+            if (isUndefined(shouldReturnADataFrame)) {
+              shouldReturnADataFrame = value instanceof Series || isArray(value);
+            }
+            if (value instanceof Series) {
+              return value.values;
+            } else {
+              return value;
+            }
+          });
+          if (shouldReturnADataFrame) {
+            const out = new DataFrame(temp);
+            out.index = df.index;
+            out.columns = df.columns;
+            return out;
+          } else {
+            const out = new Series(temp);
+            out.index = df.index;
+            return out;
+          }
+        }
+      }
+      module.exports = dfApply;
+    }
+  });
+
+  // src/is-string.js
+  var require_is_string = __commonJS({
+    "src/is-string.js"(exports, module) {
+      function isString(s) {
+        return typeof s === "string";
+      }
+      module.exports = isString;
+    }
+  });
+
+  // src/dataframe/df-assign.js
+  var require_df_assign = __commonJS({
+    "src/dataframe/df-assign.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isJagged = require_is_jagged();
+      var isObject = require_is_object();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var MathError = require_math_error();
+      var shape = require_shape();
+      function dfAssign(DataFrame, Series, df, p1, p2) {
+        const isDataFrame = (x) => x instanceof DataFrame;
+        const isSeries = (x) => x instanceof Series;
+        if (!isUndefined(p2)) {
+          assert(isString(p1), "If passing two arguments into the `assign` method, then the first argument must be a string name!");
+          assert(isArray(p2) && !isJagged(p2) && shape(p2).length === 1, "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!");
+          const out = df.append(p2, 1);
+          out.columns[out.columns.length - 1] = p1;
+          return out;
+        } else {
+          if (isDataFrame(p1)) {
+            return df.append(p1, 1);
+          } else if (isSeries(p1)) {
+            return df.append(p1, 1);
+          } else if (isObject(p1)) {
+            const maxColumnLength = Math.max(...Object.keys(p1).map((key) => p1[key].length));
+            Object.keys(p1).forEach((key) => {
+              while (p1[key].length < maxColumnLength) {
+                p1[key].push(void 0);
+              }
+            });
+            return df.append(new DataFrame(p1), 1);
+          } else {
+            throw new MathError("You must pass a DataFrame, Series, or object into the `assign` method!");
+          }
+        }
+      }
+      module.exports = dfAssign;
+    }
+  });
+
+  // src/dataframe/df-copy.js
+  var require_df_copy = __commonJS({
+    "src/dataframe/df-copy.js"(exports, module) {
+      var { copy } = require_copy();
+      function dfCopy(DataFrame, df) {
+        if (df.isEmpty)
+          return new DataFrame();
+        const out = new DataFrame(copy(df.values));
+        out.columns = df.columns.slice();
+        out.index = df.index.slice();
+        return out;
+      }
+      module.exports = dfCopy;
+    }
+  });
+
+  // src/dataframe/df-drop.js
+  var require_df_drop = __commonJS({
+    "src/dataframe/df-drop.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isNumber = require_is_number();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var shape = require_shape();
+      function dfDrop(DataFrame, Series, df, rows, cols) {
+        if (isUndefined(rows))
+          rows = [];
+        if (isUndefined(cols))
+          cols = [];
+        if (isString(rows) || isNumber(rows))
+          rows = [rows];
+        if (isString(cols) || isNumber(cols))
+          cols = [cols];
+        assert(isArray(rows), "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
+        assert(isArray(cols), "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
+        assert(shape(rows).length === 1, "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
+        assert(shape(cols).length === 1, "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
+        let outIndex, outColumns;
+        df.index.forEach((row, i) => {
+          if (rows.indexOf(row) < 0 && rows.indexOf(i) < 0) {
+            if (!outIndex)
+              outIndex = [];
+            outIndex.push(row);
+          }
+        });
+        df.columns.forEach((col, i) => {
+          if (cols.indexOf(col) < 0 && cols.indexOf(i) < 0) {
+            if (!outColumns)
+              outColumns = [];
+            outColumns.push(col);
+          }
+        });
+        let out = df.get(outIndex, outColumns);
+        if (out instanceof Series) {
+          let temp = new DataFrame();
+          temp = temp.assign(out);
+          if (df.index.indexOf(out.name) > -1)
+            temp = temp.transpose();
+          out = temp;
+        }
+        return out;
+      }
+      module.exports = dfDrop;
+    }
+  });
+
+  // src/helpers/is-whole-number.js
+  var require_is_whole_number = __commonJS({
+    "src/helpers/is-whole-number.js"(exports, module) {
+      var isNumber = require_is_number();
+      function isInteger(x) {
+        return isNumber(x) && parseInt(x) === x;
+      }
+      function isWholeNumber(x) {
+        return isInteger(x) && x >= 0;
+      }
+      module.exports = isWholeNumber;
+    }
+  });
+
+  // src/dataframe/df-drop-missing.js
+  var require_df_drop_missing = __commonJS({
+    "src/dataframe/df-drop-missing.js"(exports, module) {
+      var assert = require_assert();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var isWholeNumber = require_is_whole_number();
+      var shape = require_shape();
+      function dfDropMissing(DataFrame, Series, df, axis, condition, threshold) {
+        axis = axis || 0;
+        assert(axis === 0 || axis === 1, "The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1.");
+        threshold = threshold || 0;
+        assert(isWholeNumber(threshold), "The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values).");
+        condition = threshold > 0 ? "none" : condition || "any";
+        assert(condition === "any" || condition === "all" || condition === "none", "The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped).");
+        function helper(values) {
+          if (threshold > 0) {
+            let count = 0;
+            for (let i = 0; i < values.length; i++) {
+              const value = values[i];
+              if (isUndefined(value))
+                count++;
+              if (count >= threshold)
+                return [];
+            }
+          } else if (condition === "any") {
+            for (let i = 0; i < values.length; i++) {
+              const value = values[i];
+              if (isUndefined(value))
+                return [];
+            }
+          } else if (condition === "all") {
+            for (let i = 0; i < values.length; i++) {
+              const value = values[i];
+              if (!isUndefined(value))
+                return values;
+            }
+            return [];
+          }
+          return values;
+        }
+        let out = df.copy();
+        const tempID = Math.random().toString();
+        if (axis === 0) {
+          out = out.assign(tempID, out.index);
+          const newValues = out.values.map(helper).filter((row) => row.length > 0);
+          if (shape(newValues).length < 2)
+            return new DataFrame();
+          out.values = newValues;
+          let newIndex = out.get(null, tempID);
+          if (isUndefined(newIndex))
+            return new DataFrame();
+          if (isString(newIndex))
+            newIndex = [newIndex];
+          if (newIndex instanceof Series)
+            newIndex = newIndex.values;
+          out.index = newIndex;
+          out = out.drop(null, tempID);
+        } else if (axis === 1) {
+          const temp = {};
+          out.columns.forEach((colName, i) => {
+            const values = out.values.map((row) => row[i]);
+            const newValues = helper(values);
+            if (newValues.length > 0) {
+              temp[colName] = newValues;
+            }
+          });
+          if (Object.keys(temp).length === 0) {
+            return new DataFrame();
+          }
+          const newOut = new DataFrame(temp);
+          newOut.index = out.index;
+          return newOut;
+        }
+        return out;
+      }
+      module.exports = dfDropMissing;
+    }
+  });
+
+  // src/drop-nan.js
+  var require_drop_nan = __commonJS({
+    "src/drop-nan.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      function dropNaN(x) {
+        if (isDataFrame(x) || isSeries(x)) {
+          return x.dropNaN(...Object.values(arguments).slice(1));
+        }
+        assert(isArray(x), "The `dropNaN` function only works on arrays, Series, and DataFrames!");
+        const out = [];
+        x.forEach((v) => {
+          try {
+            return out.push(dropNaN(v));
+          } catch (e) {
+            if (isNumber(v)) {
+              return out.push(v);
+            }
+          }
+        });
+        return out;
+      }
+      module.exports = dropNaN;
+    }
+  });
+
+  // src/dataframe/df-drop-nan.js
+  var require_df_drop_nan = __commonJS({
+    "src/dataframe/df-drop-nan.js"(exports, module) {
+      var assert = require_assert();
+      var dropNaN = require_drop_nan();
+      var isWholeNumber = require_is_whole_number();
+      function dfDropNaN(DataFrame, df, axis, condition, threshold) {
+        axis = axis || 0;
+        assert(axis === 0 || axis === 1, "The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1.");
+        threshold = threshold || 0;
+        assert(isWholeNumber(threshold), "The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values).");
+        condition = threshold > 0 ? "none" : condition || "any";
+        assert(condition === "any" || condition === "all" || condition === "none", "The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped).");
+        function helper(values) {
+          const numericalValues = dropNaN(values);
+          if (threshold > 0)
+            return values.length - numericalValues.length < threshold;
+          if (condition === "any")
+            return numericalValues.length === values.length;
+          if (condition === "all")
+            return numericalValues.length > 0;
+          return true;
+        }
+        const out = df.copy();
+        if (axis === 0) {
+          const rowsToKeep = out.index.filter((row) => {
+            const values = out.get(row, null).values;
+            return helper(values);
+          });
+          if (rowsToKeep.length > 0)
+            return out.get(rowsToKeep, null);
+          else
+            return new DataFrame();
+        } else if (axis === 1) {
+          const colsToKeep = out.columns.filter((col) => {
+            const values = out.get(null, col).values;
+            return helper(values);
+          });
+          if (colsToKeep.length > 0)
+            return out.get(null, colsToKeep);
+          else
+            return new DataFrame();
+        }
+        return out;
+      }
+      module.exports = dfDropNaN;
+    }
+  });
+
+  // src/dataframe/df-filter.js
+  var require_df_filter = __commonJS({
+    "src/dataframe/df-filter.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isFunction = require_is_function();
+      var isUndefined = require_is_undefined();
+      function arrayToObject(x) {
+        const out = {};
+        flatten(x).forEach((value, i) => {
+          out[value] = i;
+        });
+        return out;
+      }
+      function undoArrayToObject(obj) {
+        return Object.keys(obj).sort((a, b) => obj[a] - obj[b]);
+      }
+      function dfFilter(DataFrame, Series, df, fn, axis) {
+        assert(isFunction(fn), "The `filter` method takes a single parameter: a function that is used to filter the values.");
+        if (isUndefined(axis))
+          axis = 0;
+        assert(axis === 0 || axis === 1, "The `axis` parameter to the `filter` method must be 0 or 1.");
+        let out = df.copy();
+        if (out.isEmpty)
+          return out;
+        const index = arrayToObject(out.index);
+        const columns = arrayToObject(out.columns);
+        if (axis === 0) {
+          const newValues = out.values.filter((row, i) => {
+            const series = new Series(row);
+            series.name = df.index[i];
+            series.index = df.columns;
+            const shouldKeep = fn(series, i, df);
+            if (!shouldKeep)
+              delete index[out.index[i]];
+            return shouldKeep;
+          });
+          if (flatten(newValues).length === 0) {
+            return new DataFrame();
+          }
+          if (newValues.length === 1) {
+            const temp = new Series(flatten(newValues));
+            temp.name = undoArrayToObject(index)[0];
+            temp.index = undoArrayToObject(columns);
+            return temp;
+          }
+          out.values = newValues;
+          out.index = undoArrayToObject(index);
+        } else if (axis === 1) {
+          out = out.transpose();
+          const newValues = out.values.filter((row, i) => {
+            const series = new Series(row);
+            series.name = df.columns[i];
+            series.index = df.index;
+            const shouldKeep = fn(series, i, df);
+            if (!shouldKeep)
+              delete columns[out.index[i]];
+            return shouldKeep;
+          });
+          if (flatten(newValues).length === 0) {
+            return new DataFrame();
+          }
+          if (newValues.length === 1) {
+            const temp = new Series(flatten(newValues));
+            temp.name = undoArrayToObject(columns)[0];
+            temp.index = undoArrayToObject(index);
+            return temp;
+          }
+          out.values = newValues;
+          out.index = undoArrayToObject(columns);
+          out = out.transpose();
+        }
+        return out;
+      }
+      module.exports = dfFilter;
+    }
+  });
+
+  // src/dataframe/df-get.js
+  var require_df_get = __commonJS({
+    "src/dataframe/df-get.js"(exports, module) {
+      var assert = require_assert();
+      var isNumber = require_is_number();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var set = require_set();
+      function dfGet(df, rows, cols) {
+        if (isString(rows) || isNumber(rows))
+          rows = [rows];
+        if (isString(cols) || isNumber(cols))
+          cols = [cols];
+        const types = set((rows || []).concat(cols || []).map((v) => typeof v));
+        assert(types.length <= 2, "Only whole numbers and/or strings are allowed in `get` arrays!");
+        if (types.length === 1) {
+          assert(types[0] === "string" || types[0] === "number", "Only whole numbers and/or strings are allowed in `get` arrays!");
+        }
+        if (types.length === 2) {
+          assert(types.indexOf("string") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
+          assert(types.indexOf("number") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
+        }
+        if (!isUndefined(rows)) {
+          rows = rows.map((r) => {
+            if (isString(r)) {
+              assert(df.index.indexOf(r) > -1, `Row "${r}" does not exist!`);
+              return r;
+            }
+            if (isNumber(r)) {
+              assert(r >= 0, `Index ${r} is out of bounds!`);
+              assert(parseInt(r) === r, `Row numbers must be integers!`);
+              assert(r < df.index.length, `Index ${r} is out of bounds!`);
+              return df.index[r];
+            }
+          });
+        }
+        if (!isUndefined(cols)) {
+          cols = cols.map((c) => {
+            if (isString(c)) {
+              assert(df.columns.indexOf(c) > -1, `Column "${c}" does not exist!`);
+              return c;
+            }
+            if (isNumber(c)) {
+              assert(c >= 0, `Column ${c} is out of bounds!`);
+              assert(parseInt(c) === c, `Column numbers must be integers!`);
+              assert(c < df.columns.length, `Column ${c} is out of bounds!`);
+              return df.columns[c];
+            }
+          });
+        }
+        return df.getSubsetByNames(rows, cols);
+      }
+      module.exports = dfGet;
+    }
+  });
+
+  // src/sort.js
+  var require_sort = __commonJS({
+    "src/sort.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isFunction = require_is_function();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      function alphaSort(a, b) {
+        try {
+          if (a < b)
+            return -1;
+          if (a > b)
+            return 1;
+          return 0;
+        } catch (e) {
+          a = typeof a === "object" && a !== null ? JSON.stringify(a) : a.toString();
+          b = typeof b === "object" && b !== null ? JSON.stringify(b) : b.toString();
+          if (a < b)
+            return -1;
+          if (a > b)
+            return 1;
+          return 0;
+        }
+      }
+      function sort(arr, fn) {
+        if (isUndefined(fn))
+          fn = alphaSort;
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return arr.sort(...Object.values(arguments).slice(1));
+        }
+        assert(isArray(arr), "The `sort` function only works on arrays, Series, and DataFrames!");
+        assert(isFunction(fn), "The second parameter of the `sort` function must be a comparison function!");
+        const out = arr.slice();
+        out.sort(fn);
+        return out;
+      }
+      module.exports = sort;
+    }
+  });
+
+  // src/dataframe/df-get-dummies.js
+  var require_df_get_dummies = __commonJS({
+    "src/dataframe/df-get-dummies.js"(exports, module) {
+      var assert = require_assert();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var set = require_set();
+      var sort = require_sort();
+      function camelify(text) {
+        const temp = text.toLowerCase();
+        let out = "";
+        for (let i = 0; i < temp.length; i++) {
+          const char = temp[i];
+          if (char.match(/[a-z0-9]/g)) {
+            out += char;
+          } else {
+            out += " ";
+          }
+        }
+        const words = out.split(" ").filter((word) => word.length > 0);
+        return words[0] + words.slice(1).map((word) => word[0].toUpperCase() + word.substring(1)).join("");
+      }
+      function dfGetDummies(DataFrame, df, columns) {
+        if (isUndefined(columns)) {
+          columns = df.columns;
+        } else if (isString(columns)) {
+          columns = [columns];
+        }
+        const temp = {};
+        columns.forEach((col) => {
+          assert(isString(col), "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!");
+          const colIndex = df.columns.indexOf(col);
+          assert(colIndex > -1, `The given DataFrame does not have a column called "${col}"!`);
+          const values = df.values.map((row) => row[colIndex]);
+          const valuesSet = sort(set(values));
+          values.forEach((value) => {
+            valuesSet.forEach((orig) => {
+              const colName = col + "_" + camelify(orig.toString());
+              if (!temp[colName]) {
+                temp[colName] = [];
+              }
+              if (value === orig) {
+                temp[colName].push(1);
+              } else {
+                temp[colName].push(0);
+              }
+            });
+          });
+        });
+        const out = new DataFrame(temp);
+        out.index = df.index;
+        return out;
+      }
+      module.exports = dfGetDummies;
+    }
+  });
+
+  // src/dataframe/df-get-subset-by-indices.js
+  var require_df_get_subset_by_indices = __commonJS({
+    "src/dataframe/df-get-subset-by-indices.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var isWholeNumber = require_is_whole_number();
+      var range = require_range();
+      var shape = require_shape();
+      function dfGetSubsetByIndices(df, rowIndices, colIndices) {
+        const dataShape = df.shape;
+        if (isUndefined(rowIndices))
+          rowIndices = range(0, dataShape[0]);
+        if (isUndefined(colIndices))
+          colIndices = range(0, dataShape[1]);
+        if (isNumber(rowIndices))
+          rowIndices = [rowIndices];
+        if (isNumber(colIndices))
+          colIndices = [colIndices];
+        assert(isArray(rowIndices) && isArray(colIndices), "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
+        assert(shape(rowIndices).length === 1 && shape(colIndices).length === 1, "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
+        assert(rowIndices.length > 0, "The `rowIndices` array must contain at least one index.");
+        assert(colIndices.length > 0, "The `colIndices` array must contain at least one index.");
+        rowIndices.forEach((rowIndex) => {
+          assert(isWholeNumber(rowIndex), "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
+          assert(rowIndex < df.index.length, `The row index ${rowIndex} is out of bounds.`);
+        });
+        colIndices.forEach((colIndex) => {
+          assert(isWholeNumber(colIndex), "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
+          assert(colIndex < df.columns.length, `The column index ${colIndex} is out of bounds.`);
+        });
+        const rows = rowIndices.map((i) => df.index[i]);
+        const cols = colIndices.map((i) => df.columns[i]);
+        return df.getSubsetByNames(rows, cols);
+      }
+      module.exports = dfGetSubsetByIndices;
+    }
+  });
+
+  // src/dataframe/df-get-subset-by-names.js
+  var require_df_get_subset_by_names = __commonJS({
+    "src/dataframe/df-get-subset-by-names.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var shape = require_shape();
+      function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
+        if (isUndefined(rows))
+          rows = df.index;
+        if (isUndefined(cols))
+          cols = df.columns;
+        if (isString(rows))
+          rows = [rows];
+        if (isString(cols))
+          cols = [cols];
+        assert(isArray(rows) && isArray(cols), "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
+        assert(shape(rows).length === 1 && shape(cols).length === 1, "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
+        assert(rows.length > 0, "The `rows` array must contain at least one row name.");
+        assert(cols.length > 0, "The `cols` array must contain at least one column name.");
+        rows.forEach((row) => {
+          assert(isString(row), "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
+          assert(df.index.indexOf(row) > -1, `The row name "${row}" does not exist in the list of rows.`);
+        });
+        cols.forEach((col) => {
+          assert(isString(col), "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
+          assert(df.columns.indexOf(col) > -1, `The column name "${col}" does not exist in the list of columns.`);
+        });
+        const values = rows.map((row) => {
+          return cols.map((col) => {
+            return df.values[df.index.indexOf(row)][df.columns.indexOf(col)];
+          });
+        });
+        if (rows.length === 1 && cols.length === 1) {
+          return flatten(values)[0];
+        }
+        if (rows.length === 1) {
+          const out2 = new Series(flatten(values));
+          out2.name = rows[0];
+          out2.index = cols;
+          return out2;
+        }
+        if (cols.length === 1) {
+          const out2 = new Series(flatten(values));
+          out2.name = cols[0];
+          out2.index = rows;
+          return out2;
+        }
+        const out = new DataFrame(values);
+        out.columns = cols;
+        out.index = rows;
+        return out;
+      }
+      module.exports = dfGetSubsetByNames;
+    }
+  });
+
+  // src/dataframe/df-print.js
+  var require_df_print = __commonJS({
+    "src/dataframe/df-print.js"(exports, module) {
+      var isString = require_is_string();
+      var range = require_range();
+      function dfPrint(DataFrame, Series, df) {
+        function truncate(s, maxLength2) {
+          if (isString(s)) {
+            if (s.length > maxLength2) {
+              return s.substring(0, maxLength2 - 3) + "...";
+            } else {
+              return s;
+            }
+          } else {
+            return s;
+          }
+        }
+        if (df.isEmpty) {
+          console.table({});
+          console.log("Shape:", [0, 0], "\n");
+          return df;
+        }
+        const maxRows = typeof window === "undefined" ? 20 : 10;
+        const halfMaxRows = parseInt(maxRows / 2);
+        const maxColumns = typeof process === "undefined" ? 10 : Math.floor(process.stdout.columns / 24) - 1;
+        const halfMaxColumns = parseInt(maxColumns / 2);
+        const tempRows = maxRows > df.index.length ? null : range(0, halfMaxRows).concat(range(df.index.length - halfMaxRows, df.index.length));
+        const tempColumns = maxColumns > df.columns.length ? null : range(0, halfMaxColumns).concat(range(df.columns.length - halfMaxColumns, df.columns.length));
+        let temp = df.get(tempRows, tempColumns);
+        if (temp instanceof Series) {
+          if (df.shape[0] === 1) {
+            temp = new DataFrame([temp.values]);
+            temp.index = df.index;
+            temp.columns = new Series(df.columns).get(tempColumns).values;
+          } else if (df.shape[1] === 1) {
+            temp = new DataFrame([temp.values]).transpose();
+            temp.index = new Series(df.index).get(tempRows).values;
+            temp.columns = df.columns;
+          }
+        }
+        if (maxRows <= df.index.length) {
+          temp._index.splice(halfMaxRows, 0, "...");
+          temp._values.splice(halfMaxRows, 0, range(0, temp.columns.length).map(() => "..."));
+        }
+        if (maxColumns <= df.columns.length) {
+          temp._columns.splice(halfMaxColumns, 0, "...");
+          temp._values = temp._values.map((row) => {
+            row.splice(halfMaxColumns, 0, "...");
+            return row;
+          });
+        }
+        const maxLength = 28;
+        if (temp instanceof Series) {
+          temp.values = temp.values.map((value) => truncate(value, maxLength));
+          temp.name = truncate(temp.name, maxLength);
+          temp.index = temp.index.map((row) => truncate(row, maxLength));
+        } else {
+          temp.values = temp.values.map((row) => {
+            return row.map((value) => truncate(value, maxLength));
+          });
+          temp.columns = temp.columns.map((col) => truncate(col, maxLength));
+          temp.index = temp.index.map((row) => truncate(row, maxLength));
+        }
+        console.table(temp.toObject());
+        console.log("Shape:", df.shape, "\n");
+        return df;
+      }
+      module.exports = dfPrint;
+    }
+  });
+
+  // src/helpers/left-pad.js
+  var require_left_pad = __commonJS({
+    "src/helpers/left-pad.js"(exports, module) {
+      var assert = require_assert();
+      var isNumber = require_is_number();
+      function leftPad(x, maxLength) {
+        assert(isNumber(x), "The `leftPad` function only works on numbers!");
+        let out = x.toString();
+        while (out.length < maxLength)
+          out = "0" + out;
+        return out;
+      }
+      module.exports = leftPad;
+    }
+  });
+
+  // src/dataframe/df-reset-index.js
+  var require_df_reset_index = __commonJS({
+    "src/dataframe/df-reset-index.js"(exports, module) {
+      var leftPad = require_left_pad();
+      var range = require_range();
+      function dfResetIndex(df, shouldSkipCopying) {
+        const out = shouldSkipCopying ? df : df.copy();
+        out.index = range(0, df.shape[0]).map((i) => {
+          return "row" + leftPad(i, (out.index.length - 1).toString().length);
+        });
+        return out;
+      }
+      module.exports = dfResetIndex;
+    }
+  });
+
+  // src/product.js
+  var require_product = __commonJS({
+    "src/product.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function product(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return product(arr.values);
+        }
+        assert(isArray(arr), "The `product` function only works on arrays, Series, and DataFrames!");
+        try {
+          if (arr.length === 0)
+            return NaN;
+          return flatten(arr).reduce((a, b) => a * b, 1);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = product;
+    }
+  });
+
+  // src/reshape.js
+  var require_reshape = __commonJS({
+    "src/reshape.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var product = require_product();
+      var shape = require_shape();
+      function reshape(x, newShape) {
+        if (isDataFrame(x) || isSeries(x)) {
+          return reshape(x.values, newShape);
+        }
+        assert(isArray(x), "The first argument passed into the `reshape` function must be an array!");
+        if (isNumber(newShape))
+          newShape = [newShape];
+        assert(isArray(newShape), "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!");
+        assert(shape(newShape).length === 1, "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!");
+        newShape.forEach((v) => {
+          assert(isNumber(v) && parseInt(v) === v && v > 0, "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!");
+        });
+        if (newShape.length === 0) {
+          return flatten(x);
+        }
+        const temp = flatten(x);
+        if (newShape.length === 1 && newShape[0] === temp.length) {
+          return temp;
+        }
+        assert(product(newShape) === temp.length, "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!");
+        const out = [];
+        const step = parseInt(temp.length / newShape[0]);
+        for (let i = 0; i < newShape[0]; i++) {
+          const row = temp.slice(i * step, (i + 1) * step);
+          out.push(reshape(row, newShape.slice(1)));
+        }
+        return out;
+      }
+      module.exports = reshape;
+    }
+  });
+
+  // src/random.js
+  var require_random = __commonJS({
+    "src/random.js"(exports, module) {
+      var { copy } = require_copy();
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var ndarray = require_ndarray();
+      var product = require_product();
+      var reshape = require_reshape();
+      var MAX = Math.pow(2, 64);
+      var s = [];
+      seed(parseInt(Math.random() * MAX));
+      function splitmix64(state, n) {
+        state = uint(state);
+        function helper() {
+          state += uint("0x9e3779b97f4a7c15");
+          let z = copy(state);
+          z = (z ^ z >> BigInt(30)) * uint("0xbf58476d1ce4e5b9");
+          z = (z ^ z >> BigInt(27)) * uint("0x94d049bb133111eb");
+          return z ^ z >> BigInt(31);
+        }
+        const out = [];
+        for (let i = 0; i < n; i++)
+          out.push(helper());
+        return out;
+      }
+      function uint(x) {
+        return BigInt.asUintN(64, BigInt(x));
+      }
+      function rotl(x, k) {
+        x = uint(x);
+        k = BigInt(k);
+        return uint(uint(x << k) | uint(x >> uint(BigInt(64) - k)));
+      }
+      function seed(val) {
+        if (!isUndefined(val)) {
+          assert(isNumber(val), "If passing a value into the `seed` function, then that value must be an integer!");
+          const temp = splitmix64(parseInt(val), 4);
+          s[0] = temp[0];
+          s[1] = temp[1];
+          s[2] = temp[2];
+          s[3] = temp[3];
+        } else {
+          return copy(s);
+        }
+      }
+      function next() {
+        const result = uint(rotl(s[0] + s[3], 23) + s[0]);
+        const t = uint(s[1] << BigInt(17));
+        s[2] = uint(s[2] ^ s[0]);
+        s[3] = uint(s[3] ^ s[1]);
+        s[1] = uint(s[1] ^ s[2]);
+        s[0] = uint(s[0] ^ s[3]);
+        s[2] = uint(s[2] ^ t);
+        s[3] = rotl(s[3], 45);
+        return parseInt(result) / MAX;
+      }
+      function random(shape) {
+        if (isUndefined(shape))
+          return next();
+        if (!isArray(shape))
+          shape = [shape];
+        return reshape(ndarray(product(shape)).map(next), shape);
+      }
+      module.exports = { random, seed };
+    }
+  });
+
+  // src/shuffle.js
+  var require_shuffle = __commonJS({
+    "src/shuffle.js"(exports, module) {
+      var { random } = require_random();
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function shuffle(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return arr.shuffle(...Object.values(arguments).slice(1));
+        }
+        assert(isArray(arr), "The `shuffle` function only works on arrays, Series, and DataFrames!");
+        const out = [];
+        const temp = arr.slice();
+        for (let i = 0; i < arr.length; i++) {
+          const index = parseInt(random() * temp.length);
+          out.push(temp.splice(index, 1)[0]);
+        }
+        return out;
+      }
+      module.exports = shuffle;
+    }
+  });
+
+  // src/dataframe/df-shuffle.js
+  var require_df_shuffle = __commonJS({
+    "src/dataframe/df-shuffle.js"(exports, module) {
+      var assert = require_assert();
+      var isUndefined = require_is_undefined();
+      var shuffle = require_shuffle();
+      function dfShuffle(df, axis) {
+        if (isUndefined(axis))
+          axis = 0;
+        assert(axis === 0 || axis === 1, "The `axis` parameter to the `shuffle` must be 0, 1, or undefined.");
+        return df.get(axis === 0 ? shuffle(df.index) : null, axis === 1 ? shuffle(df.columns) : null);
+      }
+      module.exports = dfShuffle;
+    }
+  });
+
+  // src/is-boolean.js
+  var require_is_boolean = __commonJS({
+    "src/is-boolean.js"(exports, module) {
+      function isBoolean(x) {
+        return typeof x === "boolean";
+      }
+      module.exports = isBoolean;
+    }
+  });
+
+  // src/dataframe/df-sort.js
+  var require_df_sort = __commonJS({
+    "src/dataframe/df-sort.js"(exports, module) {
+      var { random } = require_random();
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isBoolean = require_is_boolean();
+      var isFunction = require_is_function();
+      var isNumber = require_is_number();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var range = require_range();
+      var shape = require_shape();
+      var sort = require_sort();
+      function dfSort(df, a, b) {
+        if (isFunction(a)) {
+          return dfSortByFunction(df, a, b);
+        } else {
+          return dfSortByColumns(df, a, b);
+        }
+      }
+      function dfSortByFunction(df, fn, axis) {
+        axis = isUndefined(axis) ? 0 : axis;
+        assert(isFunction(fn), "When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!");
+        assert(isNumber(axis), "When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other.");
+        if (axis === 0) {
+          const index = sort(df.index, (a, b) => {
+            return fn(df.get(a, null), df.get(b, null));
+          });
+          return df.get(index, null);
+        } else {
+          const columns = sort(df.columns, (a, b) => {
+            return fn(df.get(null, a), df.get(null, b));
+          });
+          return df.get(null, columns);
+        }
+      }
+      function dfSortByColumns(df, cols, directions) {
+        let out = df.copy();
+        const indexID = random().toString();
+        out = out.assign(indexID, out.index);
+        if (isUndefined(cols)) {
+          cols = [indexID];
+          directions = [true];
+        }
+        if (isNumber(cols) || isString(cols)) {
+          cols = [cols];
+          if (isBoolean(directions) || isString(directions))
+            directions = [directions];
+        }
+        assert(isArray(cols), "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.");
+        assert(shape(cols).length === 1, "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.");
+        if (isUndefined(directions))
+          directions = range(0, cols.length).map(() => true);
+        assert(isArray(directions), "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.");
+        assert(shape(directions).length === 1, "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.");
+        assert(cols.length === directions.length, "The arrays passed into the `sort` method must be equal in length.");
+        cols = cols.map((col) => {
+          assert(isString(col) || isNumber(col), "Column references can either be column names (as strings) or column indices (as whole numbers).");
+          if (isString(col)) {
+            const index = out.columns.indexOf(col);
+            assert(index > -1, `The column "${col}" does not exist!`);
+            return index;
+          }
+          if (isNumber(col)) {
+            assert(parseInt(col) === col, "Column indices must be whole numbers!");
+            assert(col >= 0, `The column index ${col} is out of bounds!`);
+            assert(col < out.columns.length, `The index ${col} is out of bounds!`);
+            return col;
+          }
+        });
+        directions = directions.map((dir) => {
+          assert(isString(dir) || isBoolean(dir), "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).");
+          if (isString(dir)) {
+            const value = dir.trim().toLowerCase();
+            assert(value === "ascending" || value === "descending", "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).");
+            return value === "ascending";
+          }
+          if (isBoolean(dir)) {
+            return dir;
+          }
+        });
+        out.values = sort(out.values, (a, b) => {
+          let counter = 0;
+          while (a[cols[counter]] === b[cols[counter]] && counter < cols.length) {
+            counter++;
+          }
+          const isAscending = directions[counter];
+          if (a[cols[counter]] === b[cols[counter]])
+            return 0;
+          if (a[cols[counter]] < b[cols[counter]])
+            return isAscending ? -1 : 1;
+          if (a[cols[counter]] > b[cols[counter]])
+            return isAscending ? 1 : -1;
+        });
+        out.index = flatten(out.get(null, indexID).values);
+        out = out.dropColumns(indexID);
+        return out;
+      }
+      module.exports = dfSort;
+    }
+  });
+
+  // src/dataframe/df-to-json-string.js
+  var require_df_to_json_string = __commonJS({
+    "src/dataframe/df-to-json-string.js"(exports, module) {
+      function dfToJSONString(df, axis) {
+        return JSON.stringify(df.toObject(axis));
+      }
+      module.exports = dfToJSONString;
+    }
+  });
+
+  // src/dataframe/df-to-json.js
+  var require_df_to_json = __commonJS({
+    "src/dataframe/df-to-json.js"(exports, module) {
+      var MathError = require_math_error();
+      var dfToJSONString = require_df_to_json_string();
+      function toJSON(df, filename, axis) {
+        const out = dfToJSONString(df, axis);
+        let downloadedInBrowser = false;
+        let wroteToDiskInNode = false;
+        let browserError, nodeError;
+        try {
+          let newFilename = filename;
+          if (filename.includes("/")) {
+            const parts = filename.split("/");
+            newFilename = parts[parts.length - 1];
+          }
+          const a = document.createElement("a");
+          a.href = `data:application/json;charset=utf-8,${encodeURIComponent(out)}`;
+          a.download = newFilename;
+          a.dispatchEvent(new MouseEvent("click"));
+          downloadedInBrowser = true;
+        } catch (e) {
+          browserError = e;
+        }
+        try {
+          const fs = __require("fs");
+          const path = __require("path");
+          fs.writeFileSync(path.resolve(filename), out, "utf8");
+          wroteToDiskInNode = true;
+        } catch (e) {
+          nodeError = e;
+        }
+        if (!downloadedInBrowser && !wroteToDiskInNode) {
+          if (typeof window !== "undefined") {
+            throw new MathError(browserError);
+          } else if (typeof module !== "undefined") {
+            throw new MathError(nodeError);
+          } else {
+            throw new MathError("I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!");
+          }
+        }
+        return df;
+      }
+      module.exports = toJSON;
+    }
+  });
+
+  // src/dataframe/df-to-object.js
+  var require_df_to_object = __commonJS({
+    "src/dataframe/df-to-object.js"(exports, module) {
+      var assert = require_assert();
+      var isUndefined = require_is_undefined();
+      function dfToObject(df, axis) {
+        if (isUndefined(axis)) {
+          axis = 0;
+        } else {
+          assert(axis === 0 || axis === 1, "The axis parameter of the `toObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.");
+        }
+        const out = {};
+        if (axis === 0) {
+          df.index.forEach((rowName, i) => {
+            const temp = {};
+            df.columns.forEach((colName, j) => {
+              temp[colName] = df.values[i][j];
+            });
+            out[rowName] = temp;
+          });
+        } else {
+          df.columns.forEach((colName, j) => {
+            const temp = {};
+            df.index.forEach((rowName, i) => {
+              temp[rowName] = df.values[i][j];
+            });
+            out[colName] = temp;
+          });
+        }
+        return out;
+      }
+      module.exports = dfToObject;
+    }
+  });
+
+  // src/transpose.js
+  var require_transpose = __commonJS({
+    "src/transpose.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var ndarray = require_ndarray();
+      var reverse = require_reverse();
+      var shape = require_shape();
+      function transpose(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return arr.transpose();
+        }
+        assert(isArray(arr), "The `transpose` function only works on arrays, Series, and DataFrames!");
+        const theShape = shape(arr);
+        assert(theShape.length <= 2, "I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!");
+        if (theShape.length === 1) {
+          return reverse(arr);
+        } else if (theShape.length === 2) {
+          const out = ndarray(reverse(theShape));
+          for (let row = 0; row < theShape[0]; row++) {
+            for (let col = 0; col < theShape[1]; col++) {
+              out[col][row] = arr[row][col];
+            }
+          }
+          return out;
+        }
+      }
+      module.exports = transpose;
+    }
+  });
+
+  // src/series/series-append.js
+  var require_series_append = __commonJS({
+    "src/series/series-append.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNested = require_is_nested();
+      var isSeries = require_is_series();
+      var shape = require_shape();
+      function seriesAppend(Series, series, x) {
+        if (isSeries(x)) {
+          return new Series(series.values.concat(x.values));
+        }
+        if (isArray(x)) {
+          const xShape = shape(x);
+          assert(xShape.length === 1 && !isNested(xShape), "Only vectors can be appended to Series!");
+          const out = series.copy();
+          x.forEach((v, i) => {
+            out._values.push(v);
+            out._index.push("item" + (series.values.length + i));
+          });
+          return out;
+        }
+        assert(!isDataFrame(x), "DataFrames cannot be appended to Series!");
+        return seriesAppend(series, [x]);
+      }
+      module.exports = seriesAppend;
+    }
+  });
+
+  // src/series/series-apply.js
+  var require_series_apply = __commonJS({
+    "src/series/series-apply.js"(exports, module) {
+      var assert = require_assert();
+      var isFunction = require_is_function();
+      function seriesApply(series, fn) {
+        assert(isFunction(fn), "The parameter to the `apply` method must be a function.");
+        const out = series.copy();
+        out._values = out._values.map((v, i) => fn(v, i));
+        return out;
+      }
+      module.exports = seriesApply;
+    }
+  });
+
+  // src/series/series-drop-missing.js
+  var require_series_drop_missing = __commonJS({
+    "src/series/series-drop-missing.js"(exports, module) {
+      var isUndefined = require_is_undefined();
+      function seriesDropMissing(series) {
+        const out = series.copy();
+        const outIndex = [];
+        out._values = out.values.filter((v, i) => {
+          if (isUndefined(v)) {
+            return false;
+          } else {
+            outIndex.push(out.index[i]);
+            return true;
+          }
+        });
+        out._index = outIndex;
+        return out;
+      }
+      module.exports = seriesDropMissing;
+    }
+  });
+
+  // src/series/series-drop-nan.js
+  var require_series_drop_nan = __commonJS({
+    "src/series/series-drop-nan.js"(exports, module) {
+      var isNumber = require_is_number();
+      function seriesDropNaN(Series, series) {
+        const index = [];
+        const values = [];
+        series.values.forEach((value, i) => {
+          if (isNumber(value)) {
+            values.push(value);
+            index.push(series.index[i]);
+          }
+        });
+        const out = new Series(values);
+        out.name = series.name;
+        out.index = index;
+        return out;
+      }
+      module.exports = seriesDropNaN;
+    }
+  });
+
+  // src/series/series-filter.js
+  var require_series_filter = __commonJS({
+    "src/series/series-filter.js"(exports, module) {
+      var { copy } = require_copy();
+      function seriesFilter(Series, series, fn) {
+        let out = series.copy();
+        const index = copy(out.index);
+        const indicesToRemove = [];
+        const newValues = out.values.filter((value, i) => {
+          const shouldKeep = fn(value, i, out.values);
+          if (!shouldKeep)
+            indicesToRemove.push(out.index[i]);
+          return shouldKeep;
+        });
+        indicesToRemove.forEach((i) => {
+          index.splice(index.indexOf(i), 1);
+        });
+        if (newValues.length === 0) {
+          out = new Series();
+          out.name = series.name;
+          return out;
+        }
+        out.values = newValues;
+        out.index = index;
+        return out;
+      }
+      module.exports = seriesFilter;
+    }
+  });
+
+  // src/series/series-get.js
+  var require_series_get = __commonJS({
+    "src/series/series-get.js"(exports, module) {
+      var assert = require_assert();
+      var isNumber = require_is_number();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var set = require_set();
+      function seriesGet(series, indices) {
+        if (isString(indices) || isNumber(indices))
+          indices = [indices];
+        const types = set((indices || []).map((v) => typeof v));
+        assert(types.length <= 2, "Only whole numbers and/or strings are allowed in `get` arrays!");
+        if (types.length === 1) {
+          assert(types[0] === "string" || types[0] === "number", "Only whole numbers and/or strings are allowed in `get` arrays!");
+        }
+        if (types.length === 2) {
+          assert(types.indexOf("string") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
+          assert(types.indexOf("number") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
+        }
+        if (!isUndefined(indices)) {
+          indices = indices.map((i) => {
+            if (typeof i === "string") {
+              assert(series.index.indexOf(i) > -1, `Index "${i}" does not exist!`);
+              return i;
+            }
+            if (typeof i === "number") {
+              assert(i >= 0, `Index ${i} is out of bounds!`);
+              assert(parseInt(i) === i, `Indices must be integers!`);
+              assert(i < series.index.length, `Index ${i} is out of bounds!`);
+              return series.index[i];
+            }
+          });
+        }
+        return series.getSubsetByNames(indices);
+      }
+      module.exports = seriesGet;
+    }
+  });
+
+  // src/series/series-get-subset-by-indices.js
+  var require_series_get_subset_by_indices = __commonJS({
+    "src/series/series-get-subset-by-indices.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isUndefined = require_is_undefined();
+      var isWholeNumber = require_is_whole_number();
+      var range = require_range();
+      var shape = require_shape();
+      function seriesGetSubsetByIndices(series, indices) {
+        const dataShape = series.shape;
+        if (isUndefined(indices))
+          indices = range(0, dataShape[0]);
+        assert(isArray(indices), "The `indices` array must be 1-dimensional array of whole numbers.");
+        assert(shape(indices).length === 1, "The `indices` array must be a 1-dimensional array of whole numbers.");
+        assert(indices.length > 0, "The `indices` array must contain at least one index.");
+        indices.forEach((index) => {
+          assert(isWholeNumber(index), "The `indices` array must be a 1-dimensional array of whole numbers.");
+          assert(index < series.index.length, `The row index ${index} is out of bounds.`);
+        });
+        const rows = indices.map((i) => series.index[i]);
+        return series.getSubsetByNames(rows);
+      }
+      module.exports = seriesGetSubsetByIndices;
+    }
+  });
+
+  // src/series/series-get-subset-by-names.js
+  var require_series_get_subset_by_names = __commonJS({
+    "src/series/series-get-subset-by-names.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var shape = require_shape();
+      function seriesGetSubsetByNames(Series, series, indices) {
+        if (isUndefined(indices))
+          indices = series.index;
+        assert(isArray(indices), "The `indices` array must be a 1-dimensional array of strings.");
+        assert(shape(indices).length === 1, "The `indices` array must be a 1-dimensional array of strings.");
+        assert(indices.length > 0, "The `indices` array must contain at least one index name.");
+        indices.forEach((name) => {
+          assert(isString(name), "The `indices` array must contain only strings.");
+          assert(series.index.indexOf(name) > -1, `The name "${name}" does not exist in the index.`);
+        });
+        const values = indices.map((name) => {
+          return series.values[series.index.indexOf(name)];
+        });
+        if (values.length === 1)
+          return values[0];
+        const out = new Series(values);
+        out.index = indices;
+        out.name = series.name;
+        return out;
+      }
+      module.exports = seriesGetSubsetByNames;
+    }
+  });
+
+  // src/series/series-print.js
+  var require_series_print = __commonJS({
+    "src/series/series-print.js"(exports, module) {
+      var { copy } = require_copy();
+      var range = require_range();
+      function seriesPrint(series) {
+        let temp = series.copy();
+        const maxRows = typeof window === "undefined" ? 20 : 10;
+        if (temp.index.length > maxRows) {
+          temp = temp.get(range(0, maxRows / 2).concat(range(temp.index.length - maxRows / 2, temp.index.length)));
+          const tempIndex = copy(temp.index);
+          tempIndex.splice(parseInt(tempIndex.length / 2), 0, "...");
+          temp.values.push("...");
+          temp.index.push("...");
+          temp = temp.get(tempIndex);
+        }
+        const out = {};
+        temp.values.forEach((value, i) => {
+          const obj = {};
+          obj[temp.name] = value;
+          out[temp.index[i]] = obj;
+        });
+        console.table(out);
+        console.log("Shape:", series.shape, "\n");
+        return series;
+      }
+      module.exports = seriesPrint;
+    }
+  });
+
+  // src/series/series-shuffle.js
+  var require_series_shuffle = __commonJS({
+    "src/series/series-shuffle.js"(exports, module) {
+      var shuffle = require_shuffle();
+      function seriesShuffle(series) {
+        const out = series.copy();
+        return out.get(shuffle(out.index));
+      }
+      module.exports = seriesShuffle;
+    }
+  });
+
+  // src/series/series-sort.js
+  var require_series_sort = __commonJS({
+    "src/series/series-sort.js"(exports, module) {
+      var assert = require_assert();
+      var isFunction = require_is_function();
+      var isUndefined = require_is_undefined();
+      var sort = require_sort();
+      var transpose = require_transpose();
+      function seriesSort(Series, series, fn) {
+        fn = fn || ((a, b) => a < b ? -1 : 1);
+        assert(isUndefined(fn) || isFunction(fn), "You must pass undefined, null, or a comparison function as the second argument to the `sort` method!");
+        const pairs = transpose([series.values, series.index]);
+        const temp = sort(pairs, (aPair, bPair) => {
+          return fn(aPair[0], bPair[0]);
+        });
+        const newValues = [];
+        const newIndex = [];
+        temp.forEach((pair) => {
+          newValues.push(pair[0]);
+          newIndex.push(pair[1]);
+        });
+        const out = new Series();
+        out._values = newValues;
+        out._index = newIndex;
+        out.name = series.name;
+        return out;
+      }
+      module.exports = seriesSort;
+    }
+  });
+
+  // src/series/series-sort-by-index.js
+  var require_series_sort_by_index = __commonJS({
+    "src/series/series-sort-by-index.js"(exports, module) {
+      var sort = require_sort();
+      var transpose = require_transpose();
+      function seriesSortByIndex(Series, series) {
+        let temp = transpose([series.values, series.index]);
+        temp = transpose(sort(temp, (a, b) => {
+          if (a[1] === b[1])
+            return 0;
+          if (a[1] < b[1])
+            return -1;
+          if (a[1] > b[1])
+            return 1;
+        }));
+        const out = new Series(temp[0]);
+        out.index = temp[1];
+        out.name = series.name;
+        return out;
+      }
+      module.exports = seriesSortByIndex;
+    }
+  });
+
+  // src/series/series-to-object.js
+  var require_series_to_object = __commonJS({
+    "src/series/series-to-object.js"(exports, module) {
+      function seriesToObject(series) {
+        const out = {};
+        out[series.name] = {};
+        series.index.forEach((index, i) => {
+          out[series.name][index] = series.values[i];
+        });
+        return out;
+      }
+      module.exports = seriesToObject;
+    }
+  });
+
+  // src/series/index.js
+  var require_series = __commonJS({
+    "src/series/index.js"(exports, module) {
+      var { copy } = require_copy();
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isString = require_is_string();
+      var isUndefined = require_is_undefined();
+      var leftPad = require_left_pad();
+      var range = require_range();
+      var reverse = require_reverse();
+      var seriesAppend = require_series_append();
+      var seriesApply = require_series_apply();
+      var seriesDropMissing = require_series_drop_missing();
+      var seriesDropNaN = require_series_drop_nan();
+      var seriesFilter = require_series_filter();
+      var seriesGet = require_series_get();
+      var seriesGetSubsetByIndices = require_series_get_subset_by_indices();
+      var seriesGetSubsetByNames = require_series_get_subset_by_names();
+      var seriesPrint = require_series_print();
+      var seriesShuffle = require_series_shuffle();
+      var seriesSort = require_series_sort();
+      var seriesSortByIndex = require_series_sort_by_index();
+      var seriesToObject = require_series_to_object();
+      var shape = require_shape();
+      var transpose = require_transpose();
+      var SERIES_SYMBOL = Symbol.for("@jrc03c/js-math-tools/series");
+      module.exports = function(DataFrame) {
+        class Series {
+          static [Symbol.hasInstance](x) {
+            try {
+              return !!x._symbol && x._symbol === SERIES_SYMBOL;
+            } catch (e) {
+              return false;
+            }
+          }
+          constructor(data) {
+            const self = this;
+            self.name = "data";
+            Object.defineProperty(self, "_symbol", {
+              configurable: false,
+              enumerable: false,
+              writable: false,
+              value: SERIES_SYMBOL
+            });
+            Object.defineProperty(self, "_values", {
+              value: [],
+              configurable: true,
+              enumerable: false,
+              writable: true
+            });
+            Object.defineProperty(self, "values", {
+              configurable: true,
+              enumerable: true,
+              get() {
+                return self._values;
+              },
+              set(x) {
+                assert(isArray(x), "The new values must be a 1-dimensional array!");
+                const dataShape = shape(x);
+                assert(dataShape.length === 1, "The new array of values must be 1-dimensional!");
+                if (dataShape[0] < self._index.length) {
+                  self._index = self._index.slice(0, dataShape[0]);
+                } else if (dataShape[0] > self._index.length) {
+                  self._index = self._index.concat(range(self._index.length, dataShape[0]).map((i) => {
+                    return "item" + leftPad(i, (x.length - 1).toString().length);
+                  }));
+                }
+                self._values = x;
+              }
+            });
+            Object.defineProperty(self, "_index", {
+              value: [],
+              configurable: true,
+              enumerable: false,
+              writable: true
+            });
+            Object.defineProperty(self, "index", {
+              configurable: true,
+              enumerable: true,
+              get() {
+                return self._index;
+              },
+              set(x) {
+                assert(isArray(x), "The new index must be a 1-dimensional array of strings!");
+                assert(x.length === self.shape[0], "The new index must be the same length as the old index!");
+                assert(shape(x).length === 1, "The new index must be a 1-dimensional array of strings!");
+                x.forEach((value) => {
+                  assert(isString(value), "All of the row names must be strings!");
+                });
+                self._index = x;
+              }
+            });
+            if (data) {
+              if (data instanceof Series) {
+                self.name = data.name;
+                self.values = copy(data.values);
+                self.index = copy(data.index);
+              } else if (isArray(data)) {
+                const dataShape = shape(data);
+                assert(dataShape.length === 1, "When passing an array into the constructor of a Series, the array must be 1-dimensional!");
+                self.values = data;
+              } else if (data instanceof Object) {
+                const keys = Object.keys(data);
+                assert(keys.length === 1, "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!");
+                const name = keys[0];
+                const values = data[name];
+                assert(shape(values).length === 1, "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!");
+                self.name = name;
+                self.values = values.slice();
+              }
+            }
+          }
+          get shape() {
+            const self = this;
+            return shape(self.values);
+          }
+          get length() {
+            const self = this;
+            return self.shape[0];
+          }
+          get isEmpty() {
+            const self = this;
+            return self.values.filter((v) => !isUndefined(v)).length === 0;
+          }
+          clear() {
+            const self = this;
+            const out = self.copy();
+            out.values.forEach((v, i) => {
+              out.values[i] = void 0;
+            });
+            return out;
+          }
+          get(indices) {
+            const self = this;
+            return seriesGet(self, indices);
+          }
+          getSubsetByNames(indices) {
+            const self = this;
+            return seriesGetSubsetByNames(Series, self, indices);
+          }
+          getSubsetByIndices(indices) {
+            const self = this;
+            return seriesGetSubsetByIndices(self, indices);
+          }
+          loc(indices) {
+            const self = this;
+            return self.getSubsetByNames(indices);
+          }
+          iloc(indices) {
+            const self = this;
+            return self.getSubsetByIndices(indices);
+          }
+          reverse() {
+            const self = this;
+            const out = new Series(reverse(self.values));
+            out.index = reverse(self.index);
+            out.name = self.name;
+            return out;
+          }
+          resetIndex() {
+            const self = this;
+            const out = self.copy();
+            out.index = range(0, self.shape[0]).map((i) => {
+              return "item" + leftPad(i, (out.index.length - 1).toString().length);
+            });
+            return out;
+          }
+          copy() {
+            const self = this;
+            const out = new Series();
+            out._values = copy(self.values);
+            out._index = copy(self.index);
+            out.name = self.name;
+            return out;
+          }
+          append(x) {
+            const self = this;
+            return seriesAppend(Series, self, x);
+          }
+          apply(fn) {
+            const self = this;
+            return seriesApply(self, fn);
+          }
+          concat(x) {
+            const self = this;
+            return self.append(x);
+          }
+          dropMissing(condition, threshold) {
+            const self = this;
+            return seriesDropMissing(self, condition, threshold);
+          }
+          dropNaN() {
+            const self = this;
+            return seriesDropNaN(Series, self);
+          }
+          toObject() {
+            const self = this;
+            return seriesToObject(self);
+          }
+          print() {
+            const self = this;
+            return seriesPrint(self);
+          }
+          shuffle() {
+            const self = this;
+            return seriesShuffle(self);
+          }
+          sort(direction) {
+            const self = this;
+            return seriesSort(Series, self, direction);
+          }
+          sortByIndex() {
+            const self = this;
+            return seriesSortByIndex(Series, self);
+          }
+          filter(fn) {
+            const self = this;
+            return seriesFilter(Series, self, fn);
+          }
+          toDataFrame() {
+            const self = this;
+            const out = new DataFrame(transpose([self.values]));
+            out.columns = [self.name];
+            out.index = self.index;
+            return out;
+          }
+          transpose() {
+            const self = this;
+            const out = self.copy();
+            out.values = reverse(out.values);
+            out.index = reverse(out.index);
+            return out;
+          }
+          getDummies() {
+            const self = this;
+            return self.toDataFrame().getDummies();
+          }
+          oneHotEncode() {
+            const self = this;
+            return self.getDummies();
+          }
+        }
+        return Series;
+      };
+    }
+  });
+
+  // src/dataframe/index.js
+  var require_dataframe = __commonJS({
+    "src/dataframe/index.js"(exports, module) {
+      var { copy } = require_copy();
+      var assert = require_assert();
+      var count = require_count();
+      var dfAppend = require_df_append();
+      var dfApply = require_df_apply();
+      var dfAssign = require_df_assign();
+      var dfCopy = require_df_copy();
+      var dfDrop = require_df_drop();
+      var dfDropMissing = require_df_drop_missing();
+      var dfDropNaN = require_df_drop_nan();
+      var dfFilter = require_df_filter();
+      var dfGet = require_df_get();
+      var dfGetDummies = require_df_get_dummies();
+      var dfGetSubsetByIndices = require_df_get_subset_by_indices();
+      var dfGetSubsetByNames = require_df_get_subset_by_names();
+      var dfPrint = require_df_print();
+      var dfResetIndex = require_df_reset_index();
+      var dfShuffle = require_df_shuffle();
+      var dfSort = require_df_sort();
+      var dfToJSON = require_df_to_json();
+      var dfToJSONString = require_df_to_json_string();
+      var dfToObject = require_df_to_object();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isObject = require_is_object();
+      var isUndefined = require_is_undefined();
+      var leftPad = require_left_pad();
+      var ndarray = require_ndarray();
+      var range = require_range();
+      var shape = require_shape();
+      var transpose = require_transpose();
+      var DATAFRAME_SYMBOL = Symbol.for("@jrc03c/js-math-tools/dataframe");
+      function makeKey(n) {
+        const alpha = "abcdefghijklmnopqrstuvwxyz1234567890";
+        let out = "";
+        for (let i = 0; i < n; i++)
+          out += alpha[parseInt(Math.random() * alpha.length)];
+        return out;
+      }
+      var DataFrame = class {
+        static [Symbol.hasInstance](x) {
+          try {
+            return !!x._symbol && x._symbol === DATAFRAME_SYMBOL;
+          } catch (e) {
+            return false;
+          }
+        }
+        constructor(data) {
+          const self = this;
+          Object.defineProperty(self, "_symbol", {
+            configurable: false,
+            enumerable: false,
+            writable: false,
+            value: DATAFRAME_SYMBOL
+          });
+          Object.defineProperty(self, "_values", {
+            value: [],
+            configurable: true,
+            enumerable: false,
+            writable: true
+          });
+          Object.defineProperty(self, "values", {
+            configurable: true,
+            enumerable: true,
+            get() {
+              if (self._values.length === 0 || !isUndefined(self._values[0]) && self._values[0].length === 0) {
+                return [[]];
+              }
+              return self._values;
+            },
+            set(x) {
+              assert(isArray(x), "The new values must be a 2-dimensional array!");
+              const dataShape = shape(x);
+              assert(dataShape.length === 2, "The new array of values must be 2-dimensional!");
+              if (dataShape[0] < self._index.length) {
+                self._index = self._index.slice(0, dataShape[0]);
+              } else if (dataShape[0] > self._index.length) {
+                self._index = self._index.concat(range(self._index.length, dataShape[0]).map((i) => {
+                  return "row" + leftPad(i, (dataShape[0] - 1).toString().length);
+                }));
+              }
+              if (dataShape[1] < self._columns.length) {
+                self._columns = self._columns.slice(0, dataShape[1]);
+              } else if (dataShape[1] > self._columns.length) {
+                self._columns = self._columns.concat(range(self._columns.length, dataShape[1]).map((i) => {
+                  return "col" + leftPad(i, (dataShape[1] - 1).toString().length);
+                }));
+              }
+              self._values = x;
+            }
+          });
+          Object.defineProperty(self, "_columns", {
+            value: [],
+            configurable: true,
+            enumerable: false,
+            writable: true
+          });
+          Object.defineProperty(self, "columns", {
+            configurable: true,
+            enumerable: true,
+            get() {
+              return self._columns;
+            },
+            set(x) {
+              assert(isArray(x), "The new columns list must be a 1-dimensional array of strings!");
+              assert(self.isEmpty || x.length === self.shape[1], "The new columns list must be the same length as the old columns list!");
+              assert(shape(x).length === 1, "The new columns list must be a 1-dimensional array of strings!");
+              x = x.map((v) => {
+                if (typeof v !== "string") {
+                  v = JSON.stringify(v) || v.toString();
+                }
+                if (v.trim().length === 0) {
+                  return "untitled_" + makeKey(8);
+                }
+                return v.trim();
+              });
+              const counts = (() => {
+                const temp = count(x);
+                const out = {};
+                temp.forEach((obj) => {
+                  out[obj.value] = obj.count;
+                });
+                return out;
+              })();
+              x = x.map((v) => {
+                if (counts[v] > 1) {
+                  return v + "_" + makeKey(8);
+                }
+                return v;
+              });
+              self._columns = x;
+            }
+          });
+          Object.defineProperty(self, "_index", {
+            value: [],
+            configurable: true,
+            enumerable: false,
+            writable: true
+          });
+          Object.defineProperty(self, "index", {
+            configurable: true,
+            enumerable: true,
+            get() {
+              return self._index;
+            },
+            set(x) {
+              assert(isArray(x), "The new index must be a 1-dimensional array of strings!");
+              assert(self.isEmpty || x.length === self.shape[0], "The new index must be the same length as the old index!");
+              assert(shape(x).length === 1, "The new index must be a 1-dimensional array of strings!");
+              x = x.map((v) => {
+                if (typeof v !== "string") {
+                  v = JSON.stringify(v) || v.toString();
+                }
+                if (v.trim().length === 0) {
+                  return "untitled_" + makeKey(8);
+                }
+                return v.trim();
+              });
+              const counts = (() => {
+                const temp = count(x);
+                const out = {};
+                temp.forEach((obj) => {
+                  out[obj.value] = obj.count;
+                });
+                return out;
+              })();
+              x = x.map((v) => {
+                if (counts[v] > 1) {
+                  return v + "_" + makeKey(8);
+                }
+                return v;
+              });
+              self._index = x;
+            }
+          });
+          assert(isUndefined(data) || isObject(data) || isArray(data), "The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values.");
+          if (data) {
+            if (data instanceof DataFrame) {
+              self.values = copy(data.values);
+              self.columns = copy(data.columns);
+              self.index = copy(data.index);
+            } else if (isArray(data)) {
+              const dataShape = shape(data);
+              assert(dataShape.length === 2, "The `data` array passed into the constructor of a DataFrame must be 2-dimensional!");
+              self.values = data;
+            } else {
+              self._columns = Object.keys(data);
+              const temp = [];
+              self._columns.forEach((col) => {
+                const values = data[col];
+                temp.push(values);
+              });
+              self._values = transpose(temp);
+              const dataShape = shape(self.values);
+              self._index = range(0, dataShape[0]).map((i) => {
+                return "row" + leftPad(i, (dataShape[0] - 1).toString().length);
+              });
+            }
+          }
+        }
+        get shape() {
+          const self = this;
+          return shape(self.values);
+        }
+        get length() {
+          const self = this;
+          return self.shape[0];
+        }
+        get width() {
+          const self = this;
+          return self.shape[1];
+        }
+        get rows() {
+          const self = this;
+          return self.index;
+        }
+        set rows(rows) {
+          const self = this;
+          self.index = rows;
+        }
+        get isEmpty() {
+          const self = this;
+          return flatten(self.values).length === 0;
+        }
+        clear() {
+          const self = this;
+          const out = new DataFrame(ndarray(self.shape));
+          out.columns = self.columns.slice();
+          out.index = self.index.slice();
+          return out;
+        }
+        get(rows, cols) {
+          const self = this;
+          if (arguments.length === 0) {
+            return self;
+          }
+          if (arguments.length === 1) {
+            try {
+              return self.get(null, rows);
+            } catch (e) {
+              return self.get(rows, null);
+            }
+          }
+          return dfGet(self, rows, cols);
+        }
+        getSubsetByNames(rows, cols) {
+          const self = this;
+          return dfGetSubsetByNames(DataFrame, Series, self, rows, cols);
+        }
+        getSubsetByIndices(rowIndices, colIndices) {
+          const self = this;
+          return dfGetSubsetByIndices(self, rowIndices, colIndices);
+        }
+        getDummies(columns) {
+          const self = this;
+          return dfGetDummies(DataFrame, self, columns);
+        }
+        oneHotEncode(columns) {
+          const self = this;
+          return dfGetDummies(DataFrame, self, columns);
+        }
+        transpose() {
+          const self = this;
+          const out = new DataFrame(transpose(self.values));
+          out.columns = self.index.slice();
+          out.index = self.columns.slice();
+          return out;
+        }
+        get T() {
+          const self = this;
+          return self.transpose();
+        }
+        resetIndex(shouldSkipCopying) {
+          const self = this;
+          return dfResetIndex(self, shouldSkipCopying);
+        }
+        copy() {
+          const self = this;
+          return dfCopy(DataFrame, self);
+        }
+        assign(p1, p2) {
+          const self = this;
+          return dfAssign(DataFrame, Series, self, p1, p2);
+        }
+        apply(fn, axis) {
+          const self = this;
+          return dfApply(DataFrame, Series, self, fn, axis);
+        }
+        dropMissing(axis, condition, threshold) {
+          const self = this;
+          return dfDropMissing(DataFrame, Series, self, axis, condition, threshold);
+        }
+        dropNaN(axis, condition, threshold) {
+          const self = this;
+          return dfDropNaN(DataFrame, self, axis, condition, threshold);
+        }
+        drop(rows, cols) {
+          const self = this;
+          return dfDrop(DataFrame, Series, self, rows, cols);
+        }
+        dropColumns(columns) {
+          const self = this;
+          return self.drop(null, columns);
+        }
+        dropRows(rows) {
+          const self = this;
+          return self.drop(rows, null);
+        }
+        toObject(axis) {
+          const self = this;
+          return dfToObject(self, axis);
+        }
+        toJSONString(axis) {
+          const self = this;
+          return dfToJSONString(self, axis);
+        }
+        saveAsJSON(filename, axis) {
+          const self = this;
+          return dfToJSON(self, filename, axis);
+        }
+        print() {
+          const self = this;
+          return dfPrint(DataFrame, Series, self);
+        }
+        sort(cols, directions) {
+          const self = this;
+          return dfSort(self, cols, directions);
+        }
+        sortByIndex() {
+          const self = this;
+          return self.sort();
+        }
+        filter(fn, axis) {
+          const self = this;
+          return dfFilter(DataFrame, Series, self, fn, axis);
+        }
+        shuffle(axis) {
+          const self = this;
+          return dfShuffle(self, axis);
+        }
+        append(x, axis) {
+          const self = this;
+          return dfAppend(self, x, axis);
+        }
+        concat(x, axis) {
+          const self = this;
+          return self.append(x, axis);
+        }
+        join(x, axis) {
+          const self = this;
+          return self.append(x, axis);
+        }
+        toString() {
+          const self = this;
+          return JSON.stringify(self);
+        }
+      };
+      var Series = require_series()(DataFrame);
+      module.exports = { DataFrame, Series };
+    }
+  });
+
+  // src/max.js
+  var require_max = __commonJS({
+    "src/max.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function max(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return max(arr.values);
+        }
+        assert(isArray(arr), "The `max` function only works on arrays, Series, and DataFrames!");
+        try {
+          return Math.max(...flatten(arr));
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = max;
+    }
+  });
+
+  // src/vectorize.js
+  var require_vectorize = __commonJS({
+    "src/vectorize.js"(exports, module) {
+      var { DataFrame, Series } = require_dataframe();
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isFunction = require_is_function();
+      var isSeries = require_is_series();
+      var max = require_max();
+      var range = require_range();
+      var shape = require_shape();
+      function isArraySeriesOrDataFrame(x) {
+        return isArray(x) || isSeries(x) || isDataFrame(x);
+      }
+      function vectorize(fn) {
+        assert(isFunction(fn), "You must pass a function into the `vectorize` function!");
+        return function helper() {
+          let hasSeries, hasDataFrames;
+          const series = [];
+          const dataframes = [];
+          const childArrays = Object.keys(arguments).filter((key) => {
+            const arg = arguments[key];
+            if (isArray(arg)) {
+              return true;
+            } else if (isSeries(arg)) {
+              hasSeries = true;
+              series.push(arg);
+              return true;
+            } else if (isDataFrame(arg)) {
+              hasDataFrames = true;
+              dataframes.push(arg);
+              return true;
+            } else {
+              return false;
+            }
+          }).map((key) => arguments[key]);
+          childArrays.slice(0, -1).forEach((s, i) => {
+            assert(isEqual(isArray(s) ? shape(s) : s.shape, isArray(childArrays[i + 1]) ? shape(childArrays[i + 1]) : childArrays[i + 1].shape), `When passing multiple arrays into the \`${fn.name}\` function, all of the arrays must have the same shape!`);
+          });
+          if (childArrays.length > 0) {
+            const maxLength = max(childArrays.map((a) => a.length ? a.length : a.values.length));
+            const out = range(0, maxLength).map((i) => {
+              const args = Object.keys(arguments).map((key) => {
+                if (isArraySeriesOrDataFrame(arguments[key])) {
+                  if (isArray(arguments[key])) {
+                    return arguments[key][i];
+                  } else if (isSeries(arguments[key])) {
+                    return arguments[key].values[i];
+                  } else if (isDataFrame(arguments[key])) {
+                    return arguments[key].values[i];
+                  }
+                } else {
+                  return arguments[key];
+                }
+              });
+              return helper(...args);
+            });
+            if (hasDataFrames) {
+              try {
+                if (dataframes.length === 1 && isEqual(shape(dataframes[0]), shape(out))) {
+                  const temp = new DataFrame(out);
+                  temp.index = dataframes[0].index.slice();
+                  temp.columns = dataframes[0].columns.slice();
+                  return temp;
+                } else {
+                  return new DataFrame(out);
+                }
+              } catch (e) {
+                return out;
+              }
+            }
+            if (hasSeries) {
+              try {
+                if (series.length === 1 && series[0].length === out.length) {
+                  const temp = new Series(out);
+                  temp.name = series[0].name;
+                  temp.index = series[0].index.slice();
+                  return temp;
+                } else {
+                  return new Series(out);
+                }
+              } catch (e) {
+                return out;
+              }
+            }
+            return out;
+          } else {
+            return fn(...arguments);
+          }
+        };
+      }
+      module.exports = vectorize;
+    }
+  });
+
+  // src/abs.js
+  var require_abs = __commonJS({
+    "src/abs.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function abs(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.abs(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(abs);
+    }
+  });
+
+  // src/add.js
+  var require_add = __commonJS({
+    "src/add.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function add() {
+        try {
+          let out = 0;
+          const x = Object.values(arguments);
+          for (let i = 0; i < x.length; i++) {
+            if (!isNumber(x[i]))
+              return NaN;
+            out += x[i];
+          }
+          return out;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(add);
+    }
+  });
+
+  // src/apply.js
+  var require_apply = __commonJS({
+    "src/apply.js"(exports, module) {
+      var vectorize = require_vectorize();
+      function apply(x, fn) {
+        try {
+          return fn(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(apply);
+    }
+  });
+
+  // src/arccos.js
+  var require_arccos = __commonJS({
+    "src/arccos.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function arccos(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.acos(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(arccos);
+    }
+  });
+
+  // src/arcsin.js
+  var require_arcsin = __commonJS({
+    "src/arcsin.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function arcsin(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.asin(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(arcsin);
+    }
+  });
+
+  // src/arctan.js
+  var require_arctan = __commonJS({
+    "src/arctan.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function arctan(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.atan(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(arctan);
+    }
+  });
+
+  // src/argmax.js
+  var require_argmax = __commonJS({
+    "src/argmax.js"(exports, module) {
+      var assert = require_assert();
+      var indexOf = require_index_of();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var max = require_max();
+      function argmax(x) {
+        if (isDataFrame(x)) {
+          const index = argmax(x.values);
+          return [x.index[index[0]], x.columns[index[1]]];
+        }
+        if (isSeries(x)) {
+          const index = argmax(x.values);
+          return [x.index[index]];
+        }
+        assert(isArray(x), "The `argmax` function only works on arrays, Series, and DataFrames!");
+        try {
+          const out = indexOf(x, max(x));
+          if (out) {
+            if (out.length === 0) {
+              return void 0;
+            } else if (out.length === 1) {
+              return out[0];
+            } else {
+              return out;
+            }
+          } else {
+            return void 0;
+          }
+        } catch (e) {
+          return void 0;
+        }
+      }
+      module.exports = argmax;
+    }
+  });
+
+  // src/min.js
+  var require_min = __commonJS({
+    "src/min.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function min(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return min(arr.values);
+        }
+        assert(isArray(arr), "The `min` function only works on arrays, Series, and DataFrames!");
+        try {
+          return Math.min(...flatten(arr));
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = min;
+    }
+  });
+
+  // src/argmin.js
+  var require_argmin = __commonJS({
+    "src/argmin.js"(exports, module) {
+      var assert = require_assert();
+      var indexOf = require_index_of();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var min = require_min();
+      function argmin(x) {
+        if (isDataFrame(x)) {
+          const index = argmin(x.values);
+          return [x.index[index[0]], x.columns[index[1]]];
+        }
+        if (isSeries(x)) {
+          const index = argmin(x.values);
+          return [x.index[index]];
+        }
+        assert(isArray(x), "The `argmin` function only works on arrays, Series, and DataFrames!");
+        try {
+          const out = indexOf(x, min(x));
+          if (out) {
+            if (out.length === 0) {
+              return void 0;
+            } else if (out.length === 1) {
+              return out[0];
+            } else {
+              return out;
+            }
+          } else {
+            return void 0;
+          }
+        } catch (e) {
+          return void 0;
+        }
+      }
+      module.exports = argmin;
+    }
+  });
+
+  // src/cast.js
+  var require_cast = __commonJS({
+    "src/cast.js"(exports, module) {
+      var isArray = require_is_array();
+      var isBoolean = require_is_boolean();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isNumber = require_is_number();
+      var isObject = require_is_object();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      function cast(value, type) {
+        if (isDataFrame(value) || isSeries(value)) {
+          return value.apply((item) => cast(item, type));
+        }
+        if (isArray(value)) {
+          return value.map((v) => cast(v, type));
+        }
+        if (type === "null") {
+          return null;
+        }
+        if (type === "number") {
+          if (isUndefined(value)) {
+            return NaN;
+          }
+          const booleanValue = cast(value, "boolean");
+          if (isBoolean(booleanValue)) {
+            return booleanValue ? 1 : 0;
+          }
+          try {
+            JSON.parse(value);
+          } catch (e) {
+            const dateValue = cast(value, "date");
+            if (dateValue instanceof Date) {
+              return dateValue.getTime();
+            }
+          }
+          const out = parseFloat(value);
+          if (isNaN(out))
+            return NaN;
+          return out;
+        }
+        if (type === "boolean") {
+          if (isBoolean(value)) {
+            return value;
+          }
+          if (isNumber(value)) {
+            if (value === 0) {
+              return false;
+            }
+            if (value === 1) {
+              return true;
+            }
+            return null;
+          }
+          try {
+            const vBool = (typeof value === "object" ? value.toString() === "null" ? "false" : JSON.stringify(value) : value.toString()).trim().toLowerCase();
+            if (vBool === "true" || vBool === "yes" || vBool === "y") {
+              return true;
+            }
+            if (vBool === "false" || vBool === "no" || vBool === "n") {
+              return false;
+            }
+            return null;
+          } catch (e) {
+            return null;
+          }
+        }
+        if (type === "date") {
+          if (value instanceof Date) {
+            return value;
+          }
+          if (isUndefined(value)) {
+            return null;
+          }
+          const valueFloat = parseFloat(value);
+          if (!isNaN(valueFloat)) {
+            const out = new Date(value);
+            if (out.toString() === "Invalid Date")
+              return null;
+            return out;
+          }
+          const valueDate = Date.parse(value);
+          if (!isNaN(valueDate)) {
+            return new Date(valueDate);
+          }
+          return null;
+        }
+        if (type === "object") {
+          if (isObject(value)) {
+            return value;
+          }
+          const booleanValue = cast(value, "boolean");
+          if (isBoolean(booleanValue)) {
+            return null;
+          }
+          try {
+            const numberValue = cast(value, "number");
+            if (isNumber(numberValue)) {
+              JSON.parse(value);
+              return null;
+            }
+          } catch (e) {
+          }
+          const dateValue = cast(value, "date");
+          if (dateValue) {
+            return dateValue;
+          }
+          try {
+            const out = JSON.parse(value);
+            if (isArray(out)) {
+              return out.map((v) => cast(v, type));
+            } else {
+              return out;
+            }
+          } catch (e) {
+            return null;
+          }
+        }
+        if (type === "string") {
+          if (isUndefined(value)) {
+            if (isEqual(value, void 0)) {
+              return "undefined";
+            }
+            return "null";
+          }
+          if (value instanceof Date) {
+            return value.toJSON();
+          }
+          const valueString = (() => {
+            if (typeof value === "object") {
+              if (value === null) {
+                return "null";
+              } else {
+                return JSON.stringify(value);
+              }
+            } else {
+              return value.toString();
+            }
+          })();
+          return valueString;
+        }
+      }
+      module.exports = cast;
+    }
+  });
+
+  // src/ceil.js
+  var require_ceil = __commonJS({
+    "src/ceil.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function ceil(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.ceil(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(ceil);
+    }
+  });
+
+  // src/chop.js
+  var require_chop = __commonJS({
+    "src/chop.js"(exports, module) {
+      var abs = require_abs();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var vectorize = require_vectorize();
+      function chop(x, threshold) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          if (isUndefined(threshold)) {
+            threshold = 1e-10;
+          } else if (!isNumber(threshold)) {
+            return NaN;
+          }
+          return abs(x) < threshold ? 0 : x;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(chop);
+    }
+  });
+
+  // src/clamp.js
+  var require_clamp = __commonJS({
+    "src/clamp.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function clamp(x, a, b) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          if (!isNumber(a))
+            return NaN;
+          if (!isNumber(b))
+            return NaN;
+          if (x < a)
+            return a;
+          if (x > b)
+            return b;
+          return x;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(clamp);
+    }
+  });
+
+  // src/combinations.js
+  var require_combinations = __commonJS({
+    "src/combinations.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      function combinations(arr, r) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return combinations(arr.values, r);
+        }
+        assert(isArray(arr), "The `combinations` function only works on arrays, Series, and DataFrames!");
+        assert(isNumber(r), "`r` must be a whole number!");
+        arr = flatten(arr);
+        if (r > arr.length) {
+          return [arr];
+        }
+        if (r <= 0) {
+          return [[]];
+        }
+        assert(r === parseInt(r), "`r` must be a whole number!");
+        if (arr.length < 2)
+          return arr;
+        const out = [];
+        arr.forEach((item, i) => {
+          const after = arr.slice(i + 1);
+          if (after.length < r - 1)
+            return;
+          const children = combinations(after, r - 1);
+          children.forEach((child) => {
+            out.push([item].concat(child));
+          });
+        });
+        return out;
+      }
+      module.exports = combinations;
+    }
+  });
+
+  // src/mean.js
+  var require_mean = __commonJS({
+    "src/mean.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function mean(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return mean(arr.values);
+        }
+        assert(isArray(arr), "The `mean` function only works on arrays, Series, and DataFrames!");
+        try {
+          const temp = flatten(arr);
+          let out = 0;
+          temp.forEach((v) => {
+            out += v;
+          });
+          return out / temp.length;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = mean;
+    }
+  });
+
+  // src/covariance.js
+  var require_covariance = __commonJS({
+    "src/covariance.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var mean = require_mean();
+      var shape = require_shape();
+      function covariance(x, y) {
+        if (isSeries(x)) {
+          return covariance(x.values, y);
+        }
+        if (isSeries(y)) {
+          return covariance(x, y.values);
+        }
+        assert(isArray(x) && isArray(y) && shape(x).length === 1 && shape(y).length === 1, "The `covariance` function only works on 1-dimensional arrays and Series!");
+        assert(x.length === y.length, "The two arrays or Series passed into the `covariance` function must have the same length!");
+        try {
+          const mx = mean(x);
+          const my = mean(y);
+          if (!isNumber(mx) || !isNumber(my)) {
+            return NaN;
+          }
+          const n = Math.max(x.length, y.length);
+          let out = 0;
+          for (let i = 0; i < n; i++) {
+            if (!isNumber(x[i]))
+              return NaN;
+            if (!isNumber(y[i]))
+              return NaN;
+            out += (x[i] - mx) * (y[i] - my);
+          }
+          return out / x.length;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = covariance;
+    }
+  });
+
+  // src/sqrt.js
+  var require_sqrt = __commonJS({
+    "src/sqrt.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function sqrt(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.sqrt(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(sqrt);
+    }
+  });
+
+  // src/variance.js
+  var require_variance = __commonJS({
+    "src/variance.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var mean = require_mean();
+      function variance(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return variance(arr.values);
+        }
+        assert(isArray(arr), "The `variance` function only works on arrays, Series, and DataFrames!");
+        try {
+          const temp = flatten(arr);
+          const m = mean(temp);
+          let out = 0;
+          for (let i = 0; i < temp.length; i++) {
+            if (!isNumber(temp[i]))
+              return NaN;
+            out += (temp[i] - m) * (temp[i] - m);
+          }
+          return out / temp.length;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = variance;
+    }
+  });
+
+  // src/std.js
+  var require_std = __commonJS({
+    "src/std.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var sqrt = require_sqrt();
+      var variance = require_variance();
+      function std(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return std(arr.values);
+        }
+        assert(isArray(arr), "The `std` function only works on arrays, Series, and DataFrames!");
+        try {
+          return sqrt(variance(arr));
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = std;
+    }
+  });
+
+  // src/correl.js
+  var require_correl = __commonJS({
+    "src/correl.js"(exports, module) {
+      var assert = require_assert();
+      var covariance = require_covariance();
+      var isArray = require_is_array();
+      var isSeries = require_is_series();
+      var shape = require_shape();
+      var std = require_std();
+      function correl(x, y) {
+        if (isSeries(x)) {
+          return correl(x.values, y);
+        }
+        if (isSeries(y)) {
+          return correl(x, y.values);
+        }
+        assert(isArray(x) && isArray(y) && shape(x).length === 1 && shape(y).length === 1, "The `correl` function only works on 1-dimensional arrays and Series!");
+        assert(x.length === y.length, "The two arrays or Series passed into the `correl` function must have the same length!");
+        try {
+          return covariance(x, y) / (std(x) * std(y));
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = correl;
+    }
+  });
+
+  // src/cos.js
+  var require_cos = __commonJS({
+    "src/cos.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function cos(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.cos(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(cos);
+    }
+  });
+
+  // src/helpers/data-types.js
+  var require_data_types = __commonJS({
+    "src/helpers/data-types.js"(exports, module) {
+      module.exports = Object.freeze({
+        boolean: "boolean",
+        date: "date",
+        null: "null",
+        number: "number",
+        object: "object",
+        string: "string"
+      });
+    }
+  });
+
+  // src/diff.js
+  var require_diff = __commonJS({
+    "src/diff.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isSeries = require_is_series();
+      var set = require_set();
+      function diff(a, b) {
+        if (isDataFrame(a) || isSeries(a)) {
+          return diff(a.values, b);
+        }
+        if (isDataFrame(b) || isSeries(b)) {
+          return diff(a, b.values);
+        }
+        assert(isArray(a) && isArray(b), "The `diff` function only works on arrays, Series, and DataFrames!");
+        const aTemp = set(a);
+        const bTemp = set(b);
+        const out = [];
+        aTemp.forEach((item) => {
+          if (bTemp.findIndex((other) => isEqual(other, item)) < 0) {
+            out.push(item);
+          }
+        });
+        return out;
+      }
+      module.exports = diff;
+    }
+  });
+
+  // src/pow.js
+  var require_pow = __commonJS({
+    "src/pow.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function pow(x, p) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          if (!isNumber(p))
+            return NaN;
+          return Math.pow(x, p);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(pow);
+    }
+  });
+
+  // src/multiply.js
+  var require_multiply = __commonJS({
+    "src/multiply.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function multiply() {
+        try {
+          const values = Object.values(arguments);
+          if (values.length === 0)
+            return NaN;
+          let out = 1;
+          for (let i = 0; i < values.length; i++) {
+            if (!isNumber(values[i]))
+              return NaN;
+            out *= values[i];
+          }
+          return out;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(multiply);
+    }
+  });
+
+  // src/scale.js
+  var require_scale = __commonJS({
+    "src/scale.js"(exports, module) {
+      var multiply = require_multiply();
+      function scale() {
+        return multiply(...arguments);
+      }
+      module.exports = scale;
+    }
+  });
+
+  // src/subtract.js
+  var require_subtract = __commonJS({
+    "src/subtract.js"(exports, module) {
+      var add = require_add();
+      var scale = require_scale();
+      function subtract(a, b) {
+        return add(a, scale(b, -1));
+      }
+      module.exports = subtract;
+    }
+  });
+
+  // src/sum.js
+  var require_sum = __commonJS({
+    "src/sum.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      function sum(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return sum(arr.values);
+        }
+        assert(isArray(arr), "The `sum` function only works on arrays, Series, and DataFrames!");
+        try {
+          if (arr.length === 0)
+            return NaN;
+          return flatten(arr).reduce((a, b) => a + b, 0);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = sum;
+    }
+  });
+
+  // src/distance.js
+  var require_distance = __commonJS({
+    "src/distance.js"(exports, module) {
+      var abs = require_abs();
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var pow = require_pow();
+      var shape = require_shape();
+      var sqrt = require_sqrt();
+      var subtract = require_subtract();
+      var sum = require_sum();
+      function distance(a, b) {
+        if (isNumber(a) && isNumber(b)) {
+          return abs(a - b);
+        }
+        if (isDataFrame(a) || isSeries(a)) {
+          return distance(a.values, b);
+        }
+        if (isDataFrame(b) || isSeries(b)) {
+          return distance(a, b.values);
+        }
+        if (isArray(a) && isArray(b)) {
+          assert(isEqual(shape(a), shape(b)), "If passing two arrays, Series, or DataFrames into the `distance` function, then those objects must have the same shape!");
+        }
+        try {
+          return sqrt(sum(pow(subtract(a, b), 2)));
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = distance;
+    }
+  });
+
+  // src/divide.js
+  var require_divide = __commonJS({
+    "src/divide.js"(exports, module) {
+      var pow = require_pow();
+      var scale = require_scale();
+      function divide(a, b) {
+        return scale(a, pow(b, -1));
+      }
+      module.exports = divide;
+    }
+  });
+
+  // src/dot.js
+  var require_dot = __commonJS({
+    "src/dot.js"(exports, module) {
+      var { DataFrame, Series } = require_dataframe();
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var scale = require_scale();
+      var shape = require_shape();
+      var sum = require_sum();
+      var transpose = require_transpose();
+      function dot(a, b) {
+        if (isDataFrame(a)) {
+          const temp = dot(a.values, b);
+          if (shape(temp).length === 1) {
+            const out = new Series(temp);
+            out.name = isSeries(b) ? b.name : out.name;
+            out.index = a.index.slice();
+            return out;
+          } else {
+            const out = new DataFrame(temp);
+            out.index = a.index.slice();
+            if (isDataFrame(b)) {
+              out.columns = b.columns.slice();
+            }
+            return out;
+          }
+        }
+        if (isDataFrame(b)) {
+          const temp = dot(a, b.values);
+          if (shape(temp).length === 1) {
+            const out = new Series(temp);
+            out.name = isSeries(a) ? a.name : out.name;
+            out.index = b.columns.slice();
+            return out;
+          } else {
+            const out = new DataFrame(temp);
+            out.columns = b.columns.slice();
+            return out;
+          }
+        }
+        if (isSeries(a)) {
+          return dot(a.values, b);
+        }
+        if (isSeries(b)) {
+          return dot(a, b.values);
+        }
+        assert(isArray(a) && isArray(b), "The `dot` function only works on arrays, Series, and DataFrames!");
+        flatten(a).concat(flatten(b)).forEach((v) => {
+          assert(isNumber(v), "One of the arrays you passed into the `dot` function contains non-numerical values!");
+        });
+        const aShape = shape(a);
+        const bShape = shape(b);
+        assert(aShape.length <= 2 && bShape.length <= 2, "I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!");
+        assert(aShape[aShape.length - 1] === bShape[0], `There's a dimension misalignment in the two arrays you passed into the \`dot\` function. (${aShape[aShape.length - 1]} !== ${bShape[0]})`);
+        if (aShape.length === 1 && bShape.length === 1) {
+          return sum(scale(a, b));
+        } else if (aShape.length === 1 && bShape.length === 2) {
+          return transpose(b).map((col) => dot(a, col));
+        } else if (aShape.length === 2 && bShape.length === 1) {
+          return a.map((row) => dot(row, b));
+        } else if (aShape.length === 2 && bShape.length === 2) {
+          const bTranspose = transpose(b);
+          const out = [];
+          for (let i = 0; i < a.length; i++) {
+            const row = [];
+            for (let j = 0; j < bTranspose.length; j++) {
+              row.push(dot(a[i], bTranspose[j]));
+            }
+            out.push(row);
+          }
+          return out;
+        }
+      }
+      module.exports = dot;
+    }
+  });
+
+  // src/drop-missing.js
+  var require_drop_missing = __commonJS({
+    "src/drop-missing.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      function dropMissing(x) {
+        if (isDataFrame(x) || isSeries(x)) {
+          return x.dropMissing(...Object.values(arguments).slice(1));
+        }
+        assert(isArray(x), "The `dropMissing` function only works on arrays, Series, and DataFrames!");
+        const out = [];
+        x.forEach((v) => {
+          try {
+            return out.push(dropMissing(v));
+          } catch (e) {
+            if (!isUndefined(v)) {
+              out.push(v);
+            }
+          }
+        });
+        return out;
+      }
+      module.exports = dropMissing;
+    }
+  });
+
+  // src/drop-missing-pairwise.js
+  var require_drop_missing_pairwise = __commonJS({
+    "src/drop-missing-pairwise.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      var shape = require_shape();
+      function dropMissingPairwise(a, b) {
+        if (isDataFrame(a) || isSeries(a)) {
+          return dropMissingPairwise(a.values, b);
+        }
+        if (isDataFrame(b) || isSeries(b)) {
+          return dropMissingPairwise(a, b.values);
+        }
+        assert(isArray(a) && isArray(b), "The `dropMissingPairwise` function only works on arrays, Series, and DataFrames!");
+        assert(isEqual(shape(a), shape(b)), "The two arrays, Series, and/or DataFrames passed into the `dropMissingPairwise` function must have the same shape!");
+        const aOut = [];
+        const bOut = [];
+        for (let i = 0; i < a.length; i++) {
+          try {
+            const [aChildren, bChildren] = dropMissingPairwise(a[i], b[i]);
+            aOut.push(aChildren);
+            bOut.push(bChildren);
+          } catch (e) {
+            if (!isUndefined(a[i]) && !isUndefined(b[i])) {
+              aOut.push(a[i]);
+              bOut.push(b[i]);
+            }
+          }
+        }
+        return [aOut, bOut];
+      }
+      module.exports = dropMissingPairwise;
+    }
+  });
+
+  // src/drop-nan-pairwise.js
+  var require_drop_nan_pairwise = __commonJS({
+    "src/drop-nan-pairwise.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var shape = require_shape();
+      function dropNaNPairwise(a, b) {
+        if (isDataFrame(a) || isSeries(a)) {
+          return dropNaNPairwise(a.values, b);
+        }
+        if (isDataFrame(b) || isSeries(b)) {
+          return dropNaNPairwise(a, b.values);
+        }
+        assert(isArray(a) && isArray(b), "The `dropNaNPairwise` only works on arrays, Series, and DataFrames!");
+        assert(isEqual(shape(a), shape(b)), "The two arrays, Series, and/or DataFrames passed into the `dropNaNPairwise` must have the same shape!");
+        const aOut = [];
+        const bOut = [];
+        for (let i = 0; i < a.length; i++) {
+          try {
+            const [aChildren, bChildren] = dropNaNPairwise(a[i], b[i]);
+            aOut.push(aChildren);
+            bOut.push(bChildren);
+          } catch (e) {
+            if (isNumber(a[i]) && isNumber(b[i])) {
+              aOut.push(a[i]);
+              bOut.push(b[i]);
+            }
+          }
+        }
+        return [aOut, bOut];
+      }
+      module.exports = dropNaNPairwise;
+    }
+  });
+
+  // src/drop-undefined.js
+  var require_drop_undefined = __commonJS({
+    "src/drop-undefined.js"(exports, module) {
+      var dropMissing = require_drop_missing();
+      function dropUndefined(x) {
+        return dropMissing(x);
+      }
+      module.exports = dropUndefined;
+    }
+  });
+
+  // src/exp.js
+  var require_exp = __commonJS({
+    "src/exp.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function exp(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.exp(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(exp);
+    }
+  });
+
+  // src/factorial.js
+  var require_factorial = __commonJS({
+    "src/factorial.js"(exports, module) {
+      var vectorize = require_vectorize();
+      function factorial(n) {
+        try {
+          if (n !== parseInt(n))
+            return NaN;
+          if (n <= 1)
+            return 1;
+          return n * factorial(n - 1);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(factorial);
+    }
+  });
+
+  // src/find.js
+  var require_find = __commonJS({
+    "src/find.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isFunction = require_is_function();
+      var isObject = require_is_object();
+      var isSeries = require_is_series();
+      function find(x, fn) {
+        if (isDataFrame(x)) {
+          return find(flatten(x.values), fn);
+        }
+        if (isSeries(x)) {
+          return find(x.values, fn);
+        }
+        assert(isObject(x) || isArray(x), "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `find` function!");
+        if (!isFunction(fn)) {
+          const value = fn;
+          fn = (v) => v === value;
+        }
+        function helper(x2, fn2, checked) {
+          checked = checked || [];
+          if (checked.indexOf(x2) > -1) {
+            return null;
+          }
+          if (isObject(x2)) {
+            checked.push(x2);
+            const keys = Object.keys(x2);
+            for (let i = 0; i < keys.length; i++) {
+              const key = keys[i];
+              const value = x2[key];
+              if (fn2(value)) {
+                return value;
+              }
+              const result = helper(value, fn2, checked);
+              if (result) {
+                return result;
+              }
+            }
+          } else if (isArray(x2)) {
+            checked.push(x2);
+            for (let i = 0; i < x2.length; i++) {
+              const value = x2[i];
+              if (fn2(value)) {
+                return value;
+              }
+              const result = helper(value, fn2, checked);
+              if (result) {
+                return result;
+              }
+            }
+          } else {
+            if (fn2(x2)) {
+              return x2;
+            }
+          }
+          return null;
+        }
+        function safeFn(v) {
+          try {
+            return fn(v);
+          } catch (e) {
+            return false;
+          }
+        }
+        return helper(x, safeFn);
+      }
+      module.exports = find;
+    }
+  });
+
+  // src/find-all.js
+  var require_find_all = __commonJS({
+    "src/find-all.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isFunction = require_is_function();
+      var isObject = require_is_object();
+      var isSeries = require_is_series();
+      function findAll(x, fn) {
+        if (isDataFrame(x)) {
+          return findAll(flatten(x.values), fn);
+        }
+        if (isSeries(x)) {
+          return findAll(x.values, fn);
+        }
+        assert(isObject(x) || isArray(x), "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `findAll` function!");
+        if (!isFunction(fn)) {
+          const value = fn;
+          fn = (v) => v === value;
+        }
+        function helper(x2, fn2, checked) {
+          checked = checked || [];
+          if (checked.indexOf(x2) > -1) {
+            return null;
+          }
+          if (isObject(x2)) {
+            checked.push(x2);
+            const keys = Object.keys(x2);
+            const out = [];
+            for (let i = 0; i < keys.length; i++) {
+              const key = keys[i];
+              const value = x2[key];
+              let alreadyStoredThisValue = false;
+              if (fn2(value)) {
+                out.push(value);
+                alreadyStoredThisValue = true;
+              }
+              const results2 = helper(value, fn2, checked);
+              if (results2 && results2.length > 0) {
+                results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out.push(r));
+              }
+            }
+            return out;
+          } else if (isArray(x2)) {
+            checked.push(x2);
+            const out = [];
+            for (let i = 0; i < x2.length; i++) {
+              const value = x2[i];
+              let alreadyStoredThisValue = false;
+              if (fn2(value)) {
+                out.push(value);
+                alreadyStoredThisValue = true;
+              }
+              const results2 = helper(value, fn2, checked);
+              if (results2 && results2.length > 0) {
+                results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out.push(r));
+              }
+            }
+            return out;
+          } else {
+            if (fn2(x2)) {
+              return [x2];
+            }
+          }
+          return null;
+        }
+        function safeFn(v) {
+          try {
+            return fn(v);
+          } catch (e) {
+            return false;
+          }
+        }
+        const results = helper(x, safeFn);
+        if (results && results.length > 0) {
+          return results;
+        } else {
+          return null;
+        }
+      }
+      module.exports = findAll;
+    }
+  });
+
+  // src/float.js
+  var require_float = __commonJS({
+    "src/float.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function float(x) {
+        try {
+          if (x === "Infinity") {
+            return Infinity;
+          }
+          if (x === "-Infinity") {
+            return -Infinity;
+          }
+          const out = JSON.parse(x);
+          if (isNumber(out))
+            return out;
+          return NaN;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(float);
+    }
+  });
+
+  // src/floor.js
+  var require_floor = __commonJS({
+    "src/floor.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function floor(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.floor(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(floor);
+    }
+  });
+
+  // src/zeros.js
+  var require_zeros = __commonJS({
+    "src/zeros.js"(exports, module) {
+      var isNumber = require_is_number();
+      var product = require_product();
+      var reshape = require_reshape();
+      function zeros(shape) {
+        if (isNumber(shape))
+          shape = [shape];
+        const out = [];
+        const n = product(shape);
+        for (let i = 0; i < n; i++)
+          out.push(0);
+        return reshape(out, shape);
+      }
+      module.exports = zeros;
+    }
+  });
+
+  // src/identity.js
+  var require_identity = __commonJS({
+    "src/identity.js"(exports, module) {
+      var assert = require_assert();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var zeros = require_zeros();
+      function identity(size) {
+        assert(!isUndefined(size), "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
+        assert(isNumber(size), "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
+        assert(parseInt(size) === size, "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
+        assert(size > 0, "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
+        const out = zeros([size, size]);
+        for (let i = 0; i < size; i++)
+          out[i][i] = 1;
+        return out;
+      }
+      module.exports = identity;
+    }
+  });
+
+  // src/helpers/boolean-values.js
+  var require_boolean_values = __commonJS({
+    "src/helpers/boolean-values.js"(exports, module) {
+      module.exports = ["true", "false", "yes", "no"];
+    }
+  });
+
+  // src/helpers/null-values.js
+  var require_null_values = __commonJS({
+    "src/helpers/null-values.js"(exports, module) {
+      module.exports = ["null", "none", "nan", "na", "n/a", "", "undefined"];
+    }
+  });
+
+  // src/infer-type.js
+  var require_infer_type = __commonJS({
+    "src/infer-type.js"(exports, module) {
+      var apply = require_apply();
+      var assert = require_assert();
+      var booleanValues = require_boolean_values();
+      var cast = require_cast();
+      var count = require_count();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var isString = require_is_string();
+      var nullValues = require_null_values();
+      function inferType(arr) {
+        if (isDataFrame(arr)) {
+          const out = arr.copy();
+          const results = inferType(arr.values);
+          out.values = results.values;
+          return { type: results.type, values: out };
+        }
+        if (isSeries(arr)) {
+          const out = arr.copy();
+          const results = inferType(arr.values);
+          out.values = results.values;
+          return { type: results.type, values: out };
+        }
+        if (!isArray(arr)) {
+          const out = inferType([arr]);
+          out.value = out.values[0];
+          delete out.values;
+          return out;
+        }
+        assert(isArray(arr), "The `inferType` function only works on arrays, Series, and DataFrames!");
+        const types = flatten(arr).map((v) => {
+          if (v === void 0)
+            return "null";
+          try {
+            if (typeof v === "object") {
+              const temp = new Date(v.toString());
+              if (temp instanceof Date && temp.toString() !== "Invalid Date") {
+                return "date";
+              }
+            }
+          } catch (e) {
+          }
+          if (!isString(v)) {
+            v = JSON.stringify(v);
+          }
+          const vLower = v.toLowerCase();
+          const vLowerTrimmed = vLower.trim();
+          if (nullValues.indexOf(vLowerTrimmed) > -1) {
+            return "null";
+          }
+          if (booleanValues.indexOf(vLowerTrimmed) > -1) {
+            return "boolean";
+          }
+          try {
+            const vParsed = JSON.parse(v);
+            if (isNumber(vParsed)) {
+              return "number";
+            }
+            if (typeof vParsed === "object") {
+              if (isArray(vParsed))
+                return "string";
+              return "object";
+            }
+            return "string";
+          } catch (e) {
+            const vDate = new Date(v);
+            if (vDate.toString() !== "Invalid Date") {
+              return "date";
+            }
+            return "string";
+          }
+        });
+        const counts = count(types).sort((a, b) => b.count - a.count);
+        const primaryType = counts[0].value;
+        return { type: primaryType, values: apply(arr, (v) => cast(v, primaryType)) };
+      }
+      module.exports = inferType;
+    }
+  });
+
+  // src/int.js
+  var require_int = __commonJS({
+    "src/int.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function int(x) {
+        try {
+          const out = JSON.parse(x);
+          if (isNumber(out))
+            return parseInt(out);
+          return NaN;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(int);
+    }
+  });
+
+  // src/intersect.js
+  var require_intersect = __commonJS({
+    "src/intersect.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isEqual = require_is_equal();
+      var isSeries = require_is_series();
+      var set = require_set();
+      function intersect() {
+        const arrays = Object.values(arguments).map((x) => {
+          if (isDataFrame(x) || isSeries(x)) {
+            return set(x.values);
+          }
+          assert(isArray(x), "The `intersect` function only works on arrays, Series, and DataFrames!");
+          return set(x);
+        });
+        const all = set(arrays);
+        return all.filter((v) => {
+          return arrays.every((arr) => arr.findIndex((other) => isEqual(other, v)) > -1);
+        });
+      }
+      module.exports = intersect;
+    }
+  });
+
+  // src/inverse.js
+  var require_inverse = __commonJS({
+    "src/inverse.js"(exports, module) {
+      var add = require_add();
+      var assert = require_assert();
+      var dot = require_dot();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var scale = require_scale();
+      var shape = require_shape();
+      function inverse(x) {
+        if (isDataFrame(x)) {
+          const out = x.copy();
+          out.values = inverse(out.values);
+          return out;
+        }
+        assert(isArray(x), "The `inverse` function only works on square 2-dimensional arrays or DataFrames!");
+        flatten(x).forEach((v) => assert(isNumber(v), "The array passed into the `inverse` function must contain only numbers!"));
+        const xShape = shape(x);
+        assert(xShape.length === 2, "The array passed into the `inverse` function must be exactly two-dimensional and square!");
+        assert(xShape[0] === xShape[1], "The array passed into the `inverse` function must be exactly two-dimensional and square!");
+        assert(xShape[0] >= 0, "The array passed into the `inverse` function must be exactly two-dimensional and square!");
+        if (xShape[0] === 0) {
+          return x;
+        } else if (xShape[0] === 1) {
+          assert(x[0][0] !== 0, "This matrix cannot be inverted!");
+          return 1 / x[0][0];
+        } else if (xShape[0] === 2) {
+          const a = x[0][0];
+          const b = x[0][1];
+          const c = x[1][0];
+          const d = x[1][1];
+          const det = a * d - b * c;
+          assert(det !== 0, "This matrix cannot be inverted!");
+          const out = [
+            [d, -b],
+            [-c, a]
+          ];
+          return scale(out, 1 / det);
+        } else if (xShape[0] > 1) {
+          const times = (a, b) => isNumber(a) || isNumber(b) ? scale(a, b) : dot(a, b);
+          for (let divider = 1; divider < xShape[0] - 1; divider++) {
+            try {
+              const A = x.slice(0, divider).map((row) => row.slice(0, divider));
+              const B = x.slice(0, divider).map((row) => row.slice(divider, xShape[0]));
+              const C = x.slice(divider, xShape[0]).map((row) => row.slice(0, divider));
+              const D = x.slice(divider, xShape[0]).map((row) => row.slice(divider, xShape[0]));
+              const AInv = inverse(A);
+              const CompInv = inverse(add(D, times(-1, times(times(C, AInv), B))));
+              const topLeft = add(AInv, times(times(times(times(AInv, B), CompInv), C), AInv));
+              const topRight = times(-1, times(times(AInv, B), CompInv));
+              const bottomLeft = times(-1, times(times(CompInv, C), AInv));
+              const bottomRight = CompInv;
+              const out = topLeft.map((row, i) => row.concat(topRight[i])).concat(bottomLeft.map((row, i) => row.concat(bottomRight[i])));
+              return out;
+            } catch (e) {
+            }
+          }
+          assert(false, "This matrix cannot be inverted!");
+        }
+      }
+      module.exports = inverse;
+    }
+  });
+
+  // src/helpers/is-browser.js
+  var require_is_browser = __commonJS({
+    "src/helpers/is-browser.js"(exports, module) {
+      var isBrowser = new Function(`
     try {
       return this === window
     } catch(e) {}
@@ -24,4 +4683,599 @@
     } catch(e){}
 
     return false
-  `);ta.exports=Pq});var sa=c((_N,ra)=>{var rn=p(),Yq=N();function $q(e,t,n){try{return rn(e)?rn(t)?rn(n)?n*(t-e)+e:NaN:NaN:NaN}catch{return NaN}}ra.exports=Yq($q)});var ua=c((DN,oa)=>{var ia=p(),Lq=b(),Rq=N();function Vq(e,t){try{return t=Lq(t)?Math.E:t,ia(e)?ia(t)?Math.log(e)/Math.log(t):NaN:NaN}catch{return NaN}}oa.exports=Rq(Vq)});var la=c((FN,ca)=>{var Kq=h(),Gq=S(),Wq=m(),Hq=g(),Xq=q(),Qq=P();function aa(e){if(Hq(e)||Xq(e))return aa(e.values);Kq(Wq(e),"The `median` function only works on arrays, Series, and DataFrames!");try{let t=Qq(Gq(e));return t.length===0?NaN:t.length%2===0?(t[t.length/2-1]+t[t.length/2])/2:t[parseInt(t.length/2)]}catch{return NaN}}ca.exports=aa});var ma=c((AN,ha)=>{var fa=p(),Zq=N();function eg(e,t){try{return fa(e)?fa(t)?e%t:NaN:NaN}catch{return NaN}}ha.exports=Zq(eg)});var ga=c((EN,qa)=>{var tg=h(),ng=ce(),rg=S(),sg=m(),ig=g(),og=q(),ug=M(),da=P();function pa(e){if(ig(e)||og(e))return pa(e.values);tg(sg(e),"The `mode` function only works on arrays, Series, and DataFrames!");try{if(e.length===0)return NaN;let t=rg(e);if(t.length===0)return NaN;let n={},r=ug(t);r.forEach(u=>{n[u]=ng(t,u)});let s=da(r,(u,a)=>n[a]-n[u]),i=s[0];return da(s.filter(u=>n[u]===n[i]))}catch{return NaN}}qa.exports=pa});var va=c((jN,Na)=>{var{random:ya}=te(),ag=Se(),cg=b(),lg=J();function ba(){let e=ya(),t=ya();return Math.sqrt(-2*Math.log(e))*Math.cos(2*Math.PI*t)}function fg(e){return cg(e)?ba():ag(lg(e),ba)}Na.exports=fg});var Sa=c((IN,wa)=>{var hg=Se(),mg=J();function dg(e){return hg(mg(e),()=>1)}wa.exports=dg});var Ta=c((MN,xa)=>{var sn=h(),pg=S(),qg=m(),gg=g(),yg=p(),bg=q(),Ng=b();function st(e,t){if(gg(e)||bg(e))return st(e.values,t);if(sn(qg(e),"The `permutations` function only works on arrays, Series, and DataFrames!"),Ng(t)&&(t=e.length),sn(yg(t),"`r` must be a whole number!"),e=pg(e),t>e.length)return st(e);if(t<=0)return[[]];if(sn(t===parseInt(t),"`r` must be a whole number!"),e.length<2)return e;let n=[];return e.forEach((r,s)=>{let i=e.slice(0,s),o=e.slice(s+1),u=i.concat(o);st(u,t-1).forEach(l=>{n.push([r].concat(l))})}),n}xa.exports=st});var _a=c((UN,Oa)=>{var{DataFrame:vg,Series:wg}=ve(),Sg=m(),xg=g(),Tg=le(),Og=q(),_g=v();function Dg(){Object.keys(arguments).forEach(e=>{let t=arguments[e];if(Sg(t))if(Tg(t))console.log(t);else{let n=_g(t);n.length===1?new wg(t).print():n.length==2?new vg(t).print():console.log(t)}else xg(t)||Og(t)?t.print():console.log(t)})}Oa.exports=Dg});var Aa=c((BN,Fa)=>{var Fg=m(),Ag=p(),Da=b(),Eg=se(),jg=$e(),Ig=N(),Mg=Ig(function(e,t,n,r,s){try{return[e,t,n,r,s].every(i=>Ag(i))?n-t===0?NaN:(s-r)*(e-t)/(n-t)+r:NaN}catch{return NaN}});function Ug(e,t,n,r,s){return Fg(e)&&Da(r)&&Da(s)&&(r=t,s=n,t=jg(e),n=Eg(e)),Mg(e,t,n,r,s)}Fa.exports=Ug});var ja=c((kN,Ea)=>{var Bg=p(),kg=N();function zg(e){try{return Bg(e)?Math.round(e):NaN}catch{return NaN}}Ea.exports=kg(zg)});var Ma=c((zN,Ia)=>{var Cg=p(),Jg=N();function Pg(e){try{return Cg(e)?e<0?-1:e>0?1:0:NaN}catch{return NaN}}Ia.exports=Jg(Pg)});var Ba=c((CN,Ua)=>{var Yg=p(),$g=N();function Lg(e){try{return Yg(e)?Math.sin(e):NaN}catch{return NaN}}Ua.exports=$g(Lg)});var za=c((JN,ka)=>{var Rg=Ke();function Vg(e){return Rg(e)}ka.exports=Vg});var Ja=c((PN,Ca)=>{var Kg=p(),Gg=N();function Wg(e){try{return Kg(e)?Math.tan(e):NaN}catch{return NaN}}Ca.exports=Gg(Wg)});var it=c((YN,$a)=>{var Pa=h(),Ya=D();function Hg(e,t){Pa(Ya(e),"`fn` must be a function!");let n=new Date;return t?e(...t):e(),new Date-n}async function Xg(e,t){Pa(Ya(e),"`fn` must be a function!");let n=new Date;return t?await e(...t):await e(),new Date-n}$a.exports={timeSync:Hg,timeAsync:Xg}});var Ra=c(($N,La)=>{var Qg=m(),Zg=g(),ey=q(),ty=M();function ny(){return ty([...arguments].map(e=>Qg(e)?e:Zg(e)||ey(e)?e.values:[e]))}La.exports=ny});var Ka=c((LN,Va)=>{var ry=h(),sy=m(),iy=g(),oy=q(),uy=b(),ay=se(),cy=E();function ly(){let e=[],t=Object.values(arguments).map(n=>((iy(n)||oy(n))&&(n=n.values),ry(sy(n),"The `zip` function only works on arrays, Series, and DataFrames!"),n));return cy(0,ay(t.map(n=>n.length))).forEach(n=>{let r=[];t.forEach(s=>{let i=s[n];r.push(uy(i)?void 0:i)}),e.push(r)}),e}Va.exports=ly});var py=c((RN,on)=>{var{copy:fy,decycle:hy}=U(),{DataFrame:my,Series:dy}=ve(),oe={abs:Pe(),add:Ye(),apply:Se(),arccos:Ii(),arcsin:Ui(),arctan:ki(),argmax:Ci(),argmin:$i(),assert:h(),cast:Bt(),ceil:Gi(),chop:Xi(),clamp:Zi(),combinations:to(),copy:fy,correl:wo(),cos:xo(),count:ce(),covariance:Pt(),DataFrame:my,dataTypes:Oo(),decycle:hy,diff:jo(),distance:Vo(),divide:Go(),dot:Wt(),dropMissing:Ht(),dropMissingPairwise:lu(),dropNaN:qt(),dropNaNPairwise:yu(),dropUndefined:Nu(),exp:wu(),factorial:Tu(),find:Fu(),findAll:Iu(),flatten:S(),float:Uu(),floor:ku(),identity:Ju(),indexOf:ue(),inferType:Vu(),int:Gu(),intersect:Hu(),inverse:ea(),isArray:m(),isBoolean:Ue(),isBrowser:na(),isDataFrame:g(),isEqual:I(),isFunction:D(),isJagged:le(),isNested:Te(),isNumber:p(),isObject:C(),isSeries:q(),isString:F(),isUndefined:b(),lerp:sa(),log:ua(),MathError:X(),max:se(),mean:Le(),median:la(),min:$e(),mod:ma(),mode:ga(),multiply:Rt(),ndarray:J(),normal:va(),ones:Sa(),permutations:Ta(),pow:Ge(),print:_a(),product:pe(),random:te().random,range:E(),remap:Aa(),reshape:Ie(),reverse:fe(),round:ja(),scale:ie(),seed:te().seed,Series:dy,set:M(),shape:v(),shuffle:Me(),sign:Ma(),sin:Ba(),sort:P(),sqrt:Ve(),std:Ke(),stdev:za(),subtract:Vt(),sum:We(),tan:Ja(),time:it().timeSync,timeSync:it().timeSync,timeAsync:it().timeAsync,transpose:H(),union:Ra(),variance:Yt(),vectorize:N(),zeros:Zt(),zip:Ka(),dump:function(){let e=typeof global<"u"?global:window;if(!e)throw new oe.MathError("Cannot dump functions into global scope because neither `global` nor `window` exist in the current context!");Object.keys(oe).forEach(t=>{try{Object.defineProperty(e,t,{configurable:!1,enumerable:!0,writable:!1,value:oe[t]})}catch{e[t]=oe[t]}})}};typeof on<"u"&&(on.exports=oe);typeof window<"u"&&(window.JSMathTools=oe)});py();})();
+  `);
+      module.exports = isBrowser;
+    }
+  });
+
+  // src/lerp.js
+  var require_lerp = __commonJS({
+    "src/lerp.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function lerp(a, b, f) {
+        try {
+          if (!isNumber(a))
+            return NaN;
+          if (!isNumber(b))
+            return NaN;
+          if (!isNumber(f))
+            return NaN;
+          return f * (b - a) + a;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(lerp);
+    }
+  });
+
+  // src/log.js
+  var require_log = __commonJS({
+    "src/log.js"(exports, module) {
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var vectorize = require_vectorize();
+      function log(x, base) {
+        try {
+          base = isUndefined(base) ? Math.E : base;
+          if (!isNumber(x))
+            return NaN;
+          if (!isNumber(base))
+            return NaN;
+          return Math.log(x) / Math.log(base);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(log);
+    }
+  });
+
+  // src/median.js
+  var require_median = __commonJS({
+    "src/median.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var sort = require_sort();
+      function median(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return median(arr.values);
+        }
+        assert(isArray(arr), "The `median` function only works on arrays, Series, and DataFrames!");
+        try {
+          const temp = sort(flatten(arr));
+          if (temp.length === 0) {
+            return NaN;
+          } else if (temp.length % 2 === 0) {
+            return (temp[temp.length / 2 - 1] + temp[temp.length / 2]) / 2;
+          } else {
+            return temp[parseInt(temp.length / 2)];
+          }
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = median;
+    }
+  });
+
+  // src/mod.js
+  var require_mod = __commonJS({
+    "src/mod.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function mod(a, b) {
+        try {
+          if (!isNumber(a))
+            return NaN;
+          if (!isNumber(b))
+            return NaN;
+          return a % b;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(mod);
+    }
+  });
+
+  // src/mode.js
+  var require_mode = __commonJS({
+    "src/mode.js"(exports, module) {
+      var assert = require_assert();
+      var count = require_count();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var set = require_set();
+      var sort = require_sort();
+      function mode(arr) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return mode(arr.values);
+        }
+        assert(isArray(arr), "The `mode` function only works on arrays, Series, and DataFrames!");
+        try {
+          if (arr.length === 0)
+            return NaN;
+          const temp = flatten(arr);
+          if (temp.length === 0)
+            return NaN;
+          const counts = {};
+          const tempSet = set(temp);
+          tempSet.forEach((value) => {
+            counts[value] = count(temp, value);
+          });
+          const sortedTempSet = sort(tempSet, (a, b) => counts[b] - counts[a]);
+          const mostCountedValue = sortedTempSet[0];
+          const out = sort(sortedTempSet.filter((value) => counts[value] === counts[mostCountedValue]));
+          return out;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = mode;
+    }
+  });
+
+  // src/normal.js
+  var require_normal = __commonJS({
+    "src/normal.js"(exports, module) {
+      var { random } = require_random();
+      var apply = require_apply();
+      var isUndefined = require_is_undefined();
+      var ndarray = require_ndarray();
+      function helper() {
+        const u1 = random();
+        const u2 = random();
+        return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      }
+      function normal(shape) {
+        if (isUndefined(shape))
+          return helper();
+        return apply(ndarray(shape), helper);
+      }
+      module.exports = normal;
+    }
+  });
+
+  // src/ones.js
+  var require_ones = __commonJS({
+    "src/ones.js"(exports, module) {
+      var apply = require_apply();
+      var ndarray = require_ndarray();
+      function ones(shape) {
+        return apply(ndarray(shape), () => 1);
+      }
+      module.exports = ones;
+    }
+  });
+
+  // src/permutations.js
+  var require_permutations = __commonJS({
+    "src/permutations.js"(exports, module) {
+      var assert = require_assert();
+      var flatten = require_flatten();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isNumber = require_is_number();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      function permutations(arr, r) {
+        if (isDataFrame(arr) || isSeries(arr)) {
+          return permutations(arr.values, r);
+        }
+        assert(isArray(arr), "The `permutations` function only works on arrays, Series, and DataFrames!");
+        if (isUndefined(r))
+          r = arr.length;
+        assert(isNumber(r), "`r` must be a whole number!");
+        arr = flatten(arr);
+        if (r > arr.length) {
+          return permutations(arr);
+        }
+        if (r <= 0) {
+          return [[]];
+        }
+        assert(r === parseInt(r), "`r` must be a whole number!");
+        if (arr.length < 2)
+          return arr;
+        const out = [];
+        arr.forEach((item, i) => {
+          const before = arr.slice(0, i);
+          const after = arr.slice(i + 1);
+          const others = before.concat(after);
+          const children = permutations(others, r - 1);
+          children.forEach((child) => {
+            out.push([item].concat(child));
+          });
+        });
+        return out;
+      }
+      module.exports = permutations;
+    }
+  });
+
+  // src/print.js
+  var require_print = __commonJS({
+    "src/print.js"(exports, module) {
+      var { DataFrame, Series } = require_dataframe();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isJagged = require_is_jagged();
+      var isSeries = require_is_series();
+      var shape = require_shape();
+      function print() {
+        Object.keys(arguments).forEach((key) => {
+          const x = arguments[key];
+          if (isArray(x)) {
+            if (!isJagged(x)) {
+              const xShape = shape(x);
+              if (xShape.length === 1) {
+                new Series(x).print();
+              } else if (xShape.length == 2) {
+                new DataFrame(x).print();
+              } else {
+                console.log(x);
+              }
+            } else {
+              console.log(x);
+            }
+          } else if (isDataFrame(x) || isSeries(x)) {
+            x.print();
+          } else {
+            console.log(x);
+          }
+        });
+      }
+      module.exports = print;
+    }
+  });
+
+  // src/remap.js
+  var require_remap = __commonJS({
+    "src/remap.js"(exports, module) {
+      var isArray = require_is_array();
+      var isNumber = require_is_number();
+      var isUndefined = require_is_undefined();
+      var max = require_max();
+      var min = require_min();
+      var vectorize = require_vectorize();
+      var helper = vectorize(function(x, a, b, c, d) {
+        try {
+          if (![x, a, b, c, d].every((v) => isNumber(v))) {
+            return NaN;
+          }
+          if (b - a === 0)
+            return NaN;
+          return (d - c) * (x - a) / (b - a) + c;
+        } catch (e) {
+          return NaN;
+        }
+      });
+      function remap(x, a, b, c, d) {
+        if (isArray(x) && isUndefined(c) && isUndefined(d)) {
+          c = a;
+          d = b;
+          a = min(x);
+          b = max(x);
+        }
+        return helper(x, a, b, c, d);
+      }
+      module.exports = remap;
+    }
+  });
+
+  // src/round.js
+  var require_round = __commonJS({
+    "src/round.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function round(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.round(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(round);
+    }
+  });
+
+  // src/sign.js
+  var require_sign = __commonJS({
+    "src/sign.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function sign(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          if (x < 0)
+            return -1;
+          if (x > 0)
+            return 1;
+          return 0;
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(sign);
+    }
+  });
+
+  // src/sin.js
+  var require_sin = __commonJS({
+    "src/sin.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function sin(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.sin(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(sin);
+    }
+  });
+
+  // src/stdev.js
+  var require_stdev = __commonJS({
+    "src/stdev.js"(exports, module) {
+      var std = require_std();
+      function stdev(x) {
+        return std(x);
+      }
+      module.exports = stdev;
+    }
+  });
+
+  // src/tan.js
+  var require_tan = __commonJS({
+    "src/tan.js"(exports, module) {
+      var isNumber = require_is_number();
+      var vectorize = require_vectorize();
+      function tan(x) {
+        try {
+          if (!isNumber(x))
+            return NaN;
+          return Math.tan(x);
+        } catch (e) {
+          return NaN;
+        }
+      }
+      module.exports = vectorize(tan);
+    }
+  });
+
+  // src/time.js
+  var require_time = __commonJS({
+    "src/time.js"(exports, module) {
+      var assert = require_assert();
+      var isFunction = require_is_function();
+      function timeSync(fn, args) {
+        assert(isFunction(fn), "`fn` must be a function!");
+        const start = new Date();
+        if (args) {
+          fn(...args);
+        } else {
+          fn();
+        }
+        return new Date() - start;
+      }
+      async function timeAsync(fn, args) {
+        assert(isFunction(fn), "`fn` must be a function!");
+        const start = new Date();
+        if (args) {
+          await fn(...args);
+        } else {
+          await fn();
+        }
+        return new Date() - start;
+      }
+      module.exports = { timeSync, timeAsync };
+    }
+  });
+
+  // src/union.js
+  var require_union = __commonJS({
+    "src/union.js"(exports, module) {
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var set = require_set();
+      function union() {
+        return set([...arguments].map((v) => {
+          if (isArray(v))
+            return v;
+          if (isDataFrame(v))
+            return v.values;
+          if (isSeries(v))
+            return v.values;
+          return [v];
+        }));
+      }
+      module.exports = union;
+    }
+  });
+
+  // src/zip.js
+  var require_zip = __commonJS({
+    "src/zip.js"(exports, module) {
+      var assert = require_assert();
+      var isArray = require_is_array();
+      var isDataFrame = require_is_dataframe();
+      var isSeries = require_is_series();
+      var isUndefined = require_is_undefined();
+      var max = require_max();
+      var range = require_range();
+      function zip() {
+        const out = [];
+        const arrays = Object.values(arguments).map((arr) => {
+          if (isDataFrame(arr) || isSeries(arr)) {
+            arr = arr.values;
+          }
+          assert(isArray(arr), "The `zip` function only works on arrays, Series, and DataFrames!");
+          return arr;
+        });
+        range(0, max(arrays.map((arr) => arr.length))).forEach((i) => {
+          const row = [];
+          arrays.forEach((arr) => {
+            const value = arr[i];
+            row.push(isUndefined(value) ? void 0 : value);
+          });
+          out.push(row);
+        });
+        return out;
+      }
+      module.exports = zip;
+    }
+  });
+
+  // src/index.js
+  var require_src = __commonJS({
+    "src/index.js"(exports, module) {
+      var { copy, decycle } = require_copy();
+      var { DataFrame, Series } = require_dataframe();
+      var out = {
+        abs: require_abs(),
+        add: require_add(),
+        apply: require_apply(),
+        arccos: require_arccos(),
+        arcsin: require_arcsin(),
+        arctan: require_arctan(),
+        argmax: require_argmax(),
+        argmin: require_argmin(),
+        assert: require_assert(),
+        cast: require_cast(),
+        ceil: require_ceil(),
+        chop: require_chop(),
+        clamp: require_clamp(),
+        combinations: require_combinations(),
+        copy,
+        correl: require_correl(),
+        cos: require_cos(),
+        count: require_count(),
+        covariance: require_covariance(),
+        DataFrame,
+        dataTypes: require_data_types(),
+        decycle,
+        diff: require_diff(),
+        distance: require_distance(),
+        divide: require_divide(),
+        dot: require_dot(),
+        dropMissing: require_drop_missing(),
+        dropMissingPairwise: require_drop_missing_pairwise(),
+        dropNaN: require_drop_nan(),
+        dropNaNPairwise: require_drop_nan_pairwise(),
+        dropUndefined: require_drop_undefined(),
+        exp: require_exp(),
+        factorial: require_factorial(),
+        find: require_find(),
+        findAll: require_find_all(),
+        flatten: require_flatten(),
+        float: require_float(),
+        floor: require_floor(),
+        identity: require_identity(),
+        indexOf: require_index_of(),
+        inferType: require_infer_type(),
+        int: require_int(),
+        intersect: require_intersect(),
+        inverse: require_inverse(),
+        isArray: require_is_array(),
+        isBoolean: require_is_boolean(),
+        isBrowser: require_is_browser(),
+        isDataFrame: require_is_dataframe(),
+        isEqual: require_is_equal(),
+        isFunction: require_is_function(),
+        isJagged: require_is_jagged(),
+        isNested: require_is_nested(),
+        isNumber: require_is_number(),
+        isObject: require_is_object(),
+        isSeries: require_is_series(),
+        isString: require_is_string(),
+        isUndefined: require_is_undefined(),
+        lerp: require_lerp(),
+        log: require_log(),
+        MathError: require_math_error(),
+        max: require_max(),
+        mean: require_mean(),
+        median: require_median(),
+        min: require_min(),
+        mod: require_mod(),
+        mode: require_mode(),
+        multiply: require_multiply(),
+        ndarray: require_ndarray(),
+        normal: require_normal(),
+        ones: require_ones(),
+        permutations: require_permutations(),
+        pow: require_pow(),
+        print: require_print(),
+        product: require_product(),
+        random: require_random().random,
+        range: require_range(),
+        remap: require_remap(),
+        reshape: require_reshape(),
+        reverse: require_reverse(),
+        round: require_round(),
+        scale: require_scale(),
+        seed: require_random().seed,
+        Series,
+        set: require_set(),
+        shape: require_shape(),
+        shuffle: require_shuffle(),
+        sign: require_sign(),
+        sin: require_sin(),
+        sort: require_sort(),
+        sqrt: require_sqrt(),
+        std: require_std(),
+        stdev: require_stdev(),
+        subtract: require_subtract(),
+        sum: require_sum(),
+        tan: require_tan(),
+        time: require_time().timeSync,
+        timeSync: require_time().timeSync,
+        timeAsync: require_time().timeAsync,
+        transpose: require_transpose(),
+        union: require_union(),
+        variance: require_variance(),
+        vectorize: require_vectorize(),
+        zeros: require_zeros(),
+        zip: require_zip(),
+        dump: function() {
+          const pub = typeof global !== "undefined" ? global : window;
+          if (!pub) {
+            throw new out.MathError("Cannot dump functions into global scope because neither `global` nor `window` exist in the current context!");
+          }
+          Object.keys(out).forEach((key) => {
+            try {
+              Object.defineProperty(pub, key, {
+                configurable: false,
+                enumerable: true,
+                writable: false,
+                value: out[key]
+              });
+            } catch (e) {
+              pub[key] = out[key];
+            }
+          });
+        }
+      };
+      if (typeof module !== "undefined") {
+        module.exports = out;
+      }
+      if (typeof window !== "undefined") {
+        window.JSMathTools = out;
+      }
+    }
+  });
+  require_src();
+})();

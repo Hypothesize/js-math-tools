@@ -4,7 +4,7 @@
 	"description": "Some math tools for JS",
 	"main": "dist/js-math-tools.js",
 	"scripts": {
-		"build": "esbuild src/index.js --bundle --outfile=dist/js-math-tools.js --minify",
+		"build": "esbuild src/index.js --bundle --outfile=dist/js-math-tools.js",
 		"watch": "esbuild src/index.js --bundle --outfile=dist/js-math-tools.js --minify --watch",
 		"test": "./test.sh",
 		"pub": "npm version patch --force && npm publish --access=public"
