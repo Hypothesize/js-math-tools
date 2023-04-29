@@ -1,6 +1,6 @@
 {
 	"name": "@sparkwave/js-math-tools",
-	"version": "0.0.41",
+	"version": "0.0.42",
 	"description": "Some math tools for JS",
 	"main": "dist/js-math-tools.js",
 	"scripts": {
