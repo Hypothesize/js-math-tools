@@ -68,7 +68,7 @@
     "src/is-dataframe.js"(exports, module) {
       function isDataFrame(x) {
         try {
-          return !!x._symbol && x._symbol === Symbol.for("@jrc03c/js-math-tools/dataframe");
+          return !!x._symbol && x._symbol === Symbol.for("@sparkwave/js-math-tools/dataframe");
         } catch (e) {
           return false;
         }
@@ -124,7 +124,7 @@
     "src/is-series.js"(exports, module) {
       function isSeries(x) {
         try {
-          return !!x._symbol && x._symbol === Symbol.for("@jrc03c/js-math-tools/series");
+          return !!x._symbol && x._symbol === Symbol.for("@sparkwave/js-math-tools/series");
         } catch (e) {
           return false;
         }
@@ -2425,7 +2425,7 @@
       var seriesToObject = require_series_to_object();
       var shape = require_shape();
       var transpose = require_transpose();
-      var SERIES_SYMBOL = Symbol.for("@jrc03c/js-math-tools/series");
+      var SERIES_SYMBOL = Symbol.for("@sparkwave/js-math-tools/series");
       module.exports = function(DataFrame) {
         class Series {
           static [Symbol.hasInstance](x) {
@@ -2681,7 +2681,7 @@
       var range = require_range();
       var shape = require_shape();
       var transpose = require_transpose();
-      var DATAFRAME_SYMBOL = Symbol.for("@jrc03c/js-math-tools/dataframe");
+      var DATAFRAME_SYMBOL = Symbol.for("@sparkwave/js-math-tools/dataframe");
       function makeKey(n) {
         const alpha = "abcdefghijklmnopqrstuvwxyz1234567890";
         let out = "";
